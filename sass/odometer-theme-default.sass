@@ -1,0 +1,38 @@
+@import compass/css3
+
+.odometer
+    +inline-block
+    position: relative
+
+    .odometer-digit
+        +inline-block
+        position: relative
+
+        .odometer-digit-spacer
+            +inline-block
+            visibility: hidden
+
+        .odometer-digit-inner
+            display: block
+            position: absolute
+            top: 0
+            left: 0
+            right: 0
+            bottom: 0
+            overflow: hidden
+
+        .odometer-digit-ribbon
+            display: block
+
+        .odometer-digit-ribbon-inner
+            display: block
+            -webkit-transition: -webkit-transform 2s
+
+        .odometer-digit-ribbon-value
+            display: block
+
+            &.odometer-digit-ribbon-terminal-value
+                position: absolute
+
+        &.odometer-digit-animating-up .odometer-digit-ribbon-inner
+            -webkit-transform: translateY(-100%)

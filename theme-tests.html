@@ -1,0 +1,127 @@
+<link rel="stylesheet" href="css/odometer-theme-default.css" />
+
+<style>
+    body {
+        font-family: "Helvetica Neue", sans-serif;
+        color: #444;
+        margin: 30px;
+    }
+
+    .test {
+        font-size: 80px;
+        background: #eee;
+        margin: 30px 0;
+        padding: 20px;
+        border-radius: 5px;
+    }
+</style>
+
+<body>
+
+<h1>Number</h1>
+
+<div class="test">
+    25
+</div>
+
+<h1>Odometer Static</h1>
+
+<div class="test">
+    <span class="odometer"><!--
+     --><span class="odometer-digit"><!--
+         --><span class="odometer-digit-spacer">8</span><!--
+         --><span class="odometer-digit-inner"><!--
+             --><span class="odometer-digit-ribbon"><!--
+                 --><span class="odometer-digit-ribbon-inner"><!--
+                     --><span class="odometer-digit-ribbon-value"><!--
+                        -->2<!--
+                     --></span><!--
+                 --></span><!--
+             --></span><!--
+         --></span><!--
+     --></span><!--
+     --><span class="odometer-digit"><!--
+         --><span class="odometer-digit-spacer">8</span><!--
+         --><span class="odometer-digit-inner"><!--
+             --><span class="odometer-digit-ribbon"><!--
+                 --><span class="odometer-digit-ribbon-inner"><!--
+                     --><span class="odometer-digit-ribbon-value"><!--
+                        -->5<!--
+                    --></span><!--
+                 --></span><!--
+             --></span><!--
+         --></span><!--
+     --></span><!--
+ --></span>
+</div>
+
+<h1>Odometer Animating</h1>
+
+<div class="test test-animating">
+    <span class="odometer"><!--
+     --><span class="odometer-digit"><!--
+         --><span class="odometer-digit-spacer">8</span><!--
+         --><span class="odometer-digit-inner"><!--
+             --><span class="odometer-digit-ribbon"><!--
+                 --><span class="odometer-digit-ribbon-inner"><!--
+                     --><span class="odometer-digit-ribbon-value"><!--
+                        -->2<!--
+                     --></span><!--
+                     --><span class="odometer-digit-ribbon-value odometer-digit-ribbon-terminal-value"><!--
+                        -->3<!--
+                     --></span><!--
+                 --></span><!--
+             --></span><!--
+         --></span><!--
+     --></span><!--
+     --><span class="odometer-digit"><!--
+         --><span class="odometer-digit-spacer">8</span><!--
+         --><span class="odometer-digit-inner"><!--
+             --><span class="odometer-digit-ribbon"><!--
+                 --><span class="odometer-digit-ribbon-inner"><!--
+                     --><span class="odometer-digit-ribbon-value"><!--
+                        -->5<!--
+                    --></span><!--
+                     --><span class="odometer-digit-ribbon-value"><!--
+                        -->6<!--
+                    --></span><!--
+                     --><span class="odometer-digit-ribbon-value"><!--
+                        -->7<!--
+                    --></span><!--
+                     --><span class="odometer-digit-ribbon-value"><!--
+                        -->8<!--
+                    --></span><!--
+                     --><span class="odometer-digit-ribbon-value"><!--
+                        -->9<!--
+                    --></span><!--
+                     --><span class="odometer-digit-ribbon-value"><!--
+                        -->0<!--
+                    --></span><!--
+                     --><span class="odometer-digit-ribbon-value"><!--
+                        -->1<!--
+                    --></span><!--
+                     --><span class="odometer-digit-ribbon-value"><!--
+                        -->2<!--
+                    --></span><!--
+                     --><span class="odometer-digit-ribbon-value odometer-digit-ribbon-terminal-value"><!--
+                        -->3<!--
+                    --></span>
+                    </span>
+                </span>
+            </span>
+        </span>
+    </span>
+</div>
+
+<script>
+    setInterval(function(){
+        var digits = document.querySelectorAll('.test-animating .odometer-digit');
+        if (digits[0].className === 'odometer-digit odometer-digit-animating-up') {
+            digits[0].className = 'odometer-digit';
+            digits[1].className = 'odometer-digit';
+        } else {
+            digits[0].className = 'odometer-digit odometer-digit-animating-up';
+            digits[1].className = 'odometer-digit odometer-digit-animating-up';
+        }
+    }, 3000);
+</script>
