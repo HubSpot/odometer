@@ -8,7 +8,12 @@ module.exports = (grunt) ->
     coffee:
       compile:
         files:
-          'odometer.js': 'odometer.coffee'
+          'js/odometer.js': 'coffee/odometer.coffee'
+
+    watch:
+      coffee:
+        files: ['coffee/odometer.coffee']
+        tasks: ["coffee", "uglify"]
 
     uglify:
       options:
