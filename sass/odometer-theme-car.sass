@@ -1,0 +1,53 @@
+@import compass/css3
+
+.odometer
+    +inline-block
+    +border-radius(5px)
+    position: relative
+    padding: 10px
+    background: #444
+    color: #fff
+
+    .odometer-digit
+        +inline-block
+        border: 1px solid
+        padding: 0 10px
+        position: relative
+
+        &:first-child
+            +border-radius(5px 0 0 5px)
+
+        &:last-child
+            +border-radius(0 5px 5px 0)
+
+        & + .odometer-digit
+            border-left: 0
+
+        .odometer-digit-spacer
+            +inline-block
+            visibility: hidden
+
+        .odometer-digit-inner
+            display: block
+            position: absolute
+            top: 0
+            left: 10px
+            right: 0
+            bottom: 0
+            overflow: hidden
+
+        .odometer-digit-ribbon
+            display: block
+
+        .odometer-digit-ribbon-inner
+            display: block
+            -webkit-transition: -webkit-transform 2s
+
+        .odometer-digit-ribbon-value
+            display: block
+
+            &.odometer-digit-ribbon-terminal-value
+                position: absolute
+
+        &.odometer-digit-animating-up .odometer-digit-ribbon-inner
+            -webkit-transform: translateY(-100%)
