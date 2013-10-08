@@ -10,11 +10,6 @@ module.exports = (grunt) ->
         files:
           'odometer.js': 'odometer.coffee'
 
-    watch:
-      coffee:
-        files: ['odometer.coffee', 'docs/lib/themes.coffee', 'templates/*']
-        tasks: ["coffee", "uglify", "themes"]
-
     uglify:
       options:
         banner: "/*! <%= pkg.name %> <%= pkg.version %> */\n"
@@ -34,4 +29,4 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-compass'
 
-  grunt.registerTask 'default', ['coffee', 'uglify', 'themes']
+  grunt.registerTask 'default', ['coffee', 'uglify', 'compass']
