@@ -81,23 +81,24 @@
   overflow: hidden;
 }
 /* line 39, ../sass/odometer-theme-car.sass */
-.odometer .odometer-digit .odometer-digit-ribbon {
+.odometer .odometer-digit .odometer-ribbon {
   display: block;
 }
 /* line 42, ../sass/odometer-theme-car.sass */
-.odometer .odometer-digit .odometer-digit-ribbon-inner {
+.odometer .odometer-digit .odometer-ribbon-inner {
   display: block;
   -webkit-transition: -webkit-transform 2s;
 }
 /* line 46, ../sass/odometer-theme-car.sass */
-.odometer .odometer-digit .odometer-digit-ribbon-value {
+.odometer .odometer-digit .odometer-value {
   display: block;
 }
 /* line 49, ../sass/odometer-theme-car.sass */
-.odometer .odometer-digit .odometer-digit-ribbon-value.odometer-digit-ribbon-terminal-value {
+.odometer .odometer-digit .odometer-value.odometer-terminal-value {
   position: absolute;
 }
+
 /* line 52, ../sass/odometer-theme-car.sass */
-.odometer .odometer-digit.odometer-digit-animating-up .odometer-digit-ribbon-inner {
+.odometer-animating-up .odometer-ribbon-inner {
   -webkit-transform: translateY(-100%);
 }
