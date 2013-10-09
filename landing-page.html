@@ -1,0 +1,313 @@
+<html>
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://underscorejs.org/underscore.js"></script>
+    <link rel="stylesheet" href="css/odometer-theme-default.css" />
+    <link rel="stylesheet" href="css/odometer-theme-digital.css" />
+    <link rel="stylesheet" href="css/odometer-theme-car.css" />
+    <style>
+        body {
+            margin: 0;
+            font-family: "proxima-nova", "Helvetica Neue", sans-serif;
+        }
+
+        .template {
+            display: none;
+        }
+
+        .section {
+            height: 100%;
+            width: 100%;
+            position: relative;
+        }
+
+        .number-container {
+            position: absolute;
+            margin: auto;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 20em;
+            text-align: center;
+        }
+
+        .number-container .odometer-container {
+            font-size: 6em;
+        }
+
+        .number-description {
+            display: inline-block;
+            text-transform: uppercase;
+            font-size: 2.5em;
+            letter-spacing: .08em;
+            margin: 1em 0 0;
+            font-weight: bold;
+        }
+
+        .number-detail {
+            display: inline-block;
+            text-transform: uppercase;
+            font-size: 1.5em;
+            letter-spacing: .08em;
+            opacity: 0.5;
+        }
+
+        .number-source {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .number-source:hover .number-detail {
+            border-bottom: 1px dotted;
+            opacity: 0.8;
+        }
+
+        .number-section.number-section-theme-default {
+            background: #eee;
+            color: #444;
+        }
+
+        .number-section.number-section-theme-digital .odometer {
+            border: .1em solid #8bf5a5;
+        }
+
+        .number-section.number-section-theme-digital {
+            background: #000;
+            color: #8bf5a5;
+        }
+
+        .number-section.number-section-theme-car {
+            background: #eee0d3;
+            color: #333;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="section number-section title-number-section">
+        <div class="number-container">
+            <div class="odometer-container">
+                <div class="odometer odometer-theme-default">
+                    <span class="odometer-digit"><span class="odometer-digit-spacer">M</span><span class="odometer-digit-inner"><span class="odometer-ribbon"><span class="odometer-ribbon-inner">
+                        <span class="odometer-value odometer-first-value">A</span>
+                        <span class="odometer-value">B</span>
+                        <span class="odometer-value">C</span>
+                        <span class="odometer-value">D</span>
+                        <span class="odometer-value">E</span>
+                        <span class="odometer-value">F</span>
+                        <span class="odometer-value">G</span>
+                        <span class="odometer-value">H</span>
+                        <span class="odometer-value">I</span>
+                        <span class="odometer-value">J</span>
+                        <span class="odometer-value">K</span>
+                        <span class="odometer-value">L</span>
+                        <span class="odometer-value">M</span>
+                        <span class="odometer-value odometer-last-value">O</span>
+                    </span></span></span></span>
+                    <span class="odometer-digit"><span class="odometer-digit-spacer">M</span><span class="odometer-digit-inner"><span class="odometer-ribbon"><span class="odometer-ribbon-inner">
+                        <span class="odometer-value odometer-first-value">A</span>
+                        <span class="odometer-value">B</span>
+                        <span class="odometer-value">C</span>
+                        <span class="odometer-value odometer-last-value">D</span>
+                    </span></span></span></span>
+                    <span class="odometer-digit"><span class="odometer-digit-spacer">M</span><span class="odometer-digit-inner"><span class="odometer-ribbon"><span class="odometer-ribbon-inner">
+                        <span class="odometer-value odometer-first-value">A</span>
+                        <span class="odometer-value">B</span>
+                        <span class="odometer-value">C</span>
+                        <span class="odometer-value">D</span>
+                        <span class="odometer-value">E</span>
+                        <span class="odometer-value">F</span>
+                        <span class="odometer-value">G</span>
+                        <span class="odometer-value">H</span>
+                        <span class="odometer-value">I</span>
+                        <span class="odometer-value">J</span>
+                        <span class="odometer-value">K</span>
+                        <span class="odometer-value">L</span>
+                        <span class="odometer-value">M</span>
+                        <span class="odometer-value odometer-last-value">O</span>
+                    </span></span></span></span>
+                    <span class="odometer-digit"><span class="odometer-digit-spacer">M</span><span class="odometer-digit-inner"><span class="odometer-ribbon"><span class="odometer-ribbon-inner">
+                        <span class="odometer-value odometer-first-value">A</span>
+                        <span class="odometer-value">B</span>
+                        <span class="odometer-value">C</span>
+                        <span class="odometer-value">D</span>
+                        <span class="odometer-value">E</span>
+                        <span class="odometer-value">F</span>
+                        <span class="odometer-value">G</span>
+                        <span class="odometer-value">H</span>
+                        <span class="odometer-value">I</span>
+                        <span class="odometer-value">J</span>
+                        <span class="odometer-value">K</span>
+                        <span class="odometer-value">L</span>
+                        <span class="odometer-value odometer-last-value">M</span>
+                    </span></span></span></span>
+                    <span class="odometer-digit"><span class="odometer-digit-spacer">M</span><span class="odometer-digit-inner"><span class="odometer-ribbon"><span class="odometer-ribbon-inner">
+                        <span class="odometer-value odometer-first-value">A</span>
+                        <span class="odometer-value">B</span>
+                        <span class="odometer-value">C</span>
+                        <span class="odometer-value">D</span>
+                        <span class="odometer-value odometer-last-value">E</span>
+                    </span></span></span></span>
+                    <span class="odometer-digit"><span class="odometer-digit-spacer">M</span><span class="odometer-digit-inner"><span class="odometer-ribbon"><span class="odometer-ribbon-inner">
+                        <span class="odometer-value odometer-first-value">A</span>
+                        <span class="odometer-value">B</span>
+                        <span class="odometer-value">C</span>
+                        <span class="odometer-value">D</span>
+                        <span class="odometer-value">E</span>
+                        <span class="odometer-value">F</span>
+                        <span class="odometer-value">G</span>
+                        <span class="odometer-value">H</span>
+                        <span class="odometer-value">I</span>
+                        <span class="odometer-value">J</span>
+                        <span class="odometer-value">K</span>
+                        <span class="odometer-value">L</span>
+                        <span class="odometer-value">M</span>
+                        <span class="odometer-value">N</span>
+                        <span class="odometer-value">O</span>
+                        <span class="odometer-value">P</span>
+                        <span class="odometer-value">Q</span>
+                        <span class="odometer-value">R</span>
+                        <span class="odometer-value">S</span>
+                        <span class="odometer-value odometer-last-value">T</span>
+                    </span></span></span></span>
+                    <span class="odometer-digit"><span class="odometer-digit-spacer">M</span><span class="odometer-digit-inner"><span class="odometer-ribbon"><span class="odometer-ribbon-inner">
+                        <span class="odometer-value odometer-first-value">A</span>
+                        <span class="odometer-value">B</span>
+                        <span class="odometer-value">C</span>
+                        <span class="odometer-value">D</span>
+                        <span class="odometer-value odometer-last-value">E</span>
+                    </span></span></span></span>
+                    <span class="odometer-digit"><span class="odometer-digit-spacer">M</span><span class="odometer-digit-inner"><span class="odometer-ribbon"><span class="odometer-ribbon-inner">
+                        <span class="odometer-value odometer-first-value">A</span>
+                        <span class="odometer-value">B</span>
+                        <span class="odometer-value">C</span>
+                        <span class="odometer-value">D</span>
+                        <span class="odometer-value">E</span>
+                        <span class="odometer-value">F</span>
+                        <span class="odometer-value">G</span>
+                        <span class="odometer-value">H</span>
+                        <span class="odometer-value">I</span>
+                        <span class="odometer-value">J</span>
+                        <span class="odometer-value">K</span>
+                        <span class="odometer-value">L</span>
+                        <span class="odometer-value">M</span>
+                        <span class="odometer-value">O</span>
+                        <span class="odometer-value">P</span>
+                        <span class="odometer-value">Q</span>
+                        <span class="odometer-value odometer-last-value">R</span>
+                    </span></span></span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="number-sections"></div>
+
+    <div class="section">
+        <div class="number-container">
+            About...
+        </div>
+    </div>
+
+    <div class="template section number-section">
+        <div class="number-container">
+            <div class="odometer-container"></div>
+            <a target="_blank" class="number-source">
+                <div class="number-description"></div><br/>
+                <div class="number-detail"></div>
+            </a>
+        </div>
+    </div>
+
+    <script src="js/odometer.js"></script>
+    <script>
+    (function(){
+        var THEMES, $sections, $numberSectionTemplate;
+
+        setTimeout(function(){
+            $('.title-number-section .odometer').addClass('odometer-animating-up odometer-animating');
+        }, 500);
+
+        THEMES = [{
+            name: 'default',
+            numbers: [{
+                number: 10000,
+                description: '= 28<sup>2</sup> + 96<sup>2</sup> = 60<sup>2</sup> + 80<sup>2</sup>',
+                detail: 'two sums of two squares',
+                source: 'http://www.wolframalpha.com/input/?i=10000'
+            }, {
+                number: 99999,
+                description: '<span class="equals">=</span> <span class="number">11000011010011111</span><sub>2</sub>',
+                detail: '11000011010011111 in base 2',
+                source: ''
+            }]
+        }, {
+            name: 'car',
+            numbers: [{
+                number: 13476,
+                description: 'miles driven',
+                detail: 'by the average american each year',
+                source: 'http://www.fhwa.dot.gov/ohim/onh00/bar8.htm'
+            }, {
+                number: 89723,
+                description: 'flat tires',
+                detail: 'experienced by american drivers each year',
+                source: ''
+            }]
+        },{
+            name: 'digital',
+            numbers: [{
+                number: 87360,
+                description: 'minutes of tv watched',
+                detail: 'by the average american each year',
+                source: 'http://www.nationmaster.com/graph/med_tel_vie-media-television-viewing'
+            }, {
+                number: 20938,
+                description: 'minutes snoozed',
+                detail: 'by the average american each year',
+                source: ''
+            }]
+        }];
+
+        $sections = $('.number-sections');
+        $numberSectionTemplate = $('.number-section.template').clone().removeClass('template');
+
+        _.each(THEMES, function(theme){
+            var $section, next, $odometerContainer, currentNumber, odometer;
+
+            $section = $numberSectionTemplate.clone().addClass('number-section-theme-' + theme.name);
+            $sections.append($section);
+
+            $odometerContainer = $section.find('.odometer-container');
+
+            currentNumber = 0;
+
+            odometer = new Odometer({
+                theme: 'odometer-theme-' + theme.name,
+                value: 99999,
+                el: $odometerContainer[0]
+            });
+
+            odometer.render();
+
+            next = function() {
+                var number = theme.numbers[currentNumber];
+                odometer.update(number.number);
+                $section.find('.number-description').html(number.description);
+                $section.find('.number-detail').html(number.detail);
+                $section.find('.number-source').attr('href', number.source);
+                currentNumber = (currentNumber + 1) % theme.numbers.length;
+            };
+
+            next();
+
+            setInterval(function(){
+                next();
+            }, 6 * 1000);
+        });
+    })();
+    </script>
+</body>
+</html>
