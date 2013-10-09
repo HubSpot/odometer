@@ -76,7 +76,7 @@
   -webkit-transform: translateY(-100%);
 }
 /* line 50, ../sass/_mixins.sass */
-.odometer.odometer-theme-default.odometer-animating-down.odometer-animating-down .odometer-ribbon-inner {
+.odometer.odometer-theme-default.odometer-animating-down.odometer-animating .odometer-ribbon-inner {
   -webkit-transition: -webkit-transform 2s;
   -webkit-transform: translateY(0);
 }
