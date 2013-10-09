@@ -154,7 +154,8 @@ class Odometer
       @animateCount newValue
 
   animateCount: (newValue) ->
-    diff = newValue - @value
+    return unless diff = newValue - @value
+
     start = last = now()
 
     cur = @value
@@ -181,9 +182,9 @@ class Odometer
         setTimeout tick, COUNT_MS_PER_FRAME
 
   animateSlide: (newValue) ->
-    @bindTransitionEnd()
+    return unless diff = newValue - @value
 
-    diff = newValue - @value
+    @bindTransitionEnd()
 
     digitCount = Math.ceil(Math.log(Math.max(newValue, @value)) / Math.log(10))
 

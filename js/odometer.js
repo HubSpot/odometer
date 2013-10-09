@@ -193,7 +193,9 @@
     Odometer.prototype.animateCount = function(newValue) {
       var cur, diff, last, start, tick,
         _this = this;
-      diff = newValue - this.value;
+      if (!(diff = newValue - this.value)) {
+        return;
+      }
       start = last = now();
       cur = this.value;
       return (tick = function() {
@@ -221,8 +223,10 @@
 
     Odometer.prototype.animateSlide = function(newValue) {
       var boosted, cur, diff, digitCount, digits, dist, end, frame, frames, i, incr, j, numEl, start, _base, _i, _j, _k, _l, _len, _len1, _ref, _results, _results1;
+      if (!(diff = newValue - this.value)) {
+        return;
+      }
       this.bindTransitionEnd();
-      diff = newValue - this.value;
       digitCount = Math.ceil(Math.log(Math.max(newValue, this.value)) / Math.log(10));
       digits = [];
       boosted = 0;
