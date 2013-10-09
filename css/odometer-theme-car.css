@@ -109,3 +109,7 @@
 .odometer.odometer-theme-car .odometer-digit .odometer-digit-inner {
   left: 0.15em;
 }
+.odometer.odometer-theme-car.odometer-animating-up .odometer-ribbon-inner, .odometer.odometer-theme-car.odometer-animating-down.odometer-animating .odometer-ribbon-inner {
+  -webkit-transition-timing-function: linear;
+  -webkit-transition-duration: 3s;
+}
