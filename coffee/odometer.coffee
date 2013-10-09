@@ -1,4 +1,3 @@
-ODOMETER_HTML = '<div class="odometer"></div>'
 DIGIT_HTML = '<span class="odometer-digit"><span class="odometer-digit-spacer">8</span><span class="odometer-digit-inner"></span></span>'
 RIBBON_HTML = '<span class="odometer-ribbon"><span class="odometer-ribbon-inner"></span></span>'
 VALUE_HTML = '<span class="odometer-value">{value}</span>'
@@ -74,18 +73,29 @@ class Odometer
   render: (value=@value) ->
     @format = @options.format
 
-    @el.innerHTML = renderTemplate ODOMETER_HTML
-    @odometer = @el.querySelector '.odometer'
+    @el.innerHTML = ''
+
+    classes = @el.className.split(' ')
+    newClasses = []
+    for cls in classes when cls.length
+      unless /^odometer/.test(cls)
+        newClasses.push cls
+
+    newClasses.push 'odometer'
+    @el.className = newClasses.join(' ')
+
+    if 'odometer' not in @el.className.split(' ')
+      @el.className += ' odometer'
 
     unless TRANSITION_SUPPORT
-      @odometer.className += ' odometer-no-transitions'
+      @el.className += ' odometer-no-transitions'
 
     if @options.theme
-      @odometer.className += " odometer-theme-#{ @options.theme }"
+      @el.className += " odometer-theme-#{ @options.theme }"
     else
       # This class matches all themes, so it should do what you'd expect if only one
       # theme css file is brought into the page.
-      @odometer.className += ' odometer-auto-theme'
+      @el.className += ' odometer-auto-theme'
 
     @ribbons = {}
 
@@ -99,17 +109,17 @@ class Odometer
     return unless diff = newValue - @value
 
     if diff > 0
-      @odometer.className += ' odometer-animating-up'
+      @el.className += ' odometer-animating-up'
     else
-      @odometer.className += ' odometer-animating-down'
+      @el.className += ' odometer-animating-down'
 
     @animate newValue
 
     setTimeout =>
       # Force a repaint
-      @odometer.offsetHeight
+      @el.offsetHeight
 
-      @odometer.className += ' odometer-animating'
+      @el.className += ' odometer-animating'
     , 0
 
     @value = newValue
@@ -120,10 +130,10 @@ class Odometer
     digit
 
   insertDigit: (digit) ->
-    if not @odometer.children.length
-      @odometer.appendChild digit
+    if not @el.children.length
+      @el.appendChild digit
     else
-      @odometer.insertBefore digit, @odometer.children[0]
+      @el.insertBefore digit, @el.children[0]
 
   addDigit: (value) ->
     while true
