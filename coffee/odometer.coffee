@@ -47,8 +47,24 @@ class Odometer
     @value = @options.value
     @el = @options.el
 
+    @inside = document.createElement 'div'
+    @inside.className = 'odometer-inside'
+    @el.innerHTML = ''
+    @el.appendChild @inside
+
     @options.format ?= DIGIT_FORMAT
     @options.format or= 'd'
+
+    for property in ['innerHTML', 'innerText']
+      do (property) =>
+        Object.defineProperty @el, property,
+          get: =>
+            @inside[property]
+
+          set: (val) =>
+            @update val.replace(/[.,]*/g, '')
+
+    @
 
   bindTransitionEnd: ->
     return if @transitionEndBound
@@ -73,12 +89,12 @@ class Odometer
   render: (value=@value) ->
     @format = @options.format
 
-    @el.innerHTML = ''
+    @inside.innerHTML = ''
 
     classes = @el.className.split(' ')
     newClasses = []
     for cls in classes when cls.length
-      unless /^odometer/.test(cls)
+      unless /^odometer(-|$)/.test(cls)
         newClasses.push cls
 
     newClasses.push 'odometer'
@@ -128,10 +144,10 @@ class Odometer
     digit
 
   insertDigit: (digit) ->
-    if not @el.children.length
-      @el.appendChild digit
+    if not @inside.children.length
+      @inside.appendChild digit
     else
-      @el.insertBefore digit, @el.children[0]
+      @inside.insertBefore digit, @inside.children[0]
 
   addDigit: (value) ->
     while true

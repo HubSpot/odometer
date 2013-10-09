@@ -51,14 +51,35 @@
 
   Odometer = (function() {
     function Odometer(options) {
-      var _base, _base1;
+      var property, _base, _base1, _fn, _i, _len, _ref,
+        _this = this;
       this.options = options;
       this.value = this.options.value;
       this.el = this.options.el;
+      this.inside = document.createElement('div');
+      this.inside.className = 'odometer-inside';
+      this.el.innerHTML = '';
+      this.el.appendChild(this.inside);
       if ((_base = this.options).format == null) {
         _base.format = DIGIT_FORMAT;
       }
       (_base1 = this.options).format || (_base1.format = 'd');
+      _ref = ['innerHTML', 'innerText'];
+      _fn = function(property) {
+        return Object.defineProperty(_this.el, property, {
+          get: function() {
+            return _this.inside[property];
+          },
+          set: function(val) {
+            return _this.update(val.replace(/[.,]*/g, ''));
+          }
+        });
+      };
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        property = _ref[_i];
+        _fn(property);
+      }
+      this;
     }
 
     Odometer.prototype.bindTransitionEnd = function() {
@@ -94,13 +115,13 @@
         value = this.value;
       }
       this.format = this.options.format;
-      this.el.innerHTML = '';
+      this.inside.innerHTML = '';
       classes = this.el.className.split(' ');
       newClasses = [];
       for (_i = 0, _len = classes.length; _i < _len; _i++) {
         cls = classes[_i];
         if (cls.length) {
-          if (!/^odometer/.test(cls)) {
+          if (!/^odometer(-|$)/.test(cls)) {
             newClasses.push(cls);
           }
         }
@@ -156,10 +177,10 @@
     };
 
     Odometer.prototype.insertDigit = function(digit) {
-      if (!this.el.children.length) {
-        return this.el.appendChild(digit);
+      if (!this.inside.children.length) {
+        return this.inside.appendChild(digit);
       } else {
-        return this.el.insertBefore(digit, this.el.children[0]);
+        return this.inside.insertBefore(digit, this.inside.children[0]);
       }
     };
 
