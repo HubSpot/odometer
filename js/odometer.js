@@ -106,25 +106,25 @@
     };
 
     Odometer.prototype.animate = function(newValue) {
-      var cur, diff, digitCount, digits, dist, end, frame, frames, i, incr, j, start, subsampled, _i, _j, _k, _l, _len, _len1, _ref, _ref1, _results, _results1;
+      var boosted, cur, diff, digitCount, digits, dist, end, frame, frames, i, incr, j, start, _i, _j, _k, _l, _len, _len1, _ref, _ref1, _results, _results1;
       diff = newValue - this.value;
       digitCount = Math.ceil(Math.log(Math.max(newValue, this.value)) / Math.log(10));
       digits = [];
-      subsampled = 0;
+      boosted = 0;
       for (i = _i = 0; 0 <= digitCount ? _i < digitCount : _i > digitCount; i = 0 <= digitCount ? ++_i : --_i) {
         start = Math.floor(this.value / Math.pow(10, digitCount - i - 1));
         end = Math.floor(newValue / Math.pow(10, digitCount - i - 1));
         dist = end - start;
         if (Math.abs(dist) > MAX_VALUES) {
           frames = [];
-          incr = dist / (MAX_VALUES + MAX_VALUES * subsampled * DIGIT_SPEEDBOOST);
+          incr = dist / (MAX_VALUES + MAX_VALUES * boosted * DIGIT_SPEEDBOOST);
           cur = start;
           while ((dist > 0 && cur < end) || (dist < 0 && cur > end)) {
             cur += incr;
             frames.push(Math.round(cur));
           }
           frames.push(end);
-          subsampled++;
+          boosted++;
         } else {
           frames = (function() {
             _results = [];

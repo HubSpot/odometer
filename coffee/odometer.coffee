@@ -3,9 +3,19 @@ DIGIT_HTML = '<span class="odometer-digit"><span class="odometer-digit-spacer">8
 RIBBON_HTML = '<span class="odometer-ribbon"><span class="odometer-ribbon-inner"></span></span>'
 VALUE_HTML = '<span class="odometer-value">{value}</span>'
 
+# What is our target framerate?
 FRAMERATE = 60
+
+# How long will the animation last?
 DURATION = 2000
+
+# What is the minimum number of frames for each value on the wheel?
+# We won't render more values than could be reasonably seen
 FRAMES_PER_VALUE = 2
+
+# If more than one digit is hitting the frame limit, they would all get
+# capped at that limit and appear to be moving at the same rate.  This
+# factor adds a boost to subsequent digits to make them appear faster.
 DIGIT_SPEEDBOOST = .5
 
 MS_PER_FRAME = 1000 / FRAMERATE
@@ -81,7 +91,7 @@ class Odometer
     digitCount = Math.ceil(Math.log(Math.max(newValue, @value)) / Math.log(10))
 
     digits = []
-    subsampled = 0
+    boosted = 0
     # We create a array to represent the series of digits which should be
     # animated in each column
     for i in [0...digitCount]
@@ -95,14 +105,14 @@ class Odometer
         frames = []
 
         # Subsequent digits need to be faster than previous ones
-        incr = dist / (MAX_VALUES + MAX_VALUES * subsampled * DIGIT_SPEEDBOOST)
+        incr = dist / (MAX_VALUES + MAX_VALUES * boosted * DIGIT_SPEEDBOOST)
         cur = start
         while (dist > 0 and cur < end) or (dist < 0 and cur > end)
           cur += incr
           frames.push Math.round cur
         frames.push end
 
-        subsampled++
+        boosted++
       else
         frames = [start..end]
 
