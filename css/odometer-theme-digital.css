@@ -1,11 +1,12 @@
 @import url("http://fonts.googleapis.com/css?family=Wallpoet");
 /* line 7, ../sass/odometer-theme-digital.sass */
 .odometer {
-  display: -moz-inline-box;
-  -moz-box-orient: vertical;
+  display: -moz-inline-stack;
   display: inline-block;
   vertical-align: middle;
   *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
   font-family: "Wallpoet", monospace;
   position: relative;
   padding: 0 0.2em;
@@ -14,22 +15,15 @@
   background-image: -webkit-radial-gradient(rgba(139, 245, 165, 0.4), black);
   color: #8bf5a5;
 }
-/* line 7, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/css3/_inline-block.scss */
-.odometer {
-  *display: inline;
-}
 /* line 17, ../sass/odometer-theme-digital.sass */
 .odometer .odometer-digit {
-  display: -moz-inline-box;
-  -moz-box-orient: vertical;
+  display: -moz-inline-stack;
   display: inline-block;
   vertical-align: middle;
   *vertical-align: auto;
-  position: relative;
-}
-/* line 7, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/css3/_inline-block.scss */
-.odometer .odometer-digit {
+  zoom: 1;
   *display: inline;
+  position: relative;
 }
 /* line 21, ../sass/odometer-theme-digital.sass */
 .odometer .odometer-digit + .odometer-digit {
@@ -37,16 +31,13 @@
 }
 /* line 24, ../sass/odometer-theme-digital.sass */
 .odometer .odometer-digit .odometer-digit-spacer {
-  display: -moz-inline-box;
-  -moz-box-orient: vertical;
+  display: -moz-inline-stack;
   display: inline-block;
   vertical-align: middle;
   *vertical-align: auto;
-  visibility: hidden;
-}
-/* line 7, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/css3/_inline-block.scss */
-.odometer .odometer-digit .odometer-digit-spacer {
+  zoom: 1;
   *display: inline;
+  visibility: hidden;
 }
 /* line 28, ../sass/odometer-theme-digital.sass */
 .odometer .odometer-digit .odometer-digit-inner {
@@ -72,7 +63,7 @@
   display: block;
 }
 /* line 47, ../sass/odometer-theme-digital.sass */
-.odometer .odometer-digit .odometer-value.odometer-terminal-value {
+.odometer .odometer-digit .odometer-value.odometer-last-value {
   position: absolute;
 }
 

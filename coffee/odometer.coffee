@@ -44,6 +44,8 @@ class Odometer
     @el.innerHTML = renderTemplate ODOMETER_HTML
     @odometer = @el.querySelector '.odometer'
 
+    @ribbons = {}
+
     @digits = []
     for digit in @value.toString().split('')
       ctx = {value: digit}
@@ -72,18 +74,6 @@ class Odometer
     , 0
 
     @value = newValue
-
-  addAnimateValue: (i, value, last) ->
-    numEl = createFromHTML renderTemplate VALUE_HTML, {value}
-
-    if last
-      numEl.className += ' odometer-terminal-value'
-
-    if not @digits[i]
-      @digits[i] = @renderDigit()
-      @odometer.insertBefore @digits[i], @odometer.children[0]
-
-    @digits[i].querySelector('.odometer-ribbon-inner').appendChild numEl
 
   animate: (newValue) ->
     diff = newValue - @value
@@ -123,12 +113,25 @@ class Odometer
       digits.push frames
 
     for frames, i in digits.reverse()
-      @digits[i]?.querySelector('.odometer-ribbon-inner').innerHTML = ''
+      if not @digits[i]
+        @digits[i] = @renderDigit()
+        @odometer.insertBefore @digits[i], @odometer.children[0]
+
+      @ribbons[i] ?= @digits[i].querySelector('.odometer-ribbon-inner')
+      @ribbons[i].innerHTML = ''
+
+      if diff < 0
+        frames = frames.reverse()
 
       for frame, j in frames
-        @addAnimateValue i, frame, (j == frames.length - 1)
+        numEl = createFromHTML renderTemplate VALUE_HTML, {value: frame}
+
+        @ribbons[i].appendChild numEl
+
+        if j == frames.length - 1
+          numEl.className += ' odometer-last-value'
 
 el = document.querySelector('div')
 odo = new Odometer({value: 343, el})
 odo.render()
-odo.update(3434255)
+odo.update(225)
