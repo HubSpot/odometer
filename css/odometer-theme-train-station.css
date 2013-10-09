@@ -1,5 +1,4 @@
 @import url("http://fonts.googleapis.com/css?family=Economica");
-/* line 4, ../sass/_mixins.sass */
 .odometer.odometer-theme-train-station {
   display: -moz-inline-box;
   -moz-box-orient: vertical;
@@ -8,11 +7,9 @@
   *vertical-align: auto;
   position: relative;
 }
-/* line 7, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/css3/_inline-block.scss */
 .odometer.odometer-theme-train-station {
   *display: inline;
 }
-/* line 8, ../sass/_mixins.sass */
 .odometer.odometer-theme-train-station .odometer-digit {
   display: -moz-inline-box;
   -moz-box-orient: vertical;
@@ -21,11 +18,9 @@
   *vertical-align: auto;
   position: relative;
 }
-/* line 7, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/css3/_inline-block.scss */
 .odometer.odometer-theme-train-station .odometer-digit {
   *display: inline;
 }
-/* line 12, ../sass/_mixins.sass */
 .odometer.odometer-theme-train-station .odometer-digit .odometer-digit-spacer {
   display: -moz-inline-box;
   -moz-box-orient: vertical;
@@ -34,11 +29,9 @@
   *vertical-align: auto;
   visibility: hidden;
 }
-/* line 7, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/css3/_inline-block.scss */
 .odometer.odometer-theme-train-station .odometer-digit .odometer-digit-spacer {
   *display: inline;
 }
-/* line 16, ../sass/_mixins.sass */
 .odometer.odometer-theme-train-station .odometer-digit .odometer-digit-inner {
   display: block;
   position: absolute;
@@ -48,45 +41,35 @@
   bottom: 0;
   overflow: hidden;
 }
-/* line 25, ../sass/_mixins.sass */
 .odometer.odometer-theme-train-station .odometer-digit .odometer-ribbon {
   display: block;
 }
-/* line 28, ../sass/_mixins.sass */
 .odometer.odometer-theme-train-station .odometer-digit .odometer-ribbon-inner {
   display: block;
 }
-/* line 31, ../sass/_mixins.sass */
 .odometer.odometer-theme-train-station .odometer-digit .odometer-value {
   display: block;
 }
-/* line 34, ../sass/_mixins.sass */
 .odometer.odometer-theme-train-station .odometer-digit .odometer-value.odometer-last-value {
   position: absolute;
 }
-/* line 39, ../sass/_mixins.sass */
 .odometer.odometer-theme-train-station.odometer-animating-up .odometer-ribbon-inner {
   -webkit-transition: -webkit-transform 2s;
 }
-/* line 42, ../sass/_mixins.sass */
 .odometer.odometer-theme-train-station.odometer-animating-up.odometer-animating .odometer-ribbon-inner {
   -webkit-transform: translateY(-100%);
 }
-/* line 47, ../sass/_mixins.sass */
 .odometer.odometer-theme-train-station.odometer-animating-down .odometer-ribbon-inner {
   -webkit-transform: translateY(-100%);
 }
-/* line 50, ../sass/_mixins.sass */
 .odometer.odometer-theme-train-station.odometer-animating-down.odometer-animating .odometer-ribbon-inner {
   -webkit-transition: -webkit-transform 2s;
   -webkit-transform: translateY(0);
 }
 
-/* line 10, ../sass/odometer-theme-train-station.sass */
 .odometer.odometer-theme-train-station {
   font-family: "Economica", sans-serif;
 }
-/* line 13, ../sass/odometer-theme-train-station.sass */
 .odometer.odometer-theme-train-station .odometer-digit {
   display: -moz-inline-box;
   -moz-box-orient: vertical;
@@ -105,11 +88,9 @@
   padding: 0 0.15em;
   color: white;
 }
-/* line 7, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/css3/_inline-block.scss */
 .odometer.odometer-theme-train-station .odometer-digit {
   *display: inline;
 }
-/* line 22, ../sass/odometer-theme-train-station.sass */
 .odometer.odometer-theme-train-station .odometer-digit .odometer-digit-inner {
   left: 0.15em;
 }
