@@ -52,10 +52,6 @@
   };
 
   Odometer = (function() {
-    Odometer.prototype.template = ODOMETER_HTML;
-
-    Odometer.prototype.digitTemplate = [DIGIT_HTML, RIBBON_HTML, VALUE_HTML];
-
     function Odometer(options) {
       var _base, _base1;
       this.options = options;

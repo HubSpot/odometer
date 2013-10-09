@@ -44,9 +44,6 @@ now = ->
   performance?.now() ? +new Date
 
 class Odometer
-  template: ODOMETER_HTML
-  digitTemplate: [DIGIT_HTML, RIBBON_HTML, VALUE_HTML]
-
   constructor: (@options) ->
     @value = @options.value
     @el = @options.el

@@ -104,7 +104,7 @@
       next();
       return setInterval(function() {
         return next();
-      }, 6 * 1000);
+      }, 4 * 1000);
     });
   };
 
