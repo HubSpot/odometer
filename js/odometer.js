@@ -1,6 +1,5 @@
 (function() {
-  var DIGIT_HTML, DURATION, FRAMERATE, FRAMES_PER_VALUE, MAX_VALUES, MS_PER_FRAME, ODOMETER_HTML, OVERSAMPLE, Odometer, RIBBON_HTML, VALUE_HTML, createFromHTML, el, odo, renderTemplate,
-    __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+  var DIGIT_HTML, DIGIT_SPEEDBOOST, DURATION, FRAMERATE, FRAMES_PER_VALUE, MAX_VALUES, MS_PER_FRAME, ODOMETER_HTML, Odometer, RIBBON_HTML, VALUE_HTML, createFromHTML, el, odo, renderTemplate;
 
   ODOMETER_HTML = '<div class="odometer"></div>';
 
@@ -16,11 +15,11 @@
 
   FRAMES_PER_VALUE = 2;
 
-  OVERSAMPLE = 2;
+  DIGIT_SPEEDBOOST = .5;
 
   MS_PER_FRAME = 1000 / FRAMERATE;
 
-  MAX_VALUES = (DURATION / MS_PER_FRAME) / FRAMES_PER_VALUE;
+  MAX_VALUES = ((DURATION / MS_PER_FRAME) / FRAMES_PER_VALUE) | 0;
 
   renderTemplate = function(template, ctx) {
     return template.replace(/\{([\s\S]*?)\}/gm, function(match, val) {
@@ -107,76 +106,56 @@
     };
 
     Odometer.prototype.animate = function(newValue) {
-      var boringDigits, changePerFrame, counter, cur, curFrame, diff, digit, digitCount, digitScale, digits, fraction, frames, i, incr, last, lastFrame, needToScaleDigits, needToSkipDigits, _i, _j, _k, _l, _len, _len1, _len2, _m, _n;
+      var cur, diff, digitCount, digits, dist, end, frame, frames, i, incr, j, start, subsampled, _i, _j, _k, _l, _len, _len1, _ref, _ref1, _results, _results1;
       diff = newValue - this.value;
-      frames = [];
-      if (Math.abs(diff) > MAX_VALUES) {
-        incr = diff / (OVERSAMPLE * MAX_VALUES);
-      } else {
-        incr = diff > 0 ? 1 : -1;
-      }
-      cur = this.value;
-      while ((diff > 0 && cur <= newValue) || (diff < 0 && cur >= newValue)) {
-        cur += incr;
-        frames.push(Math.round(cur));
-      }
-      digitCount = Math.ceil(Math.log(newValue) / Math.log(10));
-      needToSkipDigits = [];
-      needToScaleDigits = [];
-      changePerFrame = diff / MAX_VALUES;
+      digitCount = Math.ceil(Math.log(Math.max(newValue, this.value)) / Math.log(10));
+      digits = [];
+      subsampled = 0;
       for (i = _i = 0; 0 <= digitCount ? _i < digitCount : _i > digitCount; i = 0 <= digitCount ? ++_i : --_i) {
-        if (changePerFrame / Math.pow(10, i) < 1) {
-          needToSkipDigits.push(i);
-        } else if (i !== 0) {
-          needToScaleDigits.push(i);
+        start = Math.floor(this.value / Math.pow(10, digitCount - i - 1));
+        end = Math.floor(newValue / Math.pow(10, digitCount - i - 1));
+        dist = end - start;
+        if (Math.abs(dist) > MAX_VALUES) {
+          frames = [];
+          incr = dist / (MAX_VALUES + MAX_VALUES * subsampled * DIGIT_SPEEDBOOST);
+          cur = start;
+          while ((dist > 0 && cur < end) || (dist < 0 && cur > end)) {
+            cur += incr;
+            frames.push(Math.round(cur));
+          }
+          frames.push(end);
+          subsampled++;
+        } else {
+          frames = (function() {
+            _results = [];
+            for (var _j = start; start <= end ? _j <= end : _j >= end; start <= end ? _j++ : _j--){ _results.push(_j); }
+            return _results;
+          }).apply(this);
         }
-      }
-      counter = {};
-      digitScale = {};
-      for (_j = 0, _len = needToScaleDigits.length; _j < _len; _j++) {
-        digit = needToScaleDigits[_j];
-        fraction = 1 - digit / needToScaleDigits.length;
-        digitScale[digit] = fraction * (1 - 1 / OVERSAMPLE) + 1 / OVERSAMPLE;
-      }
-      console.log(digitScale);
-      boringDigits = [];
-      for (i = _k = 0; 0 <= digitCount ? _k < digitCount : _k > digitCount; i = 0 <= digitCount ? ++_k : --_k) {
-        boringDigits.push(true);
-      }
-      last = this.value.toString().split('').reverse();
-      lastFrame = frames[frames.length - 1];
-      for (_l = 0, _len1 = frames.length; _l < _len1; _l++) {
-        curFrame = frames[_l];
-        digits = curFrame.toString().split('').reverse();
-        for (i = _m = 0, _len2 = digits.length; _m < _len2; i = ++_m) {
-          digit = digits[i];
-          if (last[i] !== digit) {
-            boringDigits[i] = false;
-          }
-          console.log(i, __indexOf.call(needToSkipDigits, i) >= 0, digit === last[i], curFrame !== lastFrame);
-          if (__indexOf.call(needToSkipDigits, i) >= 0 && digit === last[i] && (curFrame !== lastFrame || boringDigits[i])) {
-            continue;
-          }
-          if (curFrame !== lastFrame && (digitScale[i] != null) && digitScale[i] < Math.random()) {
-            continue;
-          }
-          if (counter[i] == null) {
-            counter[i] = 0;
-          }
-          counter[i]++;
-          this.addAnimateValue(i, last[i], curFrame === lastFrame && digit === last[i]);
-          if (digit !== last[i] && curFrame === lastFrame) {
-            this.addAnimateValue(i, digit, true);
-          }
-          last[i] = digit;
+        for (i = _k = 0, _len = frames.length; _k < _len; i = ++_k) {
+          frame = frames[i];
+          frames[i] = frame % 10;
         }
+        digits.push(frames);
       }
-      for (i = _n = 0; 0 <= digitCount ? _n < digitCount : _n > digitCount; i = 0 <= digitCount ? ++_n : --_n) {
-        if (boringDigits[i]) {
-          this.digits[i].querySelector('.odometer-value').className += ' odometer-terminal-value';
+      _ref = digits.reverse();
+      _results1 = [];
+      for (i = _l = 0, _len1 = _ref.length; _l < _len1; i = ++_l) {
+        frames = _ref[i];
+        if ((_ref1 = this.digits[i]) != null) {
+          _ref1.querySelector('.odometer-ribbon-inner').innerHTML = '';
         }
+        _results1.push((function() {
+          var _len2, _m, _results2;
+          _results2 = [];
+          for (j = _m = 0, _len2 = frames.length; _m < _len2; j = ++_m) {
+            frame = frames[j];
+            _results2.push(this.addAnimateValue(i, frame, j === frames.length - 1));
+          }
+          return _results2;
+        }).call(this));
       }
-      return console.log(counter);
+      return _results1;
     };
 
     return Odometer;
@@ -192,6 +171,6 @@
 
   odo.render();
 
-  odo.update(355);
+  odo.update(3434255);
 
 }).call(this);

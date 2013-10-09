@@ -6,10 +6,10 @@ VALUE_HTML = '<span class="odometer-value">{value}</span>'
 FRAMERATE = 60
 DURATION = 2000
 FRAMES_PER_VALUE = 2
-OVERSAMPLE = 2
+DIGIT_SPEEDBOOST = .5
 
 MS_PER_FRAME = 1000 / FRAMERATE
-MAX_VALUES = (DURATION / MS_PER_FRAME) / FRAMES_PER_VALUE
+MAX_VALUES = ((DURATION / MS_PER_FRAME) / FRAMES_PER_VALUE) | 0
 
 renderTemplate = (template, ctx) ->
   template.replace /\{([\s\S]*?)\}/gm, (match, val) ->
@@ -78,79 +78,47 @@ class Odometer
   animate: (newValue) ->
     diff = newValue - @value
 
-    frames = []
-    if Math.abs(diff) > MAX_VALUES
-      # We use oversample x to give us a chance to subsample digits where
-      # we need their column to move faster than others
-      incr = diff / (OVERSAMPLE * MAX_VALUES)
-    else
-      incr = if diff > 0 then 1 else -1
-    
-    cur = @value
-    while (diff > 0 and cur <= newValue) or (diff < 0 and cur >= newValue)
-      cur += incr
-      frames.push Math.round cur
+    digitCount = Math.ceil(Math.log(Math.max(newValue, @value)) / Math.log(10))
 
-    digitCount = Math.ceil(Math.log(newValue)/Math.log(10))
-    needToSkipDigits = []
-    needToScaleDigits = []
-    changePerFrame = diff / MAX_VALUES
+    digits = []
+    subsampled = 0
+    # We create a array to represent the series of digits which should be
+    # animated in each column
     for i in [0...digitCount]
-      if changePerFrame / Math.pow(10, i) < 1
-        needToSkipDigits.push i
-      else if i isnt 0
-        needToScaleDigits.push i
+      start = Math.floor(@value / Math.pow(10, (digitCount - i - 1)))
+      end = Math.floor(newValue / Math.pow(10, (digitCount - i - 1)))
 
-    counter = {}
+      dist = end - start
 
-    digitScale = {}
-    for digit in needToScaleDigits
-      fraction = 1 - digit / needToScaleDigits.length
+      if Math.abs(dist) > MAX_VALUES
+        # We need to subsample
+        frames = []
 
-      digitScale[digit] = fraction * (1 - 1/OVERSAMPLE) + 1/OVERSAMPLE
+        # Subsequent digits need to be faster than previous ones
+        incr = dist / (MAX_VALUES + MAX_VALUES * subsampled * DIGIT_SPEEDBOOST)
+        cur = start
+        while (dist > 0 and cur < end) or (dist < 0 and cur > end)
+          cur += incr
+          frames.push Math.round cur
+        frames.push end
 
-    console.log digitScale
+        subsampled++
+      else
+        frames = [start..end]
 
-    boringDigits = []
-    for i in [0...digitCount]
-      boringDigits.push true
+      # We only care about the last digit
+      for frame, i in frames
+        frames[i] = frame % 10
 
-    last = @value.toString().split('').reverse()
-    lastFrame = frames[frames.length - 1]
+      digits.push frames
 
-    for curFrame in frames
-      digits = curFrame.toString().split('').reverse()
+    for frames, i in digits.reverse()
+      @digits[i]?.querySelector('.odometer-ribbon-inner').innerHTML = ''
 
-      for digit, i in digits
-        if last[i] isnt digit
-          boringDigits[i] = false
-
-        console.log i, i in needToSkipDigits, digit is last[i], curFrame isnt lastFrame
-        if i in needToSkipDigits and digit is last[i] and (curFrame isnt lastFrame or boringDigits[i])
-          # Don't render multiple copies of the same digit in columns where we have
-          # less digit changes than we have frames
-          continue
-
-        if curFrame isnt lastFrame and digitScale[i]? and digitScale[i] < Math.random()
-          continue
-
-        counter[i] ?= 0
-        counter[i]++
-
-        @addAnimateValue i, last[i], (curFrame is lastFrame and digit is last[i])
-
-        if digit isnt last[i] and curFrame is lastFrame
-          @addAnimateValue i, digit, true
-       
-        last[i] = digit
-
-    for i in [0...digitCount]
-      if boringDigits[i]
-        @digits[i].querySelector('.odometer-value').className += ' odometer-terminal-value'
-
-    console.log counter
+      for frame, j in frames
+        @addAnimateValue i, frame, (j == frames.length - 1)
 
 el = document.querySelector('div')
 odo = new Odometer({value: 343, el})
 odo.render()
-odo.update(355)
+odo.update(3434255)
