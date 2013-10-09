@@ -4,4 +4,9 @@
 </style>
 <div></div>
 <script src="js/odometer.js"></script>
-
+<script>
+  el = document.querySelector('div')
+  odo = new Odometer({value: 3345, el: el})
+  odo.render()
+  odo.update(123456)
+</script>

@@ -1,5 +1,5 @@
 (function() {
-  var COUNT_FRAMERATE, COUNT_MS_PER_FRAME, DIGIT_FORMAT, DIGIT_HTML, DIGIT_SPEEDBOOST, DURATION, FORMAT_MARK_HTML, FRAMERATE, FRAMES_PER_VALUE, MAX_VALUES, MS_PER_FRAME, ODOMETER_HTML, Odometer, RIBBON_HTML, TRANSITION_END_EVENTS, TRANSITION_SUPPORT, VALUE_HTML, createFromHTML, el, now, odo, renderTemplate;
+  var COUNT_FRAMERATE, COUNT_MS_PER_FRAME, DIGIT_FORMAT, DIGIT_HTML, DIGIT_SPEEDBOOST, DURATION, FORMAT_MARK_HTML, FRAMERATE, FRAMES_PER_VALUE, MAX_VALUES, MS_PER_FRAME, ODOMETER_HTML, Odometer, RIBBON_HTML, TRANSITION_END_EVENTS, TRANSITION_SUPPORT, VALUE_HTML, createFromHTML, now, renderTemplate;
 
   ODOMETER_HTML = '<div class="odometer odometer-theme-default"></div>';
 
@@ -291,15 +291,6 @@
 
   })();
 
-  el = document.querySelector('div');
-
-  odo = new Odometer({
-    value: 3345,
-    el: el
-  });
-
-  odo.render();
-
-  odo.update(123456);
+  window.Odometer = Odometer;
 
 }).call(this);

@@ -238,7 +238,4 @@ class Odometer
         if j == 0
           numEl.className += ' odometer-first-value'
 
-el = document.querySelector('div')
-odo = new Odometer({value: 3345, el})
-odo.render()
-odo.update(123456)
+window.Odometer = Odometer
