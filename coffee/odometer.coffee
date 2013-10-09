@@ -21,6 +21,8 @@ DIGIT_SPEEDBOOST = .5
 MS_PER_FRAME = 1000 / FRAMERATE
 MAX_VALUES = ((DURATION / MS_PER_FRAME) / FRAMES_PER_VALUE) | 0
 
+TRANSITION_EVENTS = 'transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd'
+
 renderTemplate = (template, ctx) ->
   template.replace /\{([\s\S]*?)\}/gm, (match, val) ->
     ctx[val]
@@ -38,7 +40,19 @@ class Odometer
     @value = @options.value
     @el = @options.el
 
-    @el.addEventListener 'webkitTransitionEnd transitionEnd', @render.bind(@)
+    # The event will be triggered once for each ribbon, we only
+    # want one render though
+    renderEnqueued = false
+    for event in TRANSITION_EVENTS.split(' ')
+      @el.addEventListener event, =>
+        return if renderEnqueued
+
+        renderEnqueued = true
+
+        setTimeout =>
+          @render()
+          renderEnqueued = false
+        , 0
 
   render: ->
     @el.innerHTML = renderTemplate ODOMETER_HTML

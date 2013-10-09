@@ -1,5 +1,5 @@
 (function() {
-  var DIGIT_HTML, DIGIT_SPEEDBOOST, DURATION, FRAMERATE, FRAMES_PER_VALUE, MAX_VALUES, MS_PER_FRAME, ODOMETER_HTML, Odometer, RIBBON_HTML, VALUE_HTML, createFromHTML, el, odo, renderTemplate;
+  var DIGIT_HTML, DIGIT_SPEEDBOOST, DURATION, FRAMERATE, FRAMES_PER_VALUE, MAX_VALUES, MS_PER_FRAME, ODOMETER_HTML, Odometer, RIBBON_HTML, TRANSITION_EVENTS, VALUE_HTML, createFromHTML, el, odo, renderTemplate;
 
   ODOMETER_HTML = '<div class="odometer"></div>';
 
@@ -21,6 +21,8 @@
 
   MAX_VALUES = ((DURATION / MS_PER_FRAME) / FRAMES_PER_VALUE) | 0;
 
+  TRANSITION_EVENTS = 'transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd';
+
   renderTemplate = function(template, ctx) {
     return template.replace(/\{([\s\S]*?)\}/gm, function(match, val) {
       return ctx[val];
@@ -40,10 +42,26 @@
     Odometer.prototype.digitTemplate = [DIGIT_HTML, RIBBON_HTML, VALUE_HTML];
 
     function Odometer(options) {
+      var event, renderEnqueued, _i, _len, _ref,
+        _this = this;
       this.options = options;
       this.value = this.options.value;
       this.el = this.options.el;
-      this.el.addEventListener('webkitTransitionEnd transitionEnd', this.render.bind(this));
+      renderEnqueued = false;
+      _ref = TRANSITION_EVENTS.split(' ');
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        event = _ref[_i];
+        this.el.addEventListener(event, function() {
+          if (renderEnqueued) {
+            return;
+          }
+          renderEnqueued = true;
+          return setTimeout(function() {
+            _this.render();
+            return renderEnqueued = false;
+          }, 0);
+        });
+      }
     }
 
     Odometer.prototype.render = function() {
