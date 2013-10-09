@@ -64,13 +64,15 @@ class Odometer
   update: (newValue) ->
     return unless diff = newValue - @value
 
+    if diff > 0
+      @odometer.className += ' odometer-animating-up'
+    else
+      @odometer.className += ' odometer-animating-down'
+
     @animate newValue
 
     setTimeout =>
-      if diff > 0
-        @odometer.className += ' odometer-animating odometer-animating-up'
-      else
-        @odometer.className += ' odometer-animating odometer-animating-down'
+      @odometer.className += ' odometer-animating'
     , 0
 
     @value = newValue
@@ -130,8 +132,10 @@ class Odometer
 
         if j == frames.length - 1
           numEl.className += ' odometer-last-value'
+        if j == 0
+          numEl.className += ' odometer-first-value'
 
 el = document.querySelector('div')
 odo = new Odometer({value: 343, el})
 odo.render()
-odo.update(225)
+odo.update(3453853)

@@ -26,7 +26,6 @@
 
         .odometer-ribbon-inner
             display: block
-            -webkit-transition: -webkit-transform 2s
 
         .odometer-value
             display: block
@@ -35,4 +34,14 @@
                 position: absolute
 
 .odometer-animating-up .odometer-ribbon-inner
+    -webkit-transition: -webkit-transform 2s
+
+.odometer-animating-up.odometer-animating .odometer-ribbon-inner
     -webkit-transform: translateY(-100%)
+
+.odometer-animating-down .odometer-ribbon-inner
+    -webkit-transform: translateY(-100%)
+
+.odometer-animating.odometer-animating-down .odometer-ribbon-inner
+    -webkit-transition: -webkit-transform 2s
+    -webkit-transform: translateY(0)

@@ -80,13 +80,14 @@
       if (!(diff = newValue - this.value)) {
         return;
       }
+      if (diff > 0) {
+        this.odometer.className += ' odometer-animating-up';
+      } else {
+        this.odometer.className += ' odometer-animating-down';
+      }
       this.animate(newValue);
       setTimeout(function() {
-        if (diff > 0) {
-          return _this.odometer.className += ' odometer-animating odometer-animating-up';
-        } else {
-          return _this.odometer.className += ' odometer-animating odometer-animating-down';
-        }
+        return _this.odometer.className += ' odometer-animating';
       }, 0);
       return this.value = newValue;
     };
@@ -149,7 +150,10 @@
             }));
             this.ribbons[i].appendChild(numEl);
             if (j === frames.length - 1) {
-              _results2.push(numEl.className += ' odometer-last-value');
+              numEl.className += ' odometer-last-value';
+            }
+            if (j === 0) {
+              _results2.push(numEl.className += ' odometer-first-value');
             } else {
               _results2.push(void 0);
             }
@@ -173,6 +177,6 @@
 
   odo.render();
 
-  odo.update(225);
+  odo.update(3453853);
 
 }).call(this);

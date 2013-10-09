@@ -45,18 +45,33 @@
 /* line 27, ../sass/odometer-theme-default.sass */
 .odometer .odometer-digit .odometer-ribbon-inner {
   display: block;
-  -webkit-transition: -webkit-transform 2s;
 }
-/* line 31, ../sass/odometer-theme-default.sass */
+/* line 30, ../sass/odometer-theme-default.sass */
 .odometer .odometer-digit .odometer-value {
   display: block;
 }
-/* line 34, ../sass/odometer-theme-default.sass */
+/* line 33, ../sass/odometer-theme-default.sass */
 .odometer .odometer-digit .odometer-value.odometer-last-value {
   position: absolute;
 }
 
-/* line 37, ../sass/odometer-theme-default.sass */
+/* line 36, ../sass/odometer-theme-default.sass */
 .odometer-animating-up .odometer-ribbon-inner {
+  -webkit-transition: -webkit-transform 2s;
+}
+
+/* line 39, ../sass/odometer-theme-default.sass */
+.odometer-animating-up.odometer-animating .odometer-ribbon-inner {
   -webkit-transform: translateY(-100%);
+}
+
+/* line 42, ../sass/odometer-theme-default.sass */
+.odometer-animating-down .odometer-ribbon-inner {
+  -webkit-transform: translateY(-100%);
+}
+
+/* line 45, ../sass/odometer-theme-default.sass */
+.odometer-animating.odometer-animating-down .odometer-ribbon-inner {
+  -webkit-transition: -webkit-transform 2s;
+  -webkit-transform: translateY(0);
 }
