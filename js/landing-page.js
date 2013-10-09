@@ -84,7 +84,7 @@
       $section = $numberSectionTemplate.clone().addClass('number-section-theme-' + theme.name);
       $afterSections.before($section);
       $odometerContainer = $section.find('.odometer-container');
-      $odometerContainer.append('<div/>');
+      $odometerContainer.append('<div class="foobar"/>');
       $odometerContainer = $odometerContainer.find('div');
       currentNumber = 0;
       odometerOptions = $.extend(true, {}, theme.odometerOptions || {}, {
