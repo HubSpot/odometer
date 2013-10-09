@@ -138,8 +138,6 @@ class Odometer
       spacer = createFromHTML renderTemplate(FORMAT_MARK_HTML, {char})
       @insertDigit spacer
 
-    @format = @format.substring(1)
-
     digit = @renderDigit()
     digit.querySelector('.odometer-ribbon-inner').innerHTML = renderTemplate VALUE_HTML, {value}
     @digits.push digit

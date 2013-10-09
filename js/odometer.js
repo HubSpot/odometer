@@ -169,7 +169,6 @@
         }));
         this.insertDigit(spacer);
       }
-      this.format = this.format.substring(1);
       digit = this.renderDigit();
       digit.querySelector('.odometer-ribbon-inner').innerHTML = renderTemplate(VALUE_HTML, {
         value: value
