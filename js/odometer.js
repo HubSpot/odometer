@@ -64,11 +64,11 @@
         _base.format = DIGIT_FORMAT;
       }
       (_base1 = this.options).format || (_base1.format = 'd');
-      _ref = ['innerHTML', 'innerText'];
+      _ref = ['HTML', 'Text'];
       _fn = function(property) {
-        return Object.defineProperty(_this.el, property, {
+        return Object.defineProperty(_this.el, "inner" + property, {
           get: function() {
-            return _this.inside[property];
+            return _this.inside["outer" + property];
           },
           set: function(val) {
             return _this.update(val.replace(/[.,]*/g, ''));

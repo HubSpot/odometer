@@ -55,11 +55,11 @@ class Odometer
     @options.format ?= DIGIT_FORMAT
     @options.format or= 'd'
 
-    for property in ['innerHTML', 'innerText']
+    for property in ['HTML', 'Text']
       do (property) =>
-        Object.defineProperty @el, property,
+        Object.defineProperty @el, "inner#{ property }",
           get: =>
-            @inside[property]
+            @inside["outer#{ property }"]
 
           set: (val) =>
             @update val.replace(/[.,]*/g, '')
