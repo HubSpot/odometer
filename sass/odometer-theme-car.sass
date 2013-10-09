@@ -1,24 +1,34 @@
 @import compass/css3
 
+@import url("http://fonts.googleapis.com/css?family=Arimo")
+
+$padding: .15em
+$borderRadius: .2em
+
 .odometer
     +inline-block
-    +border-radius(5px)
+    +border-radius(.34em)
+    font-family: "Arimo", monospace
     position: relative
-    padding: 10px
-    background: #444
-    color: #fff
+    padding: $padding
+    background: #000
+    color: #eee0d3
 
     .odometer-digit
         +inline-block
-        border: 1px solid
-        padding: 0 10px
+        padding: 0 $padding
         position: relative
+        background: -webkit-linear-gradient(top, #333 0%, #333 40%, #101010 60%, #333 80%, #333 100%)
+        +box-shadow(inset 0 0 .3em rgba(0, 0, 0, 0.8))
 
         &:first-child
-            +border-radius(5px 0 0 5px)
+            +border-radius($borderRadius 0 0 $borderRadius)
 
         &:last-child
-            +border-radius(0 5px 5px 0)
+            +border-radius(0 $borderRadius $borderRadius 0)
+            background-color: #eee0d3
+            background: -webkit-linear-gradient(top, #eee0d3 0%, #eee0d3 40%, #bbaa9a 60%, #eee0d3 80%, #eee0d3 100%)
+            color: #000
 
         & + .odometer-digit
             border-left: 0
@@ -31,7 +41,7 @@
             display: block
             position: absolute
             top: 0
-            left: 10px
+            left: $padding
             right: 0
             bottom: 0
             overflow: hidden
