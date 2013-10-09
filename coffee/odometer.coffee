@@ -84,8 +84,10 @@ class Odometer
     digitCount = Math.ceil(Math.log(newValue)/Math.log(10))
     needToSkipDigits = []
     needToScaleDigits = []
-    for i in [0..digitCount]
-      if Math.pow(10, digitCount - i) < MAX_VALUES
+    for i in [0...digitCount]
+      changePerFrame = diff / MAX_VALUES
+
+      if changePerFrame / Math.pow(10, i) < 1
         needToSkipDigits.push i
       else if i isnt 0
         needToScaleDigits.push i
@@ -100,6 +102,10 @@ class Odometer
 
     console.log digitScale
 
+    boringDigits = []
+    for i in [0...digitCount]
+      boringDigits.push true
+
     last = @value.toString().split('').reverse()
     lastFrame = frames[frames.length - 1]
 
@@ -107,7 +113,13 @@ class Odometer
       digits = curFrame.toString().split('').reverse()
 
       for digit, i in digits
-        if i in needToSkipDigits and digit is last[i] and curFrame isnt lastFrame
+        if last[i] isnt digit
+          boringDigits[i] = false
+
+
+        if i is 1
+          console.log digit, last[i], needToSkipDigits
+        if i in needToSkipDigits and digit is last[i] and (curFrame isnt lastFrame or boringDigits[i])
           # Don't render multiple copies of the same digit in columns where we have
           # less digit changes than we have frames
           continue
@@ -136,9 +148,13 @@ class Odometer
 
         last[i] = digit
 
+    for i in [0...digitCount]
+      if boringDigits[i]
+        @digits[i].querySelector('.odometer-value').className += ' odometer-terminal-value'
+
     console.log counter
 
 el = document.querySelector('div')
 odo = new Odometer({value: 343, el})
 odo.render()
-odo.update(52316)
+odo.update(3592999)
