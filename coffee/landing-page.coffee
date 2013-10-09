@@ -60,13 +60,13 @@ animateHeader = ->
     $('.title-number-section .odometer').addClass 'odometer-animating-up odometer-animating'
 
 setupNumberSections = ->
-    $sections = $('.number-sections')
+    $afterSections = $('.after-number-sections')
     $numberSectionTemplate = $('.number-section.template').clone().removeClass('template')
 
     _.each THEMES, (theme) ->
-
         $section = $numberSectionTemplate.clone().addClass('number-section-theme-' + theme.name)
-        $sections.append $section
+
+        $afterSections.before $section
 
         $odometerContainer = $section.find '.odometer-container'
 

@@ -76,13 +76,13 @@
   };
 
   setupNumberSections = function() {
-    var $numberSectionTemplate, $sections;
-    $sections = $('.number-sections');
+    var $afterSections, $numberSectionTemplate;
+    $afterSections = $('.after-number-sections');
     $numberSectionTemplate = $('.number-section.template').clone().removeClass('template');
     return _.each(THEMES, function(theme) {
       var $odometerContainer, $section, currentNumber, next, odometer, odometerOptions;
       $section = $numberSectionTemplate.clone().addClass('number-section-theme-' + theme.name);
-      $sections.append($section);
+      $afterSections.before($section);
       $odometerContainer = $section.find('.odometer-container');
       currentNumber = 0;
       odometerOptions = $.extend(true, {}, theme.odometerOptions || {}, {

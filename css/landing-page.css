@@ -1,0 +1,97 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    font-family: "proxima-nova", "Helvetica Neue", sans-serif;
+}
+
+.template {
+    display: none;
+}
+
+.section {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.number-container {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 20em;
+    text-align: center;
+}
+
+.number-container .odometer-container {
+    font-size: 6em;
+}
+
+.number-description {
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 2.5em;
+    letter-spacing: .08em;
+    margin: 1em 0 0;
+    font-weight: bold;
+}
+
+.number-detail {
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 1.5em;
+    letter-spacing: .08em;
+    opacity: 0.5;
+}
+
+.number-source {
+    text-decoration: none;
+    color: inherit;
+}
+
+.number-source:hover .number-detail {
+    border-bottom: 1px dotted;
+    opacity: 0.8;
+}
+
+.number-section.number-section-theme-default {
+    background: #eee;
+    color: #444;
+}
+
+.number-section.number-section-theme-digital .odometer {
+    border: .1em solid rgba(139, 245, 165, 0.4);
+}
+
+.number-section.number-section-theme-digital {
+    background: #000;
+    color: #8bf5a5;
+}
+
+.number-section.number-section-theme-car {
+    background: #eee0d3;
+    color: #333;
+}
+
+.odometer-theme-odometer .odometer-value {
+    width: 100%;
+    text-align: center;
+}
+
+.down-arrow {
+    position: absolute;
+    left: 0;
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+    bottom: 30px;
+    content: "\u8682";
+}
