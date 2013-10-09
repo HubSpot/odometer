@@ -12,8 +12,8 @@ module.exports = (grunt) ->
 
     watch:
       coffee:
-        files: ['coffee/odometer.coffee']
-        tasks: ["coffee", "uglify"]
+        files: ['coffee/odometer.coffee', 'sass/*']
+        tasks: ["coffee", "uglify", "compass"]
 
     uglify:
       options:
