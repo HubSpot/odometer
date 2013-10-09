@@ -1,47 +1,10 @@
 @import compass/css3
+@import mixins
 
-.odometer
-    +inline-block
-    position: relative
+$themeName: "odometer-theme-default"
 
-    .odometer-digit
-        +inline-block
-        position: relative
++spinning-odometer($themeName)
 
-        .odometer-digit-spacer
-            +inline-block
-            visibility: hidden
-
-        .odometer-digit-inner
-            display: block
-            position: absolute
-            top: 0
-            left: 0
-            right: 0
-            bottom: 0
-            overflow: hidden
-
-        .odometer-ribbon
-            display: block
-
-        .odometer-ribbon-inner
-            display: block
-
-        .odometer-value
-            display: block
-
-            &.odometer-last-value
-                position: absolute
-
-.odometer-animating-up .odometer-ribbon-inner
-    -webkit-transition: -webkit-transform 2s
-
-.odometer-animating-up.odometer-animating .odometer-ribbon-inner
-    -webkit-transform: translateY(-100%)
-
-.odometer-animating-down .odometer-ribbon-inner
-    -webkit-transform: translateY(-100%)
-
-.odometer-animating.odometer-animating-down .odometer-ribbon-inner
-    -webkit-transition: -webkit-transform 2s
-    -webkit-transform: translateY(0)
+.odometer#{"." + $themeName}
+    font-family: "Helvetica Neue", sans-serif
+    line-height: 1.1em

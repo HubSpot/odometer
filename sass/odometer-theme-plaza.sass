@@ -1,11 +1,14 @@
 @import compass/css3
+@import mixins
+@import url("http://fonts.googleapis.com/css?family=Arimo")
 
+$themeName: "odometer-theme-car"
 $digitPadding: .03em
 
-.odometer
-    +inline-block
++spinning-odometer($themeName)
+
+.odometer#{"." + $themeName}
     +border-radius(.15em)
-    position: relative
     font-family: "Helvetica Neue", sans-serif
     font-weight: 100
     padding: 0 .12em
@@ -16,37 +19,9 @@ $digitPadding: .03em
     background-size: 16px 16px
 
     .odometer-digit
-        +inline-block
         +border-radius(.1em)
-        position: relative
         padding: 0 $digitPadding
         color: #648baf
 
-        .odometer-digit-spacer
-            +inline-block
-            visibility: hidden
-
         .odometer-digit-inner
-            display: block
-            position: absolute
-            top: 0
             left: $digitPadding
-            right: 0
-            bottom: 0
-            overflow: hidden
-
-        .odometer-ribbon
-            display: block
-
-        .odometer-ribbon-inner
-            display: block
-            -webkit-transition: -webkit-transform 2s
-
-        .odometer-value
-            display: block
-
-            &.odometer-last-value
-                position: absolute
-
-.odometer-animating-up .odometer-ribbon-inner
-    -webkit-transform: translateY(-100%)

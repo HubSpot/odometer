@@ -1,46 +1,45 @@
 @import url("http://fonts.googleapis.com/css?family=Wallpoet");
-/* line 7, ../sass/odometer-theme-digital.sass */
-.odometer {
-  display: -moz-inline-stack;
+/* line 4, ../sass/_mixins.sass */
+.odometer.odometer-theme-digital {
+  display: -moz-inline-box;
+  -moz-box-orient: vertical;
   display: inline-block;
   vertical-align: middle;
   *vertical-align: auto;
-  zoom: 1;
-  *display: inline;
-  font-family: "Wallpoet", monospace;
-  position: relative;
-  padding: 0 0.2em;
-  background-color: black;
-  line-height: 1.1em;
-  background-image: -webkit-radial-gradient(rgba(139, 245, 165, 0.4), black);
-  color: #8bf5a5;
-}
-/* line 17, ../sass/odometer-theme-digital.sass */
-.odometer .odometer-digit {
-  display: -moz-inline-stack;
-  display: inline-block;
-  vertical-align: middle;
-  *vertical-align: auto;
-  zoom: 1;
-  *display: inline;
   position: relative;
 }
-/* line 21, ../sass/odometer-theme-digital.sass */
-.odometer .odometer-digit + .odometer-digit {
-  margin-left: 0.1em;
+/* line 7, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/css3/_inline-block.scss */
+.odometer.odometer-theme-digital {
+  *display: inline;
 }
-/* line 24, ../sass/odometer-theme-digital.sass */
-.odometer .odometer-digit .odometer-digit-spacer {
-  display: -moz-inline-stack;
+/* line 8, ../sass/_mixins.sass */
+.odometer.odometer-theme-digital .odometer-digit {
+  display: -moz-inline-box;
+  -moz-box-orient: vertical;
   display: inline-block;
   vertical-align: middle;
   *vertical-align: auto;
-  zoom: 1;
+  position: relative;
+}
+/* line 7, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/css3/_inline-block.scss */
+.odometer.odometer-theme-digital .odometer-digit {
   *display: inline;
+}
+/* line 12, ../sass/_mixins.sass */
+.odometer.odometer-theme-digital .odometer-digit .odometer-digit-spacer {
+  display: -moz-inline-box;
+  -moz-box-orient: vertical;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
   visibility: hidden;
 }
-/* line 28, ../sass/odometer-theme-digital.sass */
-.odometer .odometer-digit .odometer-digit-inner {
+/* line 7, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/css3/_inline-block.scss */
+.odometer.odometer-theme-digital .odometer-digit .odometer-digit-spacer {
+  *display: inline;
+}
+/* line 16, ../sass/_mixins.sass */
+.odometer.odometer-theme-digital .odometer-digit .odometer-digit-inner {
   display: block;
   position: absolute;
   top: 0;
@@ -49,25 +48,50 @@
   bottom: 0;
   overflow: hidden;
 }
-/* line 37, ../sass/odometer-theme-digital.sass */
-.odometer .odometer-digit .odometer-ribbon {
+/* line 25, ../sass/_mixins.sass */
+.odometer.odometer-theme-digital .odometer-digit .odometer-ribbon {
   display: block;
 }
-/* line 40, ../sass/odometer-theme-digital.sass */
-.odometer .odometer-digit .odometer-ribbon-inner {
-  display: block;
-  -webkit-transition: -webkit-transform 2s;
-}
-/* line 44, ../sass/odometer-theme-digital.sass */
-.odometer .odometer-digit .odometer-value {
+/* line 28, ../sass/_mixins.sass */
+.odometer.odometer-theme-digital .odometer-digit .odometer-ribbon-inner {
   display: block;
 }
-/* line 47, ../sass/odometer-theme-digital.sass */
-.odometer .odometer-digit .odometer-value.odometer-last-value {
+/* line 31, ../sass/_mixins.sass */
+.odometer.odometer-theme-digital .odometer-digit .odometer-value {
+  display: block;
+}
+/* line 34, ../sass/_mixins.sass */
+.odometer.odometer-theme-digital .odometer-digit .odometer-value.odometer-last-value {
   position: absolute;
 }
-
-/* line 50, ../sass/odometer-theme-digital.sass */
-.odometer-animating-up .odometer-ribbon-inner {
+/* line 39, ../sass/_mixins.sass */
+.odometer.odometer-theme-digital.odometer-animating-up .odometer-ribbon-inner {
+  -webkit-transition: -webkit-transform 2s;
+}
+/* line 42, ../sass/_mixins.sass */
+.odometer.odometer-theme-digital.odometer-animating-up.odometer-animating .odometer-ribbon-inner {
   -webkit-transform: translateY(-100%);
+}
+/* line 47, ../sass/_mixins.sass */
+.odometer.odometer-theme-digital.odometer-animating-down .odometer-ribbon-inner {
+  -webkit-transform: translateY(-100%);
+}
+/* line 50, ../sass/_mixins.sass */
+.odometer.odometer-theme-digital.odometer-animating-down.odometer-animating-down .odometer-ribbon-inner {
+  -webkit-transition: -webkit-transform 2s;
+  -webkit-transform: translateY(0);
+}
+
+/* line 10, ../sass/odometer-theme-digital.sass */
+.odometer.odometer-theme-digital {
+  font-family: "Wallpoet", monospace;
+  padding: 0 0.2em;
+  background-color: black;
+  line-height: 1.1em;
+  background-image: -webkit-radial-gradient(rgba(139, 245, 165, 0.4), black);
+  color: #8bf5a5;
+}
+/* line 18, ../sass/odometer-theme-digital.sass */
+.odometer.odometer-theme-digital .odometer-digit + .odometer-digit {
+  margin-left: 0.1em;
 }

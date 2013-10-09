@@ -1,51 +1,19 @@
 @import compass/css3
-
+@import mixins
 @import url("http://fonts.googleapis.com/css?family=Wallpoet")
 
+$themeName: "odometer-theme-digital"
 $green: #8bf5a5
 
-.odometer
-    +inline-block
++spinning-odometer($themeName)
+
+.odometer#{"." + $themeName}
     font-family: "Wallpoet", monospace
-    position: relative
     padding: 0 .2em
     background-color: #000
     line-height: 1.1em
     background-image: -webkit-radial-gradient(rgba($green, 0.4), #000)
     color: $green
 
-    .odometer-digit
-        +inline-block
-        position: relative
-
-        & + .odometer-digit
-            margin-left: .1em
-
-        .odometer-digit-spacer
-            +inline-block
-            visibility: hidden
-
-        .odometer-digit-inner
-            display: block
-            position: absolute
-            top: 0
-            left: 0
-            right: 0
-            bottom: 0
-            overflow: hidden
-
-        .odometer-ribbon
-            display: block
-
-        .odometer-ribbon-inner
-            display: block
-            -webkit-transition: -webkit-transform 2s
-
-        .odometer-value
-            display: block
-
-            &.odometer-last-value
-                position: absolute
-
-.odometer-animating-up .odometer-ribbon-inner
-    -webkit-transform: translateY(-100%)
+    .odometer-digit + .odometer-digit
+        margin-left: .1em
