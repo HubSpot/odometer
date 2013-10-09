@@ -1,5 +1,5 @@
 (function() {
-  var DIGIT_HTML, DIGIT_SPEEDBOOST, DURATION, FRAMERATE, FRAMES_PER_VALUE, MAX_VALUES, MS_PER_FRAME, ODOMETER_HTML, Odometer, RIBBON_HTML, TRANSITION_EVENTS, VALUE_HTML, createFromHTML, el, odo, renderTemplate;
+  var DIGIT_HTML, DIGIT_SPEEDBOOST, DURATION, FRAMERATE, FRAMES_PER_VALUE, MAX_VALUES, MS_PER_FRAME, ODOMETER_HTML, Odometer, RIBBON_HTML, TRANSITION_END_EVENTS, VALUE_HTML, createFromHTML, el, odo, renderTemplate;
 
   ODOMETER_HTML = '<div class="odometer"></div>';
 
@@ -21,7 +21,7 @@
 
   MAX_VALUES = ((DURATION / MS_PER_FRAME) / FRAMES_PER_VALUE) | 0;
 
-  TRANSITION_EVENTS = 'transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd';
+  TRANSITION_END_EVENTS = 'transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd';
 
   renderTemplate = function(template, ctx) {
     return template.replace(/\{([\s\S]*?)\}/gm, function(match, val) {
@@ -48,18 +48,19 @@
       this.value = this.options.value;
       this.el = this.options.el;
       renderEnqueued = false;
-      _ref = TRANSITION_EVENTS.split(' ');
+      _ref = TRANSITION_END_EVENTS.split(' ');
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         event = _ref[_i];
         this.el.addEventListener(event, function() {
           if (renderEnqueued) {
-            return;
+            return true;
           }
           renderEnqueued = true;
-          return setTimeout(function() {
+          setTimeout(function() {
             _this.render();
             return renderEnqueued = false;
           }, 0);
+          return true;
         });
       }
     }
@@ -196,6 +197,6 @@
 
   odo.render();
 
-  odo.update(3453853);
+  odo.update(255);
 
 }).call(this);
