@@ -28,7 +28,6 @@
   border-radius: 0.1em;
   background-color: #222222;
   background: -webkit-linear-gradient(top, #111111 0%, #111111 35%, #333333 55%, #111111 55%, #111111 100%);
-  border: 1px solid;
   margin-right: 0.1em;
   padding: 0 0.15em;
   position: relative;
@@ -38,11 +37,7 @@
 .odometer .odometer-digit {
   *display: inline;
 }
-/* line 23, ../sass/odometer-theme-train-station.sass */
-.odometer .odometer-digit + .odometer-digit {
-  border-left: 0;
-}
-/* line 26, ../sass/odometer-theme-train-station.sass */
+/* line 22, ../sass/odometer-theme-train-station.sass */
 .odometer .odometer-digit .odometer-digit-spacer {
   display: -moz-inline-box;
   -moz-box-orient: vertical;
@@ -55,7 +50,7 @@
 .odometer .odometer-digit .odometer-digit-spacer {
   *display: inline;
 }
-/* line 30, ../sass/odometer-theme-train-station.sass */
+/* line 26, ../sass/odometer-theme-train-station.sass */
 .odometer .odometer-digit .odometer-digit-inner {
   display: block;
   position: absolute;
@@ -65,25 +60,25 @@
   bottom: 0;
   overflow: hidden;
 }
-/* line 39, ../sass/odometer-theme-train-station.sass */
+/* line 35, ../sass/odometer-theme-train-station.sass */
 .odometer .odometer-digit .odometer-ribbon {
   display: block;
 }
-/* line 42, ../sass/odometer-theme-train-station.sass */
+/* line 38, ../sass/odometer-theme-train-station.sass */
 .odometer .odometer-digit .odometer-ribbon-inner {
   display: block;
   -webkit-transition: -webkit-transform 2s;
 }
-/* line 46, ../sass/odometer-theme-train-station.sass */
+/* line 42, ../sass/odometer-theme-train-station.sass */
 .odometer .odometer-digit .odometer-value {
   display: block;
 }
-/* line 49, ../sass/odometer-theme-train-station.sass */
+/* line 45, ../sass/odometer-theme-train-station.sass */
 .odometer .odometer-digit .odometer-value.odometer-terminal-value {
   position: absolute;
 }
 
-/* line 52, ../sass/odometer-theme-train-station.sass */
+/* line 48, ../sass/odometer-theme-train-station.sass */
 .odometer-animating-up .odometer-ribbon-inner {
   -webkit-transform: translateY(-100%);
 }
