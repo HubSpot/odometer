@@ -139,9 +139,6 @@
           if (last[i] !== digit) {
             boringDigits[i] = false;
           }
-          if (i === 1) {
-            console.log(digit, last[i], needToSkipDigits);
-          }
           if (__indexOf.call(needToSkipDigits, i) >= 0 && digit === last[i] && (curFrame !== lastFrame || boringDigits[i])) {
             continue;
           }

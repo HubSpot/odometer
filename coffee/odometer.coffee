@@ -116,9 +116,6 @@ class Odometer
         if last[i] isnt digit
           boringDigits[i] = false
 
-
-        if i is 1
-          console.log digit, last[i], needToSkipDigits
         if i in needToSkipDigits and digit is last[i] and (curFrame isnt lastFrame or boringDigits[i])
           # Don't render multiple copies of the same digit in columns where we have
           # less digit changes than we have frames
