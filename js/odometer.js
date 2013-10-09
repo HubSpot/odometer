@@ -91,8 +91,23 @@
       return this.value = newValue;
     };
 
+    Odometer.prototype.addAnimateValue = function(i, value, last) {
+      var numEl;
+      numEl = createFromHTML(renderTemplate(VALUE_HTML, {
+        value: value
+      }));
+      if (last) {
+        numEl.className += ' odometer-terminal-value';
+      }
+      if (!this.digits[i]) {
+        this.digits[i] = this.renderDigit();
+        this.odometer.insertBefore(this.digits[i], this.odometer.children[0]);
+      }
+      return this.digits[i].querySelector('.odometer-ribbon-inner').appendChild(numEl);
+    };
+
     Odometer.prototype.animate = function(newValue) {
-      var boringDigits, changePerFrame, counter, cur, curFrame, diff, digit, digitCount, digitScale, digits, fraction, frames, i, incr, last, lastFrame, needToScaleDigits, needToSkipDigits, numEl, value, _i, _j, _k, _l, _len, _len1, _len2, _m, _n, _ref;
+      var boringDigits, changePerFrame, counter, cur, curFrame, diff, digit, digitCount, digitScale, digits, fraction, frames, i, incr, last, lastFrame, needToScaleDigits, needToSkipDigits, _i, _j, _k, _l, _len, _len1, _len2, _m, _n;
       diff = newValue - this.value;
       frames = [];
       if (Math.abs(diff) > MAX_VALUES) {
@@ -105,12 +120,11 @@
         cur += incr;
         frames.push(Math.round(cur));
       }
-      frames[frames.length - 1] = newValue;
       digitCount = Math.ceil(Math.log(newValue) / Math.log(10));
       needToSkipDigits = [];
       needToScaleDigits = [];
+      changePerFrame = diff / MAX_VALUES;
       for (i = _i = 0; 0 <= digitCount ? _i < digitCount : _i > digitCount; i = 0 <= digitCount ? ++_i : --_i) {
-        changePerFrame = diff / MAX_VALUES;
         if (changePerFrame / Math.pow(10, i) < 1) {
           needToSkipDigits.push(i);
         } else if (i !== 0) {
@@ -139,6 +153,7 @@
           if (last[i] !== digit) {
             boringDigits[i] = false;
           }
+          console.log(i, __indexOf.call(needToSkipDigits, i) >= 0, digit === last[i], curFrame !== lastFrame);
           if (__indexOf.call(needToSkipDigits, i) >= 0 && digit === last[i] && (curFrame !== lastFrame || boringDigits[i])) {
             continue;
           }
@@ -149,22 +164,10 @@
             counter[i] = 0;
           }
           counter[i]++;
-          if (curFrame === lastFrame) {
-            value = digit;
-          } else {
-            value = (_ref = last[i]) != null ? _ref : '';
+          this.addAnimateValue(i, last[i], curFrame === lastFrame && digit === last[i]);
+          if (digit !== last[i] && curFrame === lastFrame) {
+            this.addAnimateValue(i, digit, true);
           }
-          numEl = createFromHTML(renderTemplate(VALUE_HTML, {
-            value: value
-          }));
-          if (curFrame === lastFrame) {
-            numEl.className += ' odometer-terminal-value';
-          }
-          if (!this.digits[i]) {
-            this.digits[i] = this.renderDigit();
-            this.odometer.insertBefore(this.digits[i], this.odometer.children[0]);
-          }
-          this.digits[i].querySelector('.odometer-ribbon-inner').appendChild(numEl);
           last[i] = digit;
         }
       }
@@ -189,6 +192,6 @@
 
   odo.render();
 
-  odo.update(3592999);
+  odo.update(355);
 
 }).call(this);

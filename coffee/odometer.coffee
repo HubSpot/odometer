@@ -63,6 +63,18 @@ class Odometer
 
     @value = newValue
 
+  addAnimateValue: (i, value, last) ->
+    numEl = createFromHTML renderTemplate VALUE_HTML, {value}
+
+    if last
+      numEl.className += ' odometer-terminal-value'
+
+    if not @digits[i]
+      @digits[i] = @renderDigit()
+      @odometer.insertBefore @digits[i], @odometer.children[0]
+
+    @digits[i].querySelector('.odometer-ribbon-inner').appendChild numEl
+
   animate: (newValue) ->
     diff = newValue - @value
 
@@ -79,14 +91,11 @@ class Odometer
       cur += incr
       frames.push Math.round cur
 
-    frames[frames.length - 1] = newValue
-
     digitCount = Math.ceil(Math.log(newValue)/Math.log(10))
     needToSkipDigits = []
     needToScaleDigits = []
+    changePerFrame = diff / MAX_VALUES
     for i in [0...digitCount]
-      changePerFrame = diff / MAX_VALUES
-
       if changePerFrame / Math.pow(10, i) < 1
         needToSkipDigits.push i
       else if i isnt 0
@@ -116,6 +125,7 @@ class Odometer
         if last[i] isnt digit
           boringDigits[i] = false
 
+        console.log i, i in needToSkipDigits, digit is last[i], curFrame isnt lastFrame
         if i in needToSkipDigits and digit is last[i] and (curFrame isnt lastFrame or boringDigits[i])
           # Don't render multiple copies of the same digit in columns where we have
           # less digit changes than we have frames
@@ -127,22 +137,11 @@ class Odometer
         counter[i] ?= 0
         counter[i]++
 
-        if curFrame is lastFrame
-          value = digit
-        else
-          value = last[i] ? ''
+        @addAnimateValue i, last[i], (curFrame is lastFrame and digit is last[i])
 
-        numEl = createFromHTML renderTemplate VALUE_HTML, {value}
-
-        if curFrame is lastFrame
-          numEl.className += ' odometer-terminal-value'
-
-        if not @digits[i]
-          @digits[i] = @renderDigit()
-          @odometer.insertBefore @digits[i], @odometer.children[0]
-
-        @digits[i].querySelector('.odometer-ribbon-inner').appendChild numEl
-
+        if digit isnt last[i] and curFrame is lastFrame
+          @addAnimateValue i, digit, true
+       
         last[i] = digit
 
     for i in [0...digitCount]
@@ -154,4 +153,4 @@ class Odometer
 el = document.querySelector('div')
 odo = new Odometer({value: 343, el})
 odo.render()
-odo.update(3592999)
+odo.update(355)
