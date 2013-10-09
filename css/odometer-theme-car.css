@@ -1,84 +1,131 @@
-/*
-Syntax error: Undefined variable: "$padding".
-        on line 12 of /Users/aschwartz/dev/hubspot/git.hubteam/odometer/sass/odometer-theme-car.sass
+@import url("http://fonts.googleapis.com/css?family=Arimo");
+/* line 4, ../sass/_mixins.sass */
+.odometer.odometer-theme-car {
+  display: -moz-inline-box;
+  -moz-box-orient: vertical;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  position: relative;
+}
+/* line 7, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/css3/_inline-block.scss */
+.odometer.odometer-theme-car {
+  *display: inline;
+}
+/* line 8, ../sass/_mixins.sass */
+.odometer.odometer-theme-car .odometer-digit {
+  display: -moz-inline-box;
+  -moz-box-orient: vertical;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  position: relative;
+}
+/* line 7, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/css3/_inline-block.scss */
+.odometer.odometer-theme-car .odometer-digit {
+  *display: inline;
+}
+/* line 12, ../sass/_mixins.sass */
+.odometer.odometer-theme-car .odometer-digit .odometer-digit-spacer {
+  display: -moz-inline-box;
+  -moz-box-orient: vertical;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  visibility: hidden;
+}
+/* line 7, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/css3/_inline-block.scss */
+.odometer.odometer-theme-car .odometer-digit .odometer-digit-spacer {
+  *display: inline;
+}
+/* line 16, ../sass/_mixins.sass */
+.odometer.odometer-theme-car .odometer-digit .odometer-digit-inner {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+}
+/* line 25, ../sass/_mixins.sass */
+.odometer.odometer-theme-car .odometer-digit .odometer-ribbon {
+  display: block;
+}
+/* line 28, ../sass/_mixins.sass */
+.odometer.odometer-theme-car .odometer-digit .odometer-ribbon-inner {
+  display: block;
+}
+/* line 31, ../sass/_mixins.sass */
+.odometer.odometer-theme-car .odometer-digit .odometer-value {
+  display: block;
+}
+/* line 34, ../sass/_mixins.sass */
+.odometer.odometer-theme-car .odometer-digit .odometer-value.odometer-last-value {
+  position: absolute;
+}
+/* line 39, ../sass/_mixins.sass */
+.odometer.odometer-theme-car.odometer-animating-up .odometer-ribbon-inner {
+  -webkit-transition: -webkit-transform 2s;
+}
+/* line 42, ../sass/_mixins.sass */
+.odometer.odometer-theme-car.odometer-animating-up.odometer-animating .odometer-ribbon-inner {
+  -webkit-transform: translateY(-100%);
+}
+/* line 47, ../sass/_mixins.sass */
+.odometer.odometer-theme-car.odometer-animating-down .odometer-ribbon-inner {
+  -webkit-transform: translateY(-100%);
+}
+/* line 50, ../sass/_mixins.sass */
+.odometer.odometer-theme-car.odometer-animating-down.odometer-animating-down .odometer-ribbon-inner {
+  -webkit-transition: -webkit-transform 2s;
+  -webkit-transform: translateY(0);
+}
 
-Backtrace:
-/Users/aschwartz/dev/hubspot/git.hubteam/odometer/sass/odometer-theme-car.sass:12
-/Library/Ruby/Gems/1.8/gems/sass-3.1.7/lib/sass/../sass/script/variable.rb:50:in `_perform'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.7/lib/sass/../sass/script/node.rb:40:in `perform'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.7/lib/sass/../sass/tree/visitors/perform.rb:215:in `visit_prop'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.7/lib/sass/../sass/tree/visitors/base.rb:37:in `send'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.7/lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.7/lib/sass/../sass/tree/visitors/perform.rb:18:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.7/lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.7/lib/sass/../sass/tree/visitors/base.rb:53:in `map'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.7/lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.7/lib/sass/../sass/tree/visitors/perform.rb:27:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.7/lib/sass/../sass/tree/visitors/perform.rb:39:in `with_environment'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.7/lib/sass/../sass/tree/visitors/perform.rb:26:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.7/lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.7/lib/sass/../sass/tree/visitors/perform.rb:235:in `visit_rule'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.7/lib/sass/../sass/tree/visitors/base.rb:37:in `send'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.7/lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.7/lib/sass/../sass/tree/visitors/perform.rb:18:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.7/lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.7/lib/sass/../sass/tree/visitors/base.rb:53:in `map'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.7/lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.7/lib/sass/../sass/tree/visitors/perform.rb:27:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.7/lib/sass/../sass/tree/visitors/perform.rb:39:in `with_environment'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.7/lib/sass/../sass/tree/visitors/perform.rb:26:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.7/lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.7/lib/sass/../sass/tree/visitors/perform.rb:47:in `visit_root'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.7/lib/sass/../sass/tree/visitors/base.rb:37:in `send'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.7/lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.7/lib/sass/../sass/tree/visitors/perform.rb:18:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.7/lib/sass/../sass/tree/visitors/perform.rb:7:in `send'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.7/lib/sass/../sass/tree/visitors/perform.rb:7:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.7/lib/sass/../sass/tree/root_node.rb:20:in `render'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.7/lib/sass/../sass/engine.rb:293:in `_render'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.7/lib/sass/../sass/engine.rb:241:in `render'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.7/lib/sass/../sass/util.rb:297:in `silence_sass_warnings'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.7/lib/sass/../sass/engine.rb:241:in `render'
-/Library/Ruby/Gems/1.8/gems/compass-0.11.5/lib/compass/compiler.rb:136:in `compile'
-/Library/Ruby/Gems/1.8/gems/compass-0.11.5/lib/compass/compiler.rb:122:in `timed'
-/Library/Ruby/Gems/1.8/gems/compass-0.11.5/lib/compass/compiler.rb:135:in `compile'
-/Library/Ruby/Gems/1.8/gems/compass-0.11.5/lib/compass/logger.rb:45:in `red'
-/Library/Ruby/Gems/1.8/gems/compass-0.11.5/lib/compass/compiler.rb:134:in `compile'
-/Library/Ruby/Gems/1.8/gems/compass-0.11.5/lib/compass/compiler.rb:114:in `compile_if_required'
-/Library/Ruby/Gems/1.8/gems/compass-0.11.5/lib/compass/compiler.rb:99:in `run'
-/Library/Ruby/Gems/1.8/gems/compass-0.11.5/lib/compass/compiler.rb:97:in `each'
-/Library/Ruby/Gems/1.8/gems/compass-0.11.5/lib/compass/compiler.rb:97:in `run'
-/Library/Ruby/Gems/1.8/gems/compass-0.11.5/lib/compass/compiler.rb:122:in `timed'
-/Library/Ruby/Gems/1.8/gems/compass-0.11.5/lib/compass/compiler.rb:96:in `run'
-/Library/Ruby/Gems/1.8/gems/compass-0.11.5/lib/compass/commands/watch_project.rb:142:in `recompile'
-/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/rubygems/custom_require.rb:31:in `to_proc'
-/Library/Ruby/Gems/1.8/gems/fssm-0.2.7/lib/fssm/path.rb:73:in `call'
-/Library/Ruby/Gems/1.8/gems/fssm-0.2.7/lib/fssm/path.rb:73:in `run_callback'
-/Library/Ruby/Gems/1.8/gems/fssm-0.2.7/lib/fssm/path.rb:55:in `callback_action'
-/Library/Ruby/Gems/1.8/gems/fssm-0.2.7/lib/fssm/path.rb:35:in `update'
-/Library/Ruby/Gems/1.8/gems/fssm-0.2.7/lib/fssm/state/directory.rb:39:in `modified'
-/Library/Ruby/Gems/1.8/gems/fssm-0.2.7/lib/fssm/state/directory.rb:37:in `each'
-/Library/Ruby/Gems/1.8/gems/fssm-0.2.7/lib/fssm/state/directory.rb:37:in `modified'
-/Library/Ruby/Gems/1.8/gems/fssm-0.2.7/lib/fssm/state/directory.rb:18:in `refresh'
-/Library/Ruby/Gems/1.8/gems/fssm-0.2.7/lib/fssm/backends/polling.rb:17:in `run'
-/Library/Ruby/Gems/1.8/gems/fssm-0.2.7/lib/fssm/backends/polling.rb:17:in `each'
-/Library/Ruby/Gems/1.8/gems/fssm-0.2.7/lib/fssm/backends/polling.rb:17:in `run'
-/Library/Ruby/Gems/1.8/gems/fssm-0.2.7/lib/fssm/backends/polling.rb:15:in `loop'
-/Library/Ruby/Gems/1.8/gems/fssm-0.2.7/lib/fssm/backends/polling.rb:15:in `run'
-/Library/Ruby/Gems/1.8/gems/fssm-0.2.7/lib/fssm/monitor.rb:26:in `run'
-/Library/Ruby/Gems/1.8/gems/fssm-0.2.7/lib/fssm.rb:20:in `monitor'
-/Library/Ruby/Gems/1.8/gems/compass-0.11.5/lib/compass/commands/watch_project.rb:86:in `perform'
-/Library/Ruby/Gems/1.8/gems/compass-0.11.5/lib/compass/commands/base.rb:18:in `execute'
-/Library/Ruby/Gems/1.8/gems/compass-0.11.5/lib/compass/commands/project_base.rb:19:in `execute'
-/Library/Ruby/Gems/1.8/gems/compass-0.11.5/lib/compass/exec/sub_command_ui.rb:43:in `perform!'
-/Library/Ruby/Gems/1.8/gems/compass-0.11.5/lib/compass/exec/sub_command_ui.rb:15:in `run!'
-/Library/Ruby/Gems/1.8/gems/compass-0.11.5/bin/compass:25
-/Library/Ruby/Gems/1.8/gems/compass-0.11.5/bin/compass:39:in `call'
-/Library/Ruby/Gems/1.8/gems/compass-0.11.5/bin/compass:39
-/Users/aschwartz/.gems/bin/compass:19:in `load'
-/Users/aschwartz/.gems/bin/compass:19
-*/
-body:before {
-  white-space: pre;
-  font-family: monospace;
-  content: "Syntax error: Undefined variable: \"$padding\".\A         on line 12 of /Users/aschwartz/dev/hubspot/git.hubteam/odometer/sass/odometer-theme-car.sass"; }
+/* line 11, ../sass/odometer-theme-car.sass */
+.odometer.odometer-theme-car {
+  -moz-border-radius: 0.34em;
+  -webkit-border-radius: 0.34em;
+  -o-border-radius: 0.34em;
+  -ms-border-radius: 0.34em;
+  -khtml-border-radius: 0.34em;
+  border-radius: 0.34em;
+  font-family: "Arimo", monospace;
+  padding: 0.15em;
+  background: black;
+  color: #eee0d3;
+}
+/* line 18, ../sass/odometer-theme-car.sass */
+.odometer.odometer-theme-car .odometer-digit {
+  -moz-box-shadow: inset 0 0 0.3em rgba(0, 0, 0, 0.8);
+  -webkit-box-shadow: inset 0 0 0.3em rgba(0, 0, 0, 0.8);
+  -o-box-shadow: inset 0 0 0.3em rgba(0, 0, 0, 0.8);
+  box-shadow: inset 0 0 0.3em rgba(0, 0, 0, 0.8);
+  background: -webkit-linear-gradient(top, #333333 0%, #333333 40%, #101010 60%, #333333 80%, #333333 100%);
+  padding: 0 0.15em;
+}
+/* line 23, ../sass/odometer-theme-car.sass */
+.odometer.odometer-theme-car .odometer-digit:first-child {
+  -moz-border-radius: 0.2em 0 0 0.2em;
+  -webkit-border-radius: 0.2em 0 0 0.2em;
+  -o-border-radius: 0.2em 0 0 0.2em;
+  -ms-border-radius: 0.2em 0 0 0.2em;
+  -khtml-border-radius: 0.2em 0 0 0.2em;
+  border-radius: 0.2em 0 0 0.2em;
+}
+/* line 26, ../sass/odometer-theme-car.sass */
+.odometer.odometer-theme-car .odometer-digit:last-child {
+  -moz-border-radius: 0 0.2em 0.2em 0;
+  -webkit-border-radius: 0 0.2em 0.2em 0;
+  -o-border-radius: 0 0.2em 0.2em 0;
+  -ms-border-radius: 0 0.2em 0.2em 0;
+  -khtml-border-radius: 0 0.2em 0.2em 0;
+  border-radius: 0 0.2em 0.2em 0;
+  background: -webkit-linear-gradient(top, #eee0d3 0%, #eee0d3 40%, #bbaa9a 60%, #eee0d3 80%, #eee0d3 100%);
+  background-color: #eee0d3;
+  color: black;
+}
+/* line 32, ../sass/odometer-theme-car.sass */
+.odometer.odometer-theme-car .odometer-digit .odometer-digit-inner {
+  left: 0.15em;
+}
