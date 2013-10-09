@@ -87,6 +87,7 @@
       }
       this.animate(newValue);
       setTimeout(function() {
+        _this.odometer.offsetHeight;
         return _this.odometer.className += ' odometer-animating';
       }, 0);
       return this.value = newValue;

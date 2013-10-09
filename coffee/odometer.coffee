@@ -72,6 +72,9 @@ class Odometer
     @animate newValue
 
     setTimeout =>
+      # Force a repaint
+      @odometer.offsetHeight
+
       @odometer.className += ' odometer-animating'
     , 0
 
