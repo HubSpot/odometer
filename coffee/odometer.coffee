@@ -1,7 +1,9 @@
-ODOMETER_HTML = '<div class="odometer"></div>'
+ODOMETER_HTML = '<div class="odometer odometer-theme-default"></div>'
 DIGIT_HTML = '<span class="odometer-digit"><span class="odometer-digit-spacer">8</span><span class="odometer-digit-inner"></span></span>'
 RIBBON_HTML = '<span class="odometer-ribbon"><span class="odometer-ribbon-inner"></span></span>'
 VALUE_HTML = '<span class="odometer-value">{value}</span>'
+FORMAT_MARK_HTML = '<span class="odometer-formatting-mark">{char}</span>'
+DIGIT_FORMAT = 'ddd,'
 
 # What is our target framerate?
 FRAMERATE = 60
@@ -39,7 +41,7 @@ class Odometer
   constructor: (@options) ->
     @value = @options.value
     @el = @options.el
-
+    
     # The event will be triggered once for each ribbon, we only
     # want one render though
     renderEnqueued = false
@@ -57,25 +59,18 @@ class Odometer
         true
 
   render: ->
+    @format = DIGIT_FORMAT
+
     @el.innerHTML = renderTemplate ODOMETER_HTML
     @odometer = @el.querySelector '.odometer'
 
     @ribbons = {}
 
     @digits = []
-    for digit in @value.toString().split('')
+    for digit in @value.toString().split('').reverse()
       ctx = {value: digit}
 
-      digit = @renderDigit()
-      digit.querySelector('.odometer-ribbon-inner').innerHTML = renderTemplate VALUE_HTML, ctx
-
-      @digits.unshift digit
-      @odometer.appendChild digit
-
-  renderDigit: ->
-      digit = createFromHTML renderTemplate DIGIT_HTML
-      digit.querySelector('.odometer-digit-inner').innerHTML = renderTemplate RIBBON_HTML
-      digit
+      @addDigit digit
 
   update: (newValue) ->
     return unless diff = newValue - @value
@@ -95,6 +90,40 @@ class Odometer
     , 0
 
     @value = newValue
+
+  renderDigit: ->
+    digit = createFromHTML renderTemplate DIGIT_HTML
+    digit.querySelector('.odometer-digit-inner').innerHTML = renderTemplate RIBBON_HTML
+    digit
+
+  insertDigit: (digit) ->
+    if not @odometer.children.length
+      @odometer.appendChild digit
+    else
+      @odometer.insertBefore digit, @odometer.children[0]
+
+  addDigit: (value) ->
+    while true
+      if not @format.length
+        @format = DIGIT_FORMAT
+
+      char = @format.substring(0, 1)
+      
+      break if char is 'd'
+
+      char = @format.substring(0, 1)
+      @format = @format.substring(1)
+
+      spacer = createFromHTML renderTemplate(FORMAT_MARK_HTML, {char})
+      @insertDigit spacer
+
+    @format = @format.substring(1)
+
+    digit = @renderDigit()
+    digit.querySelector('.odometer-ribbon-inner').innerHTML = renderTemplate VALUE_HTML, {value}
+    @digits.push digit
+
+    @insertDigit digit
 
   animate: (newValue) ->
     diff = newValue - @value
@@ -135,8 +164,7 @@ class Odometer
 
     for frames, i in digits.reverse()
       if not @digits[i]
-        @digits[i] = @renderDigit()
-        @odometer.insertBefore @digits[i], @odometer.children[0]
+        @addDigit ' '
 
       @ribbons[i] ?= @digits[i].querySelector('.odometer-ribbon-inner')
       @ribbons[i].innerHTML = ''
@@ -155,6 +183,6 @@ class Odometer
           numEl.className += ' odometer-first-value'
 
 el = document.querySelector('div')
-odo = new Odometer({value: 343, el})
+odo = new Odometer({value: 3345, el})
 odo.render()
-odo.update(255)
+odo.update(533)

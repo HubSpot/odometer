@@ -1,13 +1,17 @@
 (function() {
-  var DIGIT_HTML, DIGIT_SPEEDBOOST, DURATION, FRAMERATE, FRAMES_PER_VALUE, MAX_VALUES, MS_PER_FRAME, ODOMETER_HTML, Odometer, RIBBON_HTML, TRANSITION_END_EVENTS, VALUE_HTML, createFromHTML, el, odo, renderTemplate;
+  var DIGIT_FORMAT, DIGIT_HTML, DIGIT_SPEEDBOOST, DURATION, FORMAT_MARK_HTML, FRAMERATE, FRAMES_PER_VALUE, MAX_VALUES, MS_PER_FRAME, ODOMETER_HTML, Odometer, RIBBON_HTML, TRANSITION_END_EVENTS, VALUE_HTML, createFromHTML, el, odo, renderTemplate;
 
-  ODOMETER_HTML = '<div class="odometer"></div>';
+  ODOMETER_HTML = '<div class="odometer odometer-theme-default"></div>';
 
   DIGIT_HTML = '<span class="odometer-digit"><span class="odometer-digit-spacer">8</span><span class="odometer-digit-inner"></span></span>';
 
   RIBBON_HTML = '<span class="odometer-ribbon"><span class="odometer-ribbon-inner"></span></span>';
 
   VALUE_HTML = '<span class="odometer-value">{value}</span>';
+
+  FORMAT_MARK_HTML = '<span class="odometer-formatting-mark">{char}</span>';
+
+  DIGIT_FORMAT = 'ddd,';
 
   FRAMERATE = 60;
 
@@ -67,30 +71,21 @@
 
     Odometer.prototype.render = function() {
       var ctx, digit, _i, _len, _ref, _results;
+      this.format = DIGIT_FORMAT;
       this.el.innerHTML = renderTemplate(ODOMETER_HTML);
       this.odometer = this.el.querySelector('.odometer');
       this.ribbons = {};
       this.digits = [];
-      _ref = this.value.toString().split('');
+      _ref = this.value.toString().split('').reverse();
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         digit = _ref[_i];
         ctx = {
           value: digit
         };
-        digit = this.renderDigit();
-        digit.querySelector('.odometer-ribbon-inner').innerHTML = renderTemplate(VALUE_HTML, ctx);
-        this.digits.unshift(digit);
-        _results.push(this.odometer.appendChild(digit));
+        _results.push(this.addDigit(digit));
       }
       return _results;
-    };
-
-    Odometer.prototype.renderDigit = function() {
-      var digit;
-      digit = createFromHTML(renderTemplate(DIGIT_HTML));
-      digit.querySelector('.odometer-digit-inner').innerHTML = renderTemplate(RIBBON_HTML);
-      return digit;
     };
 
     Odometer.prototype.update = function(newValue) {
@@ -110,6 +105,47 @@
         return _this.odometer.className += ' odometer-animating';
       }, 0);
       return this.value = newValue;
+    };
+
+    Odometer.prototype.renderDigit = function() {
+      var digit;
+      digit = createFromHTML(renderTemplate(DIGIT_HTML));
+      digit.querySelector('.odometer-digit-inner').innerHTML = renderTemplate(RIBBON_HTML);
+      return digit;
+    };
+
+    Odometer.prototype.insertDigit = function(digit) {
+      if (!this.odometer.children.length) {
+        return this.odometer.appendChild(digit);
+      } else {
+        return this.odometer.insertBefore(digit, this.odometer.children[0]);
+      }
+    };
+
+    Odometer.prototype.addDigit = function(value) {
+      var char, digit, spacer;
+      while (true) {
+        if (!this.format.length) {
+          this.format = DIGIT_FORMAT;
+        }
+        char = this.format.substring(0, 1);
+        if (char === 'd') {
+          break;
+        }
+        char = this.format.substring(0, 1);
+        this.format = this.format.substring(1);
+        spacer = createFromHTML(renderTemplate(FORMAT_MARK_HTML, {
+          char: char
+        }));
+        this.insertDigit(spacer);
+      }
+      this.format = this.format.substring(1);
+      digit = this.renderDigit();
+      digit.querySelector('.odometer-ribbon-inner').innerHTML = renderTemplate(VALUE_HTML, {
+        value: value
+      });
+      this.digits.push(digit);
+      return this.insertDigit(digit);
     };
 
     Odometer.prototype.animate = function(newValue) {
@@ -150,8 +186,7 @@
       for (i = _l = 0, _len1 = _ref.length; _l < _len1; i = ++_l) {
         frames = _ref[i];
         if (!this.digits[i]) {
-          this.digits[i] = this.renderDigit();
-          this.odometer.insertBefore(this.digits[i], this.odometer.children[0]);
+          this.addDigit(' ');
         }
         if ((_base = this.ribbons)[i] == null) {
           _base[i] = this.digits[i].querySelector('.odometer-ribbon-inner');
@@ -191,12 +226,12 @@
   el = document.querySelector('div');
 
   odo = new Odometer({
-    value: 343,
+    value: 3345,
     el: el
   });
 
   odo.render();
 
-  odo.update(255);
+  odo.update(533);
 
 }).call(this);
