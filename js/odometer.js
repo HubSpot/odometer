@@ -100,6 +100,11 @@
       if (!TRANSITION_SUPPORT) {
         this.odometer.className += ' odometer-no-transitions';
       }
+      if (this.options.theme) {
+        this.odometer.className += " odometer-theme-" + this.options.theme;
+      } else {
+        this.odometer.className += ' odometer-auto-theme';
+      }
       this.ribbons = {};
       this.digits = [];
       _ref = value.toString().split('').reverse();

@@ -5,7 +5,6 @@ VALUE_HTML = '<span class="odometer-value">{value}</span>'
 FORMAT_MARK_HTML = '<span class="odometer-formatting-mark">{char}</span>'
 DIGIT_FORMAT = 'ddd,'
 
-
 # What is our target framerate?
 FRAMERATE = 60
 
@@ -78,8 +77,15 @@ class Odometer
     @el.innerHTML = renderTemplate ODOMETER_HTML
     @odometer = @el.querySelector '.odometer'
 
-    if not TRANSITION_SUPPORT
+    unless TRANSITION_SUPPORT
       @odometer.className += ' odometer-no-transitions'
+
+    if @options.theme
+      @odometer.className += " odometer-theme-#{ @options.theme }"
+    else
+      # This class matches all themes, so it should do what you'd expect if only one
+      # theme css file is brought into the page.
+      @odometer.className += ' odometer-auto-theme'
 
     @ribbons = {}
 
