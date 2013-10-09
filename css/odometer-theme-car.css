@@ -1,63 +1,68 @@
-/* line 3, ../sass/odometer-theme-car.sass */
+@import url("http://fonts.googleapis.com/css?family=Arimo");
+/* line 8, ../sass/odometer-theme-car.sass */
 .odometer {
   display: -moz-inline-box;
   -moz-box-orient: vertical;
   display: inline-block;
   vertical-align: middle;
   *vertical-align: auto;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -o-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -khtml-border-radius: 5px;
-  border-radius: 5px;
+  -moz-border-radius: 0.34em;
+  -webkit-border-radius: 0.34em;
+  -o-border-radius: 0.34em;
+  -ms-border-radius: 0.34em;
+  -khtml-border-radius: 0.34em;
+  border-radius: 0.34em;
+  font-family: "Arimo", monospace;
   position: relative;
-  padding: 10px;
-  background: #444444;
-  color: white;
+  padding: 0.15em;
+  background: black;
+  color: #eee0d3;
 }
 /* line 7, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/css3/_inline-block.scss */
 .odometer {
-  *display: inline;
-}
-/* line 11, ../sass/odometer-theme-car.sass */
-.odometer .odometer-digit {
-  display: -moz-inline-box;
-  -moz-box-orient: vertical;
-  display: inline-block;
-  vertical-align: middle;
-  *vertical-align: auto;
-  border: 1px solid;
-  padding: 0 10px;
-  position: relative;
-}
-/* line 7, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/css3/_inline-block.scss */
-.odometer .odometer-digit {
   *display: inline;
 }
 /* line 17, ../sass/odometer-theme-car.sass */
+.odometer .odometer-digit {
+  display: -moz-inline-box;
+  -moz-box-orient: vertical;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  padding: 0 0.15em;
+  position: relative;
+  background: -webkit-linear-gradient(top, #333333 0%, #333333 40%, #101010 60%, #333333 80%, #333333 100%);
+  -moz-box-shadow: inset 0 0 0.3em rgba(0, 0, 0, 0.8);
+  -webkit-box-shadow: inset 0 0 0.3em rgba(0, 0, 0, 0.8);
+  -o-box-shadow: inset 0 0 0.3em rgba(0, 0, 0, 0.8);
+  box-shadow: inset 0 0 0.3em rgba(0, 0, 0, 0.8);
+}
+/* line 7, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/css3/_inline-block.scss */
+.odometer .odometer-digit {
+  *display: inline;
+}
+/* line 24, ../sass/odometer-theme-car.sass */
 .odometer .odometer-digit:first-child {
-  -moz-border-radius: 5px 0 0 5px;
-  -webkit-border-radius: 5px 0 0 5px;
-  -o-border-radius: 5px 0 0 5px;
-  -ms-border-radius: 5px 0 0 5px;
-  -khtml-border-radius: 5px 0 0 5px;
-  border-radius: 5px 0 0 5px;
+  -moz-border-radius: 0.2em 0 0 0.2em;
+  -webkit-border-radius: 0.2em 0 0 0.2em;
+  -o-border-radius: 0.2em 0 0 0.2em;
+  -ms-border-radius: 0.2em 0 0 0.2em;
+  -khtml-border-radius: 0.2em 0 0 0.2em;
+  border-radius: 0.2em 0 0 0.2em;
 }
-/* line 20, ../sass/odometer-theme-car.sass */
+/* line 27, ../sass/odometer-theme-car.sass */
 .odometer .odometer-digit:last-child {
-  -moz-border-radius: 0 5px 5px 0;
-  -webkit-border-radius: 0 5px 5px 0;
-  -o-border-radius: 0 5px 5px 0;
-  -ms-border-radius: 0 5px 5px 0;
-  -khtml-border-radius: 0 5px 5px 0;
-  border-radius: 0 5px 5px 0;
+  -moz-border-radius: 0 0.2em 0.2em 0;
+  -webkit-border-radius: 0 0.2em 0.2em 0;
+  -o-border-radius: 0 0.2em 0.2em 0;
+  -ms-border-radius: 0 0.2em 0.2em 0;
+  -khtml-border-radius: 0 0.2em 0.2em 0;
+  border-radius: 0 0.2em 0.2em 0;
+  background-color: #eee0d3;
+  background: -webkit-linear-gradient(top, #eee0d3 0%, #eee0d3 40%, #bbaa9a 60%, #eee0d3 80%, #eee0d3 100%);
+  color: black;
 }
-/* line 23, ../sass/odometer-theme-car.sass */
-.odometer .odometer-digit + .odometer-digit {
-  border-left: 0;
-}
-/* line 26, ../sass/odometer-theme-car.sass */
+/* line 33, ../sass/odometer-theme-car.sass */
 .odometer .odometer-digit .odometer-digit-spacer {
   display: -moz-inline-box;
   -moz-box-orient: vertical;
@@ -70,35 +75,35 @@
 .odometer .odometer-digit .odometer-digit-spacer {
   *display: inline;
 }
-/* line 30, ../sass/odometer-theme-car.sass */
+/* line 37, ../sass/odometer-theme-car.sass */
 .odometer .odometer-digit .odometer-digit-inner {
   display: block;
   position: absolute;
   top: 0;
-  left: 10px;
+  left: 0.15em;
   right: 0;
   bottom: 0;
   overflow: hidden;
 }
-/* line 39, ../sass/odometer-theme-car.sass */
+/* line 46, ../sass/odometer-theme-car.sass */
 .odometer .odometer-digit .odometer-ribbon {
   display: block;
 }
-/* line 42, ../sass/odometer-theme-car.sass */
+/* line 49, ../sass/odometer-theme-car.sass */
 .odometer .odometer-digit .odometer-ribbon-inner {
   display: block;
   -webkit-transition: -webkit-transform 2s;
 }
-/* line 46, ../sass/odometer-theme-car.sass */
+/* line 53, ../sass/odometer-theme-car.sass */
 .odometer .odometer-digit .odometer-value {
   display: block;
 }
-/* line 49, ../sass/odometer-theme-car.sass */
+/* line 56, ../sass/odometer-theme-car.sass */
 .odometer .odometer-digit .odometer-value.odometer-terminal-value {
   position: absolute;
 }
 
-/* line 52, ../sass/odometer-theme-car.sass */
+/* line 59, ../sass/odometer-theme-car.sass */
 .odometer-animating-up .odometer-ribbon-inner {
   -webkit-transform: translateY(-100%);
 }

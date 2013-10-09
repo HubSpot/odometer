@@ -5,7 +5,8 @@ VALUE_HTML = '<span class="odometer-value">{value}</span>'
 
 FRAMERATE = 60
 DURATION = 2000
-FRAMES_PER_VALUE = 0.5
+FRAMES_PER_VALUE = 2
+OVERSAMPLE = 2
 
 MS_PER_FRAME = 1000 / FRAMERATE
 MAX_VALUES = (DURATION / MS_PER_FRAME) / FRAMES_PER_VALUE
@@ -51,11 +52,7 @@ class Odometer
   update: (newValue) ->
     return unless diff = newValue - @value
 
-    frames = []
-    if Math.abs(diff) > MAX_VALUES
-      incr = diff / MAX_VALUES
-    else
-      incr = if diff > 0 then 1 else -1
+    @animate newValue
 
     setTimeout =>
       if diff > 0
@@ -64,48 +61,97 @@ class Odometer
         @odometer.className += ' odometer-animating odometer-animating-down'
     , 0
 
+    @value = newValue
+
+  animate: (newValue) ->
+    diff = newValue - @value
+
+    frames = []
+    if Math.abs(diff) > MAX_VALUES
+      # We use oversample x to give us a chance to subsample digits where
+      # we need their column to move faster than others
+      incr = diff / (OVERSAMPLE * MAX_VALUES)
+    else
+      incr = if diff > 0 then 1 else -1
+    
     cur = @value
-    while (diff > 0 and cur < newValue) or (diff < 0 and cur > newValue)
+    while (diff > 0 and cur <= newValue) or (diff < 0 and cur >= newValue)
       cur += incr
       frames.push Math.round cur
 
+    frames[frames.length - 1] = newValue
+
     digitCount = Math.ceil(Math.log(newValue)/Math.log(10))
+    needToSkipDigits = []
+    needToScaleDigits = []
+    for i in [0...digitCount]
+      changePerFrame = diff / MAX_VALUES
 
-    @animate frames, digitCount
+      if changePerFrame / Math.pow(10, i) < 1
+        needToSkipDigits.push i
+      else if i isnt 0
+        needToScaleDigits.push i
 
-    @value = newValue
+    counter = {}
 
-  animate: (frames, digitCount) ->
+    digitScale = {}
+    for digit in needToScaleDigits
+      fraction = 1 - digit / needToScaleDigits.length
+
+      digitScale[digit] = fraction * (1 - 1/OVERSAMPLE) + 1/OVERSAMPLE
+
+    console.log digitScale
+
+    boringDigits = []
+    for i in [0...digitCount]
+      boringDigits.push true
+
     last = @value.toString().split('').reverse()
     lastFrame = frames[frames.length - 1]
 
     for curFrame in frames
       digits = curFrame.toString().split('').reverse()
 
-      while digits.length < digitCount
-        digits.push ' '
-
       for digit, i in digits
-        if digit isnt last[i] or curFrame is lastFrame
-          if curFrame is lastFrame
-            value = digit
-          else
-            value = last[i]
+        if last[i] isnt digit
+          boringDigits[i] = false
 
-          numEl = createFromHTML renderTemplate VALUE_HTML, {value}
+        if i in needToSkipDigits and digit is last[i] and (curFrame isnt lastFrame or boringDigits[i])
+          # Don't render multiple copies of the same digit in columns where we have
+          # less digit changes than we have frames
+          continue
 
-          if curFrame is lastFrame
-            numEl.className += ' odometer-terminal-value'
+        if curFrame isnt lastFrame and digitScale[i]? and digitScale[i] < Math.random()
+          continue
 
-          if not @digits[i]
-            @digits[i] = @renderDigit()
-            @odometer.insertBefore @digits[i], @odometer.children[0]
+        counter[i] ?= 0
+        counter[i]++
 
-          @digits[i].querySelector('.odometer-ribbon-inner').appendChild numEl
+        if curFrame is lastFrame
+          value = digit
+        else
+          value = last[i] ? ''
 
-          last[i] = digit
+        numEl = createFromHTML renderTemplate VALUE_HTML, {value}
+
+        if curFrame is lastFrame
+          numEl.className += ' odometer-terminal-value'
+
+        if not @digits[i]
+          @digits[i] = @renderDigit()
+          @odometer.insertBefore @digits[i], @odometer.children[0]
+
+        @digits[i].querySelector('.odometer-ribbon-inner').appendChild numEl
+
+        last[i] = digit
+
+    for i in [0...digitCount]
+      if boringDigits[i]
+        @digits[i].querySelector('.odometer-value').className += ' odometer-terminal-value'
+
+    console.log counter
 
 el = document.querySelector('div')
 odo = new Odometer({value: 343, el})
 odo.render()
-odo.update(52316)
+odo.update(3592999)
