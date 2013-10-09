@@ -71,7 +71,7 @@
         }
 
         .number-section.number-section-theme-digital .odometer {
-            border: .1em solid #8bf5a5;
+            border: .1em solid rgba(139, 245, 165, 0.4);
         }
 
         .number-section.number-section-theme-digital {
@@ -739,6 +739,9 @@
             }]
         }, {
             name: 'car',
+            odometerOptions: {
+                format: 'd'
+            },
             numbers: [{
                 number: 13476,
                 description: 'miles driven',
@@ -752,6 +755,9 @@
             }]
         },{
             name: 'digital',
+            odometerOptions: {
+                format: 'd'
+            },
             numbers: [{
                 number: 87360,
                 description: 'minutes of tv watched',
@@ -766,14 +772,14 @@
         }, {
             name: 'train-station',
             numbers: [{
-                number: 10000,
-                description: '',
-                detail: '',
+                number: 123,
+                description: 'trains cars',
+                detail: 'on the longest train in america',
                 source: ''
             }, {
-                number: 99999,
-                description: '',
-                detail: '',
+                number: 456,
+                description: 'late trains',
+                detail: 'in america each day',
                 source: ''
             }]
         }];
@@ -782,7 +788,7 @@
         $numberSectionTemplate = $('.number-section.template').clone().removeClass('template');
 
         _.each(THEMES, function(theme){
-            var $section, next, $odometerContainer, currentNumber, odometer;
+            var $section, next, $odometerContainer, currentNumber, odometer, odometerOptions;
 
             $section = $numberSectionTemplate.clone().addClass('number-section-theme-' + theme.name);
             $sections.append($section);
@@ -791,12 +797,13 @@
 
             currentNumber = 0;
 
-            odometer = new Odometer({
+            odometerOptions = $.extend(true, {}, theme.odometerOptions || {}, {
                 theme: theme.name,
-                value: 99999,
+                value: theme.numbers[1].number,
                 el: $odometerContainer[0]
             });
 
+            odometer = new Odometer(odometerOptions);
             odometer.render();
 
             next = function() {
