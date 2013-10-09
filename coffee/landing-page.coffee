@@ -69,6 +69,8 @@ setupNumberSections = ->
         $afterSections.before $section
 
         $odometerContainer = $section.find '.odometer-container'
+        $odometerContainer.append('<div/>')
+        $odometerContainer = $odometerContainer.find('div')
 
         currentNumber = 0
 
