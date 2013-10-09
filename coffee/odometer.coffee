@@ -1,4 +1,4 @@
-ODOMETER_HTML = '<div class="odometer odometer-theme-default"></div>'
+ODOMETER_HTML = '<div class="odometer"></div>'
 DIGIT_HTML = '<span class="odometer-digit"><span class="odometer-digit-spacer">8</span><span class="odometer-digit-inner"></span></span>'
 RIBBON_HTML = '<span class="odometer-ribbon"><span class="odometer-ribbon-inner"></span></span>'
 VALUE_HTML = '<span class="odometer-value">{value}</span>'
@@ -29,7 +29,7 @@ COUNT_MS_PER_FRAME = 1000 / COUNT_FRAMERATE
 MAX_VALUES = ((DURATION / MS_PER_FRAME) / FRAMES_PER_VALUE) | 0
 
 TRANSITION_END_EVENTS = 'transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd'
-TRANSITION_SUPPORT = document.body.style.transition?
+TRANSITION_SUPPORT = document.createElement('div').style.transition?
 
 renderTemplate = (template, ctx) ->
   template.replace /\{([\s\S]*?)\}/gm, (match, val) ->

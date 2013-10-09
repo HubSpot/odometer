@@ -1,7 +1,7 @@
 (function() {
   var COUNT_FRAMERATE, COUNT_MS_PER_FRAME, DIGIT_FORMAT, DIGIT_HTML, DIGIT_SPEEDBOOST, DURATION, FORMAT_MARK_HTML, FRAMERATE, FRAMES_PER_VALUE, MAX_VALUES, MS_PER_FRAME, ODOMETER_HTML, Odometer, RIBBON_HTML, TRANSITION_END_EVENTS, TRANSITION_SUPPORT, VALUE_HTML, createFromHTML, now, renderTemplate;
 
-  ODOMETER_HTML = '<div class="odometer odometer-theme-default"></div>';
+  ODOMETER_HTML = '<div class="odometer"></div>';
 
   DIGIT_HTML = '<span class="odometer-digit"><span class="odometer-digit-spacer">8</span><span class="odometer-digit-inner"></span></span>';
 
@@ -31,7 +31,7 @@
 
   TRANSITION_END_EVENTS = 'transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd';
 
-  TRANSITION_SUPPORT = document.body.style.transition != null;
+  TRANSITION_SUPPORT = document.createElement('div').style.transition != null;
 
   renderTemplate = function(template, ctx) {
     return template.replace(/\{([\s\S]*?)\}/gm, function(match, val) {
