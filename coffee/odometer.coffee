@@ -5,11 +5,16 @@ VALUE_HTML = '<span class="odometer-value">{value}</span>'
 FORMAT_MARK_HTML = '<span class="odometer-formatting-mark">{char}</span>'
 DIGIT_FORMAT = 'ddd,'
 
+
 # What is our target framerate?
 FRAMERATE = 60
 
 # How long will the animation last?
 DURATION = 2000
+
+# What is the fastest we should update values when we are
+# counting up (not using the wheel animation).
+COUNT_FRAMERATE = 20
 
 # What is the minimum number of frames for each value on the wheel?
 # We won't render more values than could be reasonably seen
@@ -21,9 +26,11 @@ FRAMES_PER_VALUE = 2
 DIGIT_SPEEDBOOST = .5
 
 MS_PER_FRAME = 1000 / FRAMERATE
+COUNT_MS_PER_FRAME = 1000 / COUNT_FRAMERATE
 MAX_VALUES = ((DURATION / MS_PER_FRAME) / FRAMES_PER_VALUE) | 0
 
 TRANSITION_END_EVENTS = 'transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd'
+TRANSITION_SUPPORT = document.body.style.transition?
 
 renderTemplate = (template, ctx) ->
   template.replace /\{([\s\S]*?)\}/gm, (match, val) ->
@@ -34,6 +41,9 @@ createFromHTML = (html) ->
   el.innerHTML = html
   el.children[0]
 
+now = ->
+  performance?.now() ? +new Date
+
 class Odometer
   template: ODOMETER_HTML
   digitTemplate: [DIGIT_HTML, RIBBON_HTML, VALUE_HTML]
@@ -41,6 +51,10 @@ class Odometer
   constructor: (@options) ->
     @value = @options.value
     @el = @options.el
+
+  bindTransitionEnd: ->
+    return if @transitionEndBound
+    @transitionEndBound = true
     
     # The event will be triggered once for each ribbon, we only
     # want one render though
@@ -58,16 +72,19 @@ class Odometer
 
         true
 
-  render: ->
+  render: (value=@value) ->
     @format = DIGIT_FORMAT
 
     @el.innerHTML = renderTemplate ODOMETER_HTML
     @odometer = @el.querySelector '.odometer'
 
+    if not TRANSITION_SUPPORT
+      @odometer.className += ' odometer-no-transitions'
+
     @ribbons = {}
 
     @digits = []
-    for digit in @value.toString().split('').reverse()
+    for digit in value.toString().split('').reverse()
       ctx = {value: digit}
 
       @addDigit digit
@@ -108,11 +125,9 @@ class Odometer
         @format = DIGIT_FORMAT
 
       char = @format.substring(0, 1)
-      
-      break if char is 'd'
-
-      char = @format.substring(0, 1)
       @format = @format.substring(1)
+
+      break if char is 'd'
 
       spacer = createFromHTML renderTemplate(FORMAT_MARK_HTML, {char})
       @insertDigit spacer
@@ -126,6 +141,41 @@ class Odometer
     @insertDigit digit
 
   animate: (newValue) ->
+    if TRANSITION_SUPPORT
+      @animateSlide newValue
+    else
+      @animateCount newValue
+
+  animateCount: (newValue) ->
+    diff = newValue - @value
+    start = last = now()
+
+    cur = @value
+    do tick = =>
+      if (now() - start) > DURATION
+        @value = newValue
+        @render()
+        return
+
+      delta = now() - last
+
+      if delta > COUNT_MS_PER_FRAME
+        last = now()
+
+        fraction = delta / DURATION
+        dist = diff * fraction
+
+        cur += dist
+        @render Math.round cur
+
+      if window.requestAnimationFrame
+        requestAnimationFrame tick
+      else
+        setTimeout tick, COUNT_MS_PER_FRAME
+
+  animateSlide: (newValue) ->
+    @bindTransitionEnd()
+
     diff = newValue - @value
 
     digitCount = Math.ceil(Math.log(Math.max(newValue, @value)) / Math.log(10))
@@ -185,4 +235,4 @@ class Odometer
 el = document.querySelector('div')
 odo = new Odometer({value: 3345, el})
 odo.render()
-odo.update(533)
+odo.update(123456)
