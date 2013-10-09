@@ -51,7 +51,8 @@ class Odometer
     @value = @options.value
     @el = @options.el
 
-    @options.format = @options.format ? DIGIT_FORMAT
+    @options.format ?= DIGIT_FORMAT
+    @options.format or= 'd'
 
   bindTransitionEnd: ->
     return if @transitionEndBound
