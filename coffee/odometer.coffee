@@ -51,6 +51,8 @@ class Odometer
     @value = @options.value
     @el = @options.el
 
+    @options.format = @options.format ? DIGIT_FORMAT
+
   bindTransitionEnd: ->
     return if @transitionEndBound
     @transitionEndBound = true
@@ -72,7 +74,7 @@ class Odometer
         true
 
   render: (value=@value) ->
-    @format = DIGIT_FORMAT
+    @format = @options.format
 
     @el.innerHTML = renderTemplate ODOMETER_HTML
     @odometer = @el.querySelector '.odometer'
@@ -128,7 +130,7 @@ class Odometer
   addDigit: (value) ->
     while true
       if not @format.length
-        @format = DIGIT_FORMAT
+        @format = @options.format
 
       char = @format.substring(0, 1)
       @format = @format.substring(1)

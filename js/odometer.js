@@ -57,9 +57,11 @@
     Odometer.prototype.digitTemplate = [DIGIT_HTML, RIBBON_HTML, VALUE_HTML];
 
     function Odometer(options) {
+      var _ref;
       this.options = options;
       this.value = this.options.value;
       this.el = this.options.el;
+      this.options.format = (_ref = this.options.format) != null ? _ref : DIGIT_FORMAT;
     }
 
     Odometer.prototype.bindTransitionEnd = function() {
@@ -94,7 +96,7 @@
       if (value == null) {
         value = this.value;
       }
-      this.format = DIGIT_FORMAT;
+      this.format = this.options.format;
       this.el.innerHTML = renderTemplate(ODOMETER_HTML);
       this.odometer = this.el.querySelector('.odometer');
       if (!TRANSITION_SUPPORT) {
@@ -157,7 +159,7 @@
       var char, digit, spacer;
       while (true) {
         if (!this.format.length) {
-          this.format = DIGIT_FORMAT;
+          this.format = this.options.format;
         }
         char = this.format.substring(0, 1);
         this.format = this.format.substring(1);
