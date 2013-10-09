@@ -1,5 +1,6 @@
 (function() {
-  var DIGIT_HTML, DURATION, FRAMERATE, FRAMES_PER_VALUE, MAX_VALUES, MS_PER_FRAME, ODOMETER_HTML, Odometer, RIBBON_HTML, VALUE_HTML, createFromHTML, el, odo, renderTemplate;
+  var DIGIT_HTML, DURATION, FRAMERATE, FRAMES_PER_VALUE, MAX_VALUES, MS_PER_FRAME, ODOMETER_HTML, Odometer, RIBBON_HTML, VALUE_HTML, createFromHTML, el, odo, renderTemplate,
+    __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
   ODOMETER_HTML = '<div class="odometer"></div>';
 
@@ -72,17 +73,12 @@
     };
 
     Odometer.prototype.update = function(newValue) {
-      var cur, diff, digitCount, frames, incr,
+      var diff,
         _this = this;
       if (!(diff = newValue - this.value)) {
         return;
       }
-      frames = [];
-      if (Math.abs(diff) > MAX_VALUES) {
-        incr = diff / MAX_VALUES;
-      } else {
-        incr = diff > 0 ? 1 : -1;
-      }
+      this.animate(newValue);
       setTimeout(function() {
         if (diff > 0) {
           return _this.odometer.className += ' odometer-animating odometer-animating-up';
@@ -90,37 +86,46 @@
           return _this.odometer.className += ' odometer-animating odometer-animating-down';
         }
       }, 0);
+      return this.value = newValue;
+    };
+
+    Odometer.prototype.animate = function(newValue) {
+      var cur, curFrame, diff, digit, digitCount, digits, frames, i, incr, last, lastFrame, needToSkipDigits, numEl, value, _i, _j, _len, _results;
+      diff = newValue - this.value;
+      frames = [];
+      if (Math.abs(diff) > MAX_VALUES) {
+        incr = diff / MAX_VALUES;
+      } else {
+        incr = diff > 0 ? 1 : -1;
+      }
       cur = this.value;
       while ((diff > 0 && cur < newValue) || (diff < 0 && cur > newValue)) {
         cur += incr;
         frames.push(Math.round(cur));
       }
       digitCount = Math.ceil(Math.log(newValue) / Math.log(10));
-      this.animate(frames, digitCount);
-      return this.value = newValue;
-    };
-
-    Odometer.prototype.animate = function(frames, digitCount) {
-      var curFrame, digit, digits, i, last, lastFrame, numEl, value, _i, _len, _results;
+      needToSkipDigits = [];
+      for (i = _i = 0; 0 <= digitCount ? _i <= digitCount : _i >= digitCount; i = 0 <= digitCount ? ++_i : --_i) {
+        if (Math.pow(10, digitCount - i) < MAX_VALUES) {
+          needToSkipDigits.push(i);
+        }
+      }
       last = this.value.toString().split('').reverse();
       lastFrame = frames[frames.length - 1];
       _results = [];
-      for (_i = 0, _len = frames.length; _i < _len; _i++) {
-        curFrame = frames[_i];
+      for (_j = 0, _len = frames.length; _j < _len; _j++) {
+        curFrame = frames[_j];
         digits = curFrame.toString().split('').reverse();
-        while (digits.length < digitCount) {
-          digits.push(' ');
-        }
         _results.push((function() {
-          var _j, _len1, _results1;
+          var _k, _len1, _ref, _results1;
           _results1 = [];
-          for (i = _j = 0, _len1 = digits.length; _j < _len1; i = ++_j) {
+          for (i = _k = 0, _len1 = digits.length; _k < _len1; i = ++_k) {
             digit = digits[i];
-            if (digit !== last[i] || curFrame === lastFrame) {
+            if (__indexOf.call(needToSkipDigits, i) < 0 || digit !== last[i] || curFrame === lastFrame) {
               if (curFrame === lastFrame) {
                 value = digit;
               } else {
-                value = last[i];
+                value = (_ref = last[i]) != null ? _ref : '';
               }
               numEl = createFromHTML(renderTemplate(VALUE_HTML, {
                 value: value

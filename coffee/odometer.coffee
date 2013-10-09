@@ -51,11 +51,7 @@ class Odometer
   update: (newValue) ->
     return unless diff = newValue - @value
 
-    frames = []
-    if Math.abs(diff) > MAX_VALUES
-      incr = diff / MAX_VALUES
-    else
-      incr = if diff > 0 then 1 else -1
+    @animate newValue
 
     setTimeout =>
       if diff > 0
@@ -64,33 +60,40 @@ class Odometer
         @odometer.className += ' odometer-animating odometer-animating-down'
     , 0
 
+    @value = newValue
+
+  animate: (newValue) ->
+    diff = newValue - @value
+
+    frames = []
+    if Math.abs(diff) > MAX_VALUES
+      incr = diff / MAX_VALUES
+    else
+      incr = if diff > 0 then 1 else -1
+    
     cur = @value
     while (diff > 0 and cur < newValue) or (diff < 0 and cur > newValue)
       cur += incr
       frames.push Math.round cur
 
     digitCount = Math.ceil(Math.log(newValue)/Math.log(10))
+    needToSkipDigits = []
+    for i in [0..digitCount]
+      if Math.pow(10, digitCount-i) < MAX_VALUES
+        needToSkipDigits.push i
 
-    @animate frames, digitCount
-
-    @value = newValue
-
-  animate: (frames, digitCount) ->
     last = @value.toString().split('').reverse()
     lastFrame = frames[frames.length - 1]
 
     for curFrame in frames
       digits = curFrame.toString().split('').reverse()
 
-      while digits.length < digitCount
-        digits.push ' '
-
       for digit, i in digits
-        if digit isnt last[i] or curFrame is lastFrame
+        if i not in needToSkipDigits or digit isnt last[i] or curFrame is lastFrame
           if curFrame is lastFrame
             value = digit
           else
-            value = last[i]
+            value = last[i] ? ''
 
           numEl = createFromHTML renderTemplate VALUE_HTML, {value}
 
