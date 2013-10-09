@@ -82,20 +82,18 @@ class Odometer
         newClasses.push cls
 
     newClasses.push 'odometer'
-    @el.className = newClasses.join(' ')
-
-    if 'odometer' not in @el.className.split(' ')
-      @el.className += ' odometer'
 
     unless TRANSITION_SUPPORT
-      @el.className += ' odometer-no-transitions'
+      newClasses.push 'odometer-no-transitions'
 
     if @options.theme
-      @el.className += " odometer-theme-#{ @options.theme }"
+      newClasses.push "odometer-theme-#{ @options.theme }"
     else
       # This class matches all themes, so it should do what you'd expect if only one
       # theme css file is brought into the page.
-      @el.className += ' odometer-auto-theme'
+      newClasses.push "odometer-auto-theme"
+
+    @el.className = newClasses.join(' ')
 
     @ribbons = {}
 

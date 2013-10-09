@@ -1,6 +1,5 @@
 (function() {
-  var COUNT_FRAMERATE, COUNT_MS_PER_FRAME, DIGIT_FORMAT, DIGIT_HTML, DIGIT_SPEEDBOOST, DURATION, FORMAT_MARK_HTML, FRAMERATE, FRAMES_PER_VALUE, MAX_VALUES, MS_PER_FRAME, Odometer, RIBBON_HTML, TRANSITION_END_EVENTS, TRANSITION_SUPPORT, VALUE_HTML, createFromHTML, now, renderTemplate,
-    __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+  var COUNT_FRAMERATE, COUNT_MS_PER_FRAME, DIGIT_FORMAT, DIGIT_HTML, DIGIT_SPEEDBOOST, DURATION, FORMAT_MARK_HTML, FRAMERATE, FRAMES_PER_VALUE, MAX_VALUES, MS_PER_FRAME, Odometer, RIBBON_HTML, TRANSITION_END_EVENTS, TRANSITION_SUPPORT, VALUE_HTML, createFromHTML, now, renderTemplate;
 
   DIGIT_HTML = '<span class="odometer-digit"><span class="odometer-digit-spacer">8</span><span class="odometer-digit-inner"></span></span>';
 
@@ -107,18 +106,15 @@
         }
       }
       newClasses.push('odometer');
-      this.el.className = newClasses.join(' ');
-      if (__indexOf.call(this.el.className.split(' '), 'odometer') < 0) {
-        this.el.className += ' odometer';
-      }
       if (!TRANSITION_SUPPORT) {
-        this.el.className += ' odometer-no-transitions';
+        newClasses.push('odometer-no-transitions');
       }
       if (this.options.theme) {
-        this.el.className += " odometer-theme-" + this.options.theme;
+        newClasses.push("odometer-theme-" + this.options.theme);
       } else {
-        this.el.className += ' odometer-auto-theme';
+        newClasses.push("odometer-auto-theme");
       }
+      this.el.className = newClasses.join(' ');
       this.ribbons = {};
       this.digits = [];
       _ref = value.toString().split('').reverse();
