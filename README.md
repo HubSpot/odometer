@@ -14,7 +14,7 @@ Odometer
   update = function(){
     $.ajax("https://api.github.com/repos/HubSpot/odometer", {
       success: function(data){
-        $('.odometer').html(data.watchers_count);
+        $('.odometer')[0].innerHTML = data.watchers_count;
       },
       complete: function(){
         // For unauthed requests, the rate limit is 60/hour, so this is the fastest we can go:
