@@ -41,6 +41,26 @@ createFromHTML = (html) ->
 now = ->
   window.performance?.now() ? +new Date
 
+_jQueryWrapped = false
+do wrapJQuery = ->
+  return if _jQueryWrapped
+
+  if window.jQuery?
+    _jQueryWrapped = true
+    # We need to wrap jQuery's .html and .text because they don't always
+    # call .innerHTML/.innerText
+    for property in ['html', 'text']
+      do (property) ->
+        old = window.jQuery.fn[property]
+        window.jQuery.fn[property] = (val) ->
+          if not val? or not this[0].odometer?
+            return old.apply this, arguments
+
+          this[0].odometer.update val
+
+# In case jQuery is brought in after this file
+setTimeout wrapJQuery, 0
+
 class Odometer
   constructor: (@options) ->
     for k, v in Odometer.options
