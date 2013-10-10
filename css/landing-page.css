@@ -79,6 +79,30 @@ body {
     color: #333;
 }
 
+.odometer-theme-odometer:before {
+    content: " ";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: .1em;
+    background: #000;
+}
+
+.odometer-theme-odometer:after {
+    content: " ";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: .1em;
+    background: #000;
+}
+
+.odometer.odometer-theme-default.odometer-theme-odometer {
+    line-height: 2em;
+}
+
 .odometer-theme-odometer .odometer-value {
     width: 100%;
     text-align: center;
