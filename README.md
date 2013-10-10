@@ -12,8 +12,8 @@ The library and largest theme is less than 3kb when minified and compressed.
 Usage
 -----
 
-The simplest possible usage is just including [the javascript](https://raw.github.com/HubSpot/odometer/v0.3.1/odometer.min.js) and a theme css
-file on your page.  Add the `odometer` class to any numbers you'd like to animate on change.  **You're done.**
+**The simplest possible usage is just including [the javascript](https://raw.github.com/HubSpot/odometer/v0.3.1/odometer.min.js) and a theme css
+file on your page.  Add the `odometer` class to any numbers you'd like to animate on change.  You're done.**
 
 Just set the `innerHTML`, `innerText`, or use jQuery's `.text()` or `.html()` methods to change their contents, and the animation
 will happen automatically.  Any libraries you're using to update their value, provided they don't update by erasing and rerendering
