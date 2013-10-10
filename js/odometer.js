@@ -347,7 +347,7 @@
 
   Odometer.init = function() {
     var el, elements, _i, _len, _results;
-    elements = document.querySelectorAll('.odometer');
+    elements = document.querySelectorAll(Odometer.options.selector || '.odometer');
     _results = [];
     for (_i = 0, _len = elements.length; _i < _len; _i++) {
       el = elements[_i];
