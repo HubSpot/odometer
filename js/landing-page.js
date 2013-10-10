@@ -14,7 +14,7 @@
           number: 99999,
           description: '<span class=\'equals\'>=</span> <span class=\'number\'>11000011010011111</span><sub>2</sub>',
           detail: '11000011010011111 in base 2',
-          source: ''
+          source: 'http://www.wolframalpha.com/input/?i=99999'
         }
       ]
     }, {
@@ -24,15 +24,15 @@
       },
       numbers: [
         {
-          number: 89930,
+          number: 13476,
           description: 'miles driven',
           detail: 'by the average american each year',
           source: 'http://www.fhwa.dot.gov/ohim/onh00/bar8.htm'
         }, {
-          number: 90000,
+          number: 25114,
           description: 'flat tires',
-          detail: 'experienced by american drivers each year',
-          source: ''
+          detail: 'occur in american each hour',
+          source: 'http://excelmathmike.blogspot.com/2011/04/phooey-on-flats-part-i.html'
         }
       ]
     }, {
@@ -50,22 +50,22 @@
           number: 20938,
           description: 'minutes snoozed',
           detail: 'by the average american each year',
-          source: ''
+          source: 'http://jsfiddle.net/adamschwartz/BWgWj/show/light/'
         }
       ]
     }, {
       name: 'train-station',
       numbers: [
         {
-          number: 123,
+          number: 682,
           description: 'train cars',
-          detail: 'on the longest train in america',
-          source: ''
+          detail: 'on the longest train in the world',
+          source: 'http://en.wikipedia.org/wiki/Longest_trains'
         }, {
-          number: 456,
-          description: 'late trains',
-          detail: 'in america each day',
-          source: ''
+          number: 853,
+          description: 'people',
+          detail: 'capacity of the largest commercial airplane',
+          source: 'http://en.wikipedia.org/wiki/Airbus_A380'
         }
       ]
     }
