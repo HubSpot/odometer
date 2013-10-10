@@ -1,8 +1,8 @@
 Odometer
 ========
 
-<div class="odometer">0</div>
-<link rel="stylesheet" href="https://rawgithub.com/HubSpot/odometer/v0.3.1/themes/odometer-theme-plaza.css" />
+<div class="odometer"></div>
+<link rel="stylesheet" href="https://rawgithub.com/HubSpot/odometer/v0.3.1/themes/odometer-theme-default.css" />
 <script src="https://rawgithub.com/HubSpot/odometer/v0.3.1/odometer.min.js"></script>
 <style>
   .odometer {
@@ -10,9 +10,19 @@ Odometer
   }
 </style>
 <script>
-  setTimeout(function(){
-    document.querySelector('.odometer').innerText = 1000000;
-  }, 1000);
+  update = function(){
+    $.ajax("https://api.github.com/repos/HubSpot/odometer", {
+      success: function(data){
+        $('.odometer').text(data.watchers_count);
+      },
+      complete: function(){
+        // For unauthed requests, the rate limit is 60/hour, so this is the fastest we can go:
+        setTimeout(update, 60000);
+      } 
+    });
+  };
+
+  setTimeout(update, 1000);
 </script>
 
 Odometer is a Javascript and CSS library for smoothly transitioning numbers.
