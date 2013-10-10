@@ -1,17 +1,19 @@
 Odometer
 ========
 
-Odometer is javascript and CSS for smoothly transitioning numbers.
+Odometer is a Javascript and CSS library for smoothly transitioning numbers.
 See the [demo page](http://github.hubspot.com/odometer/docs/welcome) for some examples.
 
-Odometer's animations are handled entirely in CSS using CSS transforms making
-them extremely performant.
+Odometer's animations are handled entirely in CSS using transforms making
+them extremely performant, with automatic fallback on older browsers.
+
+The library and largest theme is less than 3kb when minified and compressed.
 
 Usage
 -----
 
 The simplest possible usage is just including [the javascript](https://raw.github.com/HubSpot/odometer/v0.3.1/odometer.min.js) and a theme css
-file on your page.  Add the `odometer` class to any numbers you'd like to animate on change.  *You're done.*
+file on your page.  Add the `odometer` class to any numbers you'd like to animate on change.  **You're done.**
 
 Just set the `innerHTML`, `innerText`, or use jQuery's `.text()` or `.html()` methods to change their contents, and the animation
 will happen automatically.  Any libraries you're using to update their value, provided they don't update by erasing and rerendering
