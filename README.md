@@ -1,6 +1,15 @@
 Odometer
 ========
 
+<div class="odometer">0</div>
+<link rel="stylesheet" href="https://rawgithub.com/HubSpot/odometer/v0.3.1/themes/odometer-theme-plaza.css" />
+<script src="https://rawgithub.com/HubSpot/odometer/v0.3.1/odometer.min.js"></script>
+<script>
+  setTimeout(function(){
+    document.querySelector('.odometer').innerText = 1000000;
+  }, 1000);
+</script>
+
 Odometer is a Javascript and CSS library for smoothly transitioning numbers.
 See the [demo page](http://github.hubspot.com/odometer/docs/welcome) for some examples.
 
