@@ -1,0 +1,79 @@
+<link rel="stylesheet" href="../themes/odometer-theme-car.css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="../odometer.js"></script>
+
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+<style>
+  header {
+    margin-bottom: 20px;
+  }
+  .odometer-container {
+    margin: 5px;
+    width: 150px;
+    display: inline-block;
+  }
+</style>
+
+<header>
+  <div class="slider"></div>
+</header>
+
+<script>
+  $('.slider').slider({
+    value: 4,
+    max: 10,
+    change: function(event, ui){
+      updateOdometerCount(Math.pow(2, ui.value));
+    }
+  });
+</script>
+
+<div class="container"></div>
+
+<script>
+  var odometers = [];
+  var container = document.querySelector('.container');
+
+  setInterval(function(){
+    for(var i=0; i < odometers.length; i++)
+      odometers[i].update((Math.random() * 10000000)|0);
+  }, 3000);
+
+
+  function createOdometer(){
+    var el = document.createElement('div');
+
+    var cont = document.createElement('div');
+    cont.className = 'odometer-container';
+    cont.appendChild(el);
+    container.appendChild(cont);
+
+    var od = new Odometer({
+      el: el,
+      value: 0
+    });
+
+    return od;
+  }
+
+  function destroyOdometer(od){
+    container.removeChild(od.el);
+  }
+
+  function updateOdometerCount(num){
+    if (num > odometers.length){
+      for(var i=odometers.length; i < num; i++){
+        odometers.push(createOdometer());
+      }
+    } else if (num < odometers.length){
+      for(var i=num - 1; i < odometers.length; i++){
+        destroyOdometer(odometers[i]);
+      }
+      odometers.splice(num - 1, (odometers.length - num));
+    }
+  }
+
+  updateOdometerCount(16);
+</script>
