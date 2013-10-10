@@ -60,9 +60,13 @@ body {
     opacity: 0.8;
 }
 
-.number-section.number-section-theme-default {
+.number-section.number-section-theme-minimal {
     background: #eee;
     color: #444;
+}
+
+.number-section.number-section-theme-minimal .odometer.odometer-theme-minimal .odometer-digit .odometer-digit-inner {
+    text-align: right;
 }
 
 .number-section.number-section-theme-digital .odometer {
@@ -77,6 +81,10 @@ body {
 .number-section.number-section-theme-car {
     background: #eee0d3;
     color: #333;
+}
+
+.odometer.odometer-theme-odometer {
+    line-height: 2em;
 }
 
 .odometer-theme-odometer:before {
@@ -97,10 +105,6 @@ body {
     width: 100%;
     height: .1em;
     background: #000;
-}
-
-.odometer.odometer-theme-default.odometer-theme-odometer {
-    line-height: 2em;
 }
 
 .odometer-theme-odometer .odometer-value {
