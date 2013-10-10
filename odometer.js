@@ -82,6 +82,11 @@
       var k, property, v, _base, _base1, _base2, _fn, _i, _j, _len, _len1, _ref, _ref1, _ref2,
         _this = this;
       this.options = options;
+      this.el = this.options.el;
+      if (this.el.odometer != null) {
+        return this.el.odometer;
+      }
+      this.el.odometer = this;
       _ref = Odometer.options;
       for (v = _i = 0, _len = _ref.length; _i < _len; v = ++_i) {
         k = _ref[v];
@@ -90,7 +95,6 @@
         }
       }
       this.value = this.cleanValue((_ref1 = this.options.value) != null ? _ref1 : '');
-      this.el = this.options.el;
       this.inside = document.createElement('div');
       this.inside.className = 'odometer-inside';
       this.el.innerHTML = '';

@@ -63,12 +63,16 @@ setTimeout wrapJQuery, 0
 
 class Odometer
   constructor: (@options) ->
+    @el = @options.el
+    return @el.odometer if @el.odometer?
+
+    @el.odometer = @
+
     for k, v in Odometer.options
       if not @options[k]?
         @options[k] = v
 
     @value = @cleanValue(@options.value ? '')
-    @el = @options.el
 
     @inside = document.createElement 'div'
     @inside.className = 'odometer-inside'
