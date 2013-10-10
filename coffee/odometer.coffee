@@ -277,11 +277,14 @@ class Odometer
 
 Odometer.options = window.odometerOptions ? {}
 
+Odometer.init = ->
+  elements = document.querySelectorAll '.odometer'
+
+  for el in elements
+    el.odometer = new Odometer {el, value: el.innerText}
+
 document.addEventListener 'DOMContentLoaded', ->
   if Odometer.options.auto isnt false
-    elements = document.querySelectorAll '.odometer'
-
-    for el in elements
-      el.odometer = new Odometer {el, value: el.innerText}
+    Odometer.init()
 
 window.Odometer = Odometer

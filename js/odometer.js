@@ -345,19 +345,23 @@
 
   Odometer.options = (_ref = window.odometerOptions) != null ? _ref : {};
 
-  document.addEventListener('DOMContentLoaded', function() {
+  Odometer.init = function() {
     var el, elements, _i, _len, _results;
+    elements = document.querySelectorAll('.odometer');
+    _results = [];
+    for (_i = 0, _len = elements.length; _i < _len; _i++) {
+      el = elements[_i];
+      _results.push(el.odometer = new Odometer({
+        el: el,
+        value: el.innerText
+      }));
+    }
+    return _results;
+  };
+
+  document.addEventListener('DOMContentLoaded', function() {
     if (Odometer.options.auto !== false) {
-      elements = document.querySelectorAll('.odometer');
-      _results = [];
-      for (_i = 0, _len = elements.length; _i < _len; _i++) {
-        el = elements[_i];
-        _results.push(el.odometer = new Odometer({
-          el: el,
-          value: el.innerText
-        }));
-      }
-      return _results;
+      return Odometer.init();
     }
   });
 
