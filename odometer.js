@@ -1,5 +1,5 @@
 (function() {
-  var COUNT_FRAMERATE, COUNT_MS_PER_FRAME, DIGIT_FORMAT, DIGIT_HTML, DIGIT_SPEEDBOOST, DURATION, FORMAT_MARK_HTML, FRAMERATE, FRAMES_PER_VALUE, MS_PER_FRAME, Odometer, RIBBON_HTML, TRANSITION_END_EVENTS, TRANSITION_SUPPORT, VALUE_HTML, createFromHTML, now, renderTemplate, _ref;
+  var COUNT_FRAMERATE, COUNT_MS_PER_FRAME, DIGIT_FORMAT, DIGIT_HTML, DIGIT_SPEEDBOOST, DURATION, FORMAT_MARK_HTML, FRAMERATE, FRAMES_PER_VALUE, MS_PER_FRAME, Odometer, RIBBON_HTML, TRANSITION_END_EVENTS, TRANSITION_SUPPORT, VALUE_HTML, createFromHTML, now, renderTemplate, _old, _ref, _ref1;
 
   DIGIT_HTML = '<span class="odometer-digit"><span class="odometer-digit-spacer">8</span><span class="odometer-digit-inner"></span></span>';
 
@@ -43,8 +43,8 @@
   };
 
   now = function() {
-    var _ref;
-    return (_ref = typeof performance !== "undefined" && performance !== null ? performance.now() : void 0) != null ? _ref : +(new Date);
+    var _ref, _ref1;
+    return (_ref = (_ref1 = window.performance) != null ? _ref1.now() : void 0) != null ? _ref : +(new Date);
   };
 
   Odometer = (function() {
@@ -118,7 +118,7 @@
             return renderEnqueued = false;
           }, 0);
           return true;
-        }));
+        }, false));
       }
       return _results;
     };
@@ -203,12 +203,17 @@
     };
 
     Odometer.prototype.addDigit = function(value) {
-      var char, digit, spacer;
+      var char, digit, resetted, spacer;
+      resetted = false;
       while (true) {
         if (!this.format.length) {
+          if (resetted) {
+            throw new Error("Bad odometer format without digits");
+          }
           this.resetFormat();
+          resetted = true;
         }
-        char = this.format.substring(0, 1);
+        char = this.format[0];
         this.format = this.format.substring(1);
         if (char === 'd') {
           break;
@@ -257,7 +262,7 @@
           cur += dist;
           _this.render(Math.round(cur));
         }
-        if (window.requestAnimationFrame) {
+        if (window.requestAnimationFrame != null) {
           return requestAnimationFrame(tick);
         } else {
           return setTimeout(tick, COUNT_MS_PER_FRAME);
@@ -345,6 +350,19 @@
 
   Odometer.options = (_ref = window.odometerOptions) != null ? _ref : {};
 
+  setTimeout(function() {
+    var k, v, _base, _ref1, _results;
+    if (window.odometerOptions) {
+      _ref1 = window.odometerOptions;
+      _results = [];
+      for (k in _ref1) {
+        v = _ref1[k];
+        _results.push((_base = Odometer.options)[k] != null ? (_base = Odometer.options)[k] : _base[k] = v);
+      }
+      return _results;
+    }
+  }, 0);
+
   Odometer.init = function() {
     var el, elements, _i, _len, _results;
     elements = document.querySelectorAll(Odometer.options.selector || '.odometer');
@@ -359,11 +377,21 @@
     return _results;
   };
 
-  document.addEventListener('DOMContentLoaded', function() {
-    if (Odometer.options.auto !== false) {
-      return Odometer.init();
-    }
-  });
+  if ((((_ref1 = document.documentElement) != null ? _ref1.doScroll : void 0) != null) && (document.createEventObject != null)) {
+    _old = document.onreadystatechange;
+    document.onreadystatechange = function() {
+      if (document.readyState === 'complete' && Odometer.options.auto !== false) {
+        Odometer.init();
+      }
+      return _old != null ? _old.apply(this, arguments) : void 0;
+    };
+  } else {
+    document.addEventListener('DOMContentLoaded', function() {
+      if (Odometer.options.auto !== false) {
+        return Odometer.init();
+      }
+    }, false);
+  }
 
   window.Odometer = Odometer;
 
