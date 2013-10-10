@@ -3,6 +3,14 @@ html, body {
     margin: 0;
 }
 
+html { font-size: 150%; }
+@media (max-width: 1200px) { html { font-size: 125%; } }
+@media (max-width: 1000px) { html { font-size: 100%; } }
+@media (max-width: 767px) { html { font-size: 80%; } }
+@media (max-width: 588px) { html { font-size: 50%; } }
+@media (max-width: 480px) { html { font-size: 35%; } }
+@media (max-width: 320px) { html { font-size: 25%; } }
+
 body {
     font-family: "proxima-nova", "Helvetica Neue", sans-serif;
 }
