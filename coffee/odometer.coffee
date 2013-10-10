@@ -2,7 +2,7 @@ DIGIT_HTML = '<span class="odometer-digit"><span class="odometer-digit-spacer">8
 RIBBON_HTML = '<span class="odometer-ribbon"><span class="odometer-ribbon-inner"></span></span>'
 VALUE_HTML = '<span class="odometer-value">{value}</span>'
 FORMAT_MARK_HTML = '<span class="odometer-formatting-mark">{char}</span>'
-DIGIT_FORMAT = 'ddd,'
+DIGIT_FORMAT = ',ddd'
 
 # What is our target framerate?
 FRAMERATE = 60
@@ -25,7 +25,6 @@ DIGIT_SPEEDBOOST = .5
 
 MS_PER_FRAME = 1000 / FRAMERATE
 COUNT_MS_PER_FRAME = 1000 / COUNT_FRAMERATE
-MAX_VALUES = ((DURATION / MS_PER_FRAME) / FRAMES_PER_VALUE) | 0
 
 TRANSITION_END_EVENTS = 'transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd'
 TRANSITION_SUPPORT = document.createElement('div').style.transition?
@@ -44,7 +43,11 @@ now = ->
 
 class Odometer
   constructor: (@options) ->
-    @value = @options.value
+    for k, v in Odometer.options
+      if not @options[k]?
+        @options[k] = v
+
+    @value = @cleanValue(@options.value ? '')
     @el = @options.el
 
     @inside = document.createElement 'div'
@@ -55,6 +58,11 @@ class Odometer
     @options.format ?= DIGIT_FORMAT
     @options.format or= 'd'
 
+    @options.duration ?= DURATION
+    @MAX_VALUES = ((@options.duration / MS_PER_FRAME) / FRAMES_PER_VALUE) | 0
+
+    @render()
+
     for property in ['HTML', 'Text']
       do (property) =>
         Object.defineProperty @el, "inner#{ property }",
@@ -62,9 +70,12 @@ class Odometer
             @inside["outer#{ property }"]
 
           set: (val) =>
-            @update val.replace(/[.,]*/g, '')
+            @update @cleanValue val
 
     @
+
+  cleanValue: (val) ->
+    val.replace /[.,]/g, ''
 
   bindTransitionEnd: ->
     return if @transitionEndBound
@@ -86,8 +97,11 @@ class Odometer
 
         true
 
+  resetFormat: ->
+    @format = @options.format.split('').reverse().join('')
+
   render: (value=@value) ->
-    @format = @options.format
+    @resetFormat()
 
     @inside.innerHTML = ''
 
@@ -152,7 +166,7 @@ class Odometer
   addDigit: (value) ->
     while true
       if not @format.length
-        @format = @options.format
+        @resetFormat()
 
       char = @format.substring(0, 1)
       @format = @format.substring(1)
@@ -181,7 +195,7 @@ class Odometer
 
     cur = @value
     do tick = =>
-      if (now() - start) > DURATION
+      if (now() - start) > @options.duration
         @value = newValue
         @render()
         return
@@ -191,7 +205,7 @@ class Odometer
       if delta > COUNT_MS_PER_FRAME
         last = now()
 
-        fraction = delta / DURATION
+        fraction = delta / @options.duration
         dist = diff * fraction
 
         cur += dist
@@ -219,12 +233,12 @@ class Odometer
 
       dist = end - start
 
-      if Math.abs(dist) > MAX_VALUES
+      if Math.abs(dist) > @MAX_VALUES
         # We need to subsample
         frames = []
 
         # Subsequent digits need to be faster than previous ones
-        incr = dist / (MAX_VALUES + MAX_VALUES * boosted * DIGIT_SPEEDBOOST)
+        incr = dist / (@MAX_VALUES + @MAX_VALUES * boosted * DIGIT_SPEEDBOOST)
         cur = start
         while (dist > 0 and cur < end) or (dist < 0 and cur > end)
           cur += incr
@@ -260,5 +274,14 @@ class Odometer
           numEl.className += ' odometer-last-value'
         if j == 0
           numEl.className += ' odometer-first-value'
+
+Odometer.options ?= {}
+
+document.addEventListener 'DOMContentLoaded', ->
+  if Odometer.auto isnt false
+    elements = document.querySelectorAll '.odometer'
+
+    for el in elements
+      el.odometer = new Odometer {el, value: el.innerText}
 
 window.Odometer = Odometer
