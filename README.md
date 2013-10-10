@@ -3,8 +3,8 @@ Odometer
 
 <div class="odometer">0</div>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<link rel="stylesheet" href="https://rawgithub.com/HubSpot/odometer/v0.3.1/themes/odometer-theme-default.css" />
-<script src="https://rawgithub.com/HubSpot/odometer/v0.3.1/odometer.min.js"></script>
+<link rel="stylesheet" href="https://rawgithub.com/HubSpot/odometer/master/themes/odometer-theme-default.css" />
+<script src="https://rawgithub.com/HubSpot/odometer/master/odometer.min.js"></script>
 <style>
   .odometer {
     font-size: 40px;
@@ -39,7 +39,7 @@ All of the themes can be resized by setting the `font-size` of the `.odometer` e
 Usage
 -----
 
-**The simplest possible usage is just including [the javascript](https://raw.github.com/HubSpot/odometer/v0.3.1/odometer.min.js) and a theme css
+**The simplest possible usage is just including [the javascript](https://raw.github.com/HubSpot/odometer/v0.3.2/odometer.min.js) and a theme css
 file on your page.  Add the `odometer` class to any numbers you'd like to animate on change.  You're done.**
 
 Just set the `innerHTML`, `innerText`, or use jQuery's `.text()` or `.html()` methods to change their contents, and the animation
