@@ -8,12 +8,12 @@ module.exports = (grunt) ->
     coffee:
       compile:
         files:
-          'js/odometer.js': 'coffee/odometer.coffee'
+          'odometer.js': 'odometer.coffee'
           'docs/welcome/landing-page.js': 'docs/welcome/landing-page.coffee'
 
     watch:
       coffee:
-        files: ['coffee/odometer.coffee', 'coffee/landing-page.coffee', 'sass/*']
+        files: ['odometer.coffee', 'docs/welcome/landing-page.coffee', 'sass/*']
         tasks: ["coffee", "uglify", "compass"]
 
     uglify:
@@ -28,7 +28,7 @@ module.exports = (grunt) ->
       dist:
         options:
           sassDir: 'sass'
-          cssDir: 'css'
+          cssDir: 'themes'
 
   grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
