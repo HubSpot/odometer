@@ -34,6 +34,7 @@ window.odometerOptions = {
   duration: 3000, // Change how long the javascript expects the CSS animation to take
   theme: 'car' // Specify the theme (if you have more than one theme css file on the page)
 };
+```
 
 You can manually initialize an odometer with the global `Odometer`:
 
