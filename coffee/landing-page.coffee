@@ -16,12 +16,14 @@ THEMES = [{
     odometerOptions:
         format: 'd'
     numbers: [{
-        number: 13476
+        #number: 13476
+        number: 89930
         description: 'miles driven'
         detail: 'by the average american each year'
         source: 'http://www.fhwa.dot.gov/ohim/onh00/bar8.htm'
     }, {
-        number: 89723
+        #number: 89723
+        number: 90000
         description: 'flat tires'
         detail: 'experienced by american drivers each year'
         source: ''
