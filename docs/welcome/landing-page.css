@@ -175,3 +175,24 @@ body {
     text-align: center;
     opacity: 0.5;
 }
+
+/* Social sharing */
+
+#retweet_button {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    width: 100px;
+    z-index: 3;
+}
+
+#github_stars {
+    position: fixed;
+    bottom: 30px;
+    left: 130px;
+    width: 100px;
+    z-index: 3;
+}
+
+.social-sharing-wrapper { -webkit-filter: grayscale(1) contrast(1.3); }
+.social-sharing-wrapper:hover { -webkit-filter: none; }
