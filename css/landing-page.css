@@ -63,7 +63,8 @@ body {
 }
 
 .title-number-section .number-description {
-    font-size: 1.18em;
+    font-size: 1.55em;
+    margin: .5em 0 .25em;
     color: #666;
 }
 
@@ -73,7 +74,7 @@ body {
     }
 
     .title-number-section .number-description {
-        font-size: 1.4em;
+        font-size: 1.8em
     }
 }
 
@@ -83,16 +84,17 @@ body {
     }
 
     .title-number-section .number-description {
-        font-size: 2em;
+        font-size: 2.2em;
     }
 }
 
 .button {
     text-decoration: none;
     color: #000;
+    font-size: 0.7em;
     padding: .3em .7em .4em;
     cursor: pointer;
-    margin: 1em auto;
+    margin: 2em auto;
     border: .15em solid;
     display: inline-block;
 }
