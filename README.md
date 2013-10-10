@@ -10,7 +10,7 @@ them extremely performant.
 Usage
 -----
 
-The simplest possible usage is just including [the javascript](http://github.com/HubSpot/odometer/odometer.min.js) and a theme css
+The simplest possible usage is just including [the javascript](https://raw.github.com/HubSpot/odometer/v0.3.1/odometer.min.js) and a theme css
 file on your page.  Add the `odometer` class to any numbers you'd like to animate on change.  *You're done.*
 
 Just set the `innerHTML`, `innerText`, or use jQuery's `.text()` or `.html()` methods to change their contents, and the animation
@@ -54,6 +54,11 @@ Browser Support
 ---------------
 
 Odometer is intended to support IE8+, FF4+, Chrome and Safari.
+
+Dependencies
+------------
+
+None!
 
 Contributing
 ------------
