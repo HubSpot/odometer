@@ -152,6 +152,24 @@ body {
     color: #333;
 }
 
+.number-section.number-section-theme-train-station {
+    background: #ccc;
+    color: #000;
+}
+
+.number-section.number-section-theme-slot-machine {
+    background-image: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(0%, #000000), color-stop(2%, #000000), color-stop(2%, #ffa500), color-stop(50%, #ffe000), color-stop(98%, #ffa500), color-stop(98%, #000000), color-stop(100%, #000000));
+    background-image: -webkit-linear-gradient(left, #000000 0%, #000000 2%, #ffa500 2%, #ffe000 50%, #ffa500 98%, #000000 98%, #000000 100%);
+    background-image: -moz-linear-gradient(left, #000000 0%, #000000 2%, #ffa500 2%, #ffe000 50%, #ffa500 98%, #000000 98%, #000000 100%);
+    background-image: -o-linear-gradient(left, #000000 0%, #000000 2%, #ffa500 2%, #ffe000 50%, #ffa500 98%, #000000 98%, #000000 100%);
+    background-image: -ms-linear-gradient(left, #000000 0%, #000000 2%, #ffa500 2%, #ffe000 50%, #ffa500 98%, #000000 98%, #000000 100%);
+    background-image: linear-gradient(left, #000000 0%, #000000 2%, #ffa500 2%, #ffe000 50%, #ffa500 98%, #000000 98%, #000000 100%);
+    background-size: 31em 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: #000;
+}
+
 .odometer.odometer-theme-odometer {
     line-height: 2em;
 }

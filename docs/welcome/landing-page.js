@@ -54,6 +54,21 @@
         }
       ]
     }, {
+      name: 'slot-machine',
+      numbers: [
+        {
+          number: 818,
+          description: '',
+          detail: '',
+          source: ''
+        }, {
+          number: 777,
+          description: '',
+          detail: '',
+          source: ''
+        }
+      ]
+    }, {
       name: 'train-station',
       numbers: [
         {
