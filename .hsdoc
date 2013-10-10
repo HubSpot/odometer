@@ -1,0 +1,3 @@
+title: "Odometer"
+source: "odometer.coffee"
+assets: "{docs/welcome/*,*.js}"
