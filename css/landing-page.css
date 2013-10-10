@@ -58,6 +58,45 @@ body {
     opacity: 0.5;
 }
 
+.title-number-section .number-container .odometer-container {
+    font-size: 4em;
+}
+
+.title-number-section .number-description {
+    font-size: 1.18em;
+    color: #666;
+}
+
+@media (max-width: 767px) {
+    .title-number-section .number-container .odometer-container {
+        font-size: 5em;
+    }
+
+    .title-number-section .number-description {
+        font-size: 1.4em;
+    }
+}
+
+@media (max-width: 568px) {
+    .title-number-section .number-container .odometer-container {
+        font-size: 6em;
+    }
+
+    .title-number-section .number-description {
+        font-size: 2em;
+    }
+}
+
+.button {
+    text-decoration: none;
+    color: #000;
+    padding: .3em .7em .4em;
+    cursor: pointer;
+    margin: 1em auto;
+    border: .15em solid;
+    display: inline-block;
+}
+
 .number-source {
     text-decoration: none;
     color: inherit;
