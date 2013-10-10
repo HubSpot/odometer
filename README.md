@@ -22,7 +22,7 @@ On older browsers, it will automatically fallback to a simpler animation which w
 Advanced
 --------
 
-If you need to, you can set options by creating a `odometerOptions` object before bringing in the odometer source.
+If you need to, you can set options by creating a `odometerOptions` object:
 
 ```javascript
 window.odometerOptions = {
@@ -49,3 +49,31 @@ od.update(555)
 // or
 el.innerHTML = 555
 ```
+
+Browser Support
+---------------
+
+Odometer is intended to support IE8+, FF4+, Chrome and Safari.
+
+Contributing
+------------
+
+Odometer is built using Grunt.  To setup the build environment you first
+must have Node.js installed.  Then:
+
+```bash
+# In the project directory
+npm install
+```
+
+To build the project:
+```bash
+grunt
+```
+
+To have it watch for changes and build automatically:
+```bash
+grunt watch
+```
+
+We welcome pull requests!

@@ -39,7 +39,7 @@ createFromHTML = (html) ->
   el.children[0]
 
 now = ->
-  performance?.now() ? +new Date
+  window.performance?.now() ? +new Date
 
 class Odometer
   constructor: (@options) ->
@@ -96,6 +96,7 @@ class Odometer
         , 0
 
         true
+      , false
 
   resetFormat: ->
     @format = @options.format.split('').reverse().join('')
@@ -164,11 +165,16 @@ class Odometer
       @inside.insertBefore digit, @inside.children[0]
 
   addDigit: (value) ->
+    resetted = false
     while true
       if not @format.length
-        @resetFormat()
+        if resetted
+          throw new Error "Bad odometer format without digits"
 
-      char = @format.substring(0, 1)
+        @resetFormat()
+        resetted = true
+
+      char = @format[0]
       @format = @format.substring(1)
 
       break if char is 'd'
@@ -211,7 +217,7 @@ class Odometer
         cur += dist
         @render Math.round cur
 
-      if window.requestAnimationFrame
+      if window.requestAnimationFrame?
         requestAnimationFrame tick
       else
         setTimeout tick, COUNT_MS_PER_FRAME
@@ -277,14 +283,32 @@ class Odometer
 
 Odometer.options = window.odometerOptions ? {}
 
+setTimeout ->
+  # We do this in a seperate pass to allow people to set
+  # window.odometerOptions after bringing the file in.
+  if window.odometerOptions
+    for k, v of window.odometerOptions
+      Odometer.options[k] ?= v
+, 0
+
 Odometer.init = ->
   elements = document.querySelectorAll (Odometer.options.selector or '.odometer')
 
   for el in elements
     el.odometer = new Odometer {el, value: el.innerText}
 
-document.addEventListener 'DOMContentLoaded', ->
-  if Odometer.options.auto isnt false
-    Odometer.init()
+if document.documentElement?.doScroll? and document.createEventObject?
+  # IE < 9
+  _old = document.onreadystatechange
+  document.onreadystatechange = ->
+    if document.readyState is 'complete' and Odometer.options.auto isnt false
+      Odometer.init()
+
+    _old?.apply this, arguments
+else
+  document.addEventListener 'DOMContentLoaded', ->
+    if Odometer.options.auto isnt false
+      Odometer.init()
+  , false
 
 window.Odometer = Odometer
