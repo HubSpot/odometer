@@ -2,8 +2,21 @@ Odometer
 ========
 
 <style>
-.odometer {
-  font-size: 40px;
+.odometer-github-stars .odometer-label {
+  background: #eee;
+  display: inline-block;
+  padding: 15px 13px 13px;
+  line-height: 1;
+  vertical-align: middle;
+  border-radius: 4px 0 0 4px;
+}
+.odometer-github-stars .odometer {
+  background: #444;
+  color: #fff;
+  padding: 13px 21px 11px;
+  margin: auto;
+  line-height: 1 !important;
+  border-radius: 0 4px 4px 0;
 }
 </style>
 
@@ -19,14 +32,14 @@ Odometer
       },
       complete: function(){
         setTimeout(update, 2000);
-      } 
+      }
     });
   };
 
   setTimeout(update, 1000);
 </script>
 
-<h3>GitHub ★ s so far: <div class="odometer">0</div></h3>
+<h3 class="odometer-github-stars"><span class="odometer-label">GitHub ★ s so far:</span><div class="odometer">0</div></h3>
 <div class="subtitle">(go <a href="http://github.com/HubSpot/odometer" target=_blank>star odometer</a> to see it update)</div>
 
 Odometer is a Javascript and CSS library for smoothly transitioning numbers.
