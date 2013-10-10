@@ -1,9 +1,9 @@
 (function() {
-  var THEMES, animateHeader, init, setupNumberSections;
+  var THEMES, animateHeader, init, setupNumberSections, setupOnePageScroll;
 
   THEMES = [
     {
-      name: 'default',
+      name: 'minimal',
       numbers: [
         {
           number: 10000,
@@ -24,12 +24,12 @@
       },
       numbers: [
         {
-          number: 13476,
+          number: 89930,
           description: 'miles driven',
           detail: 'by the average american each year',
           source: 'http://www.fhwa.dot.gov/ohim/onh00/bar8.htm'
         }, {
-          number: 89723,
+          number: 90000,
           description: 'flat tires',
           detail: 'experienced by american drivers each year',
           source: ''
@@ -75,13 +75,22 @@
     return $('.title-number-section .odometer').addClass('odometer-animating-up odometer-animating');
   };
 
+  setupOnePageScroll = function() {
+    return $(function() {
+      return $('.main').onepage_scroll({
+        sectionContainer: '.section'
+      });
+    });
+  };
+
   setupNumberSections = function() {
-    var $afterSections, $numberSectionTemplate;
+    var $afterSections, $numberSectionTemplate, $numberSectionTemplateClone;
     $afterSections = $('.after-number-sections');
-    $numberSectionTemplate = $('.number-section.template').clone().removeClass('template');
-    return _.each(THEMES, function(theme) {
+    $numberSectionTemplate = $('.number-section.template');
+    $numberSectionTemplateClone = $numberSectionTemplate.clone().removeClass('template');
+    _.each(THEMES, function(theme) {
       var $odometerContainer, $section, currentNumber, next, odometer, odometerOptions;
-      $section = $numberSectionTemplate.clone().addClass('number-section-theme-' + theme.name);
+      $section = $numberSectionTemplateClone.clone().addClass('number-section-theme-' + theme.name);
       $afterSections.before($section);
       $odometerContainer = $section.find('.odometer-container');
       $odometerContainer.append('<div/>');
@@ -105,13 +114,18 @@
       };
       next();
       return setInterval(function() {
-        return next();
+        if ($section.hasClass('active')) {
+          return next();
+        }
       }, 4 * 1000);
     });
+    $afterSections.remove();
+    return $numberSectionTemplate.remove();
   };
 
   init = function() {
     setupNumberSections();
+    setupOnePageScroll();
     return setTimeout(function() {
       return animateHeader();
     }, 500);

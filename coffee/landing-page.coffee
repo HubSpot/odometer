@@ -61,12 +61,18 @@ THEMES = [{
 animateHeader = ->
     $('.title-number-section .odometer').addClass 'odometer-animating-up odometer-animating'
 
+setupOnePageScroll = ->
+    $ ->
+        $('.main').onepage_scroll
+            sectionContainer: '.section'
+
 setupNumberSections = ->
     $afterSections = $('.after-number-sections')
-    $numberSectionTemplate = $('.number-section.template').clone().removeClass('template')
+    $numberSectionTemplate = $('.number-section.template')
+    $numberSectionTemplateClone = $numberSectionTemplate.clone().removeClass('template')
 
     _.each THEMES, (theme) ->
-        $section = $numberSectionTemplate.clone().addClass('number-section-theme-' + theme.name)
+        $section = $numberSectionTemplateClone.clone().addClass('number-section-theme-' + theme.name)
 
         $afterSections.before $section
 
@@ -97,11 +103,15 @@ setupNumberSections = ->
         next()
 
         setInterval ->
-            next()
+            next() if $section.hasClass('active')
         , 4 * 1000
+
+    $afterSections.remove()
+    $numberSectionTemplate.remove()
 
 init = ->
     setupNumberSections()
+    setupOnePageScroll()
     setTimeout ->
         animateHeader()
     , 500
