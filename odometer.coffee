@@ -227,7 +227,7 @@ class Odometer
 
     @bindTransitionEnd()
 
-    digitCount = Math.ceil(Math.log(Math.max(newValue, @value)) / Math.log(10))
+    digitCount = Math.ceil(Math.log(Math.max(Math.abs(newValue), Math.abs(@value)) + 1) / Math.log(10))
 
     digits = []
     boosted = 0

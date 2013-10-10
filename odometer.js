@@ -276,7 +276,7 @@
         return;
       }
       this.bindTransitionEnd();
-      digitCount = Math.ceil(Math.log(Math.max(newValue, this.value)) / Math.log(10));
+      digitCount = Math.ceil(Math.log(Math.max(Math.abs(newValue), Math.abs(this.value)) + 1) / Math.log(10));
       digits = [];
       boosted = 0;
       for (i = _i = 0; 0 <= digitCount ? _i < digitCount : _i > digitCount; i = 0 <= digitCount ? ++_i : --_i) {
