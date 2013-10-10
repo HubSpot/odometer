@@ -1,7 +1,8 @@
 Odometer
 ========
 
-<div class="odometer"></div>
+<div class="odometer">0</div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <link rel="stylesheet" href="https://rawgithub.com/HubSpot/odometer/v0.3.1/themes/odometer-theme-default.css" />
 <script src="https://rawgithub.com/HubSpot/odometer/v0.3.1/odometer.min.js"></script>
 <style>
