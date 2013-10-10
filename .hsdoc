@@ -1,3 +1,3 @@
 title: "Odometer"
 source: "odometer.coffee"
-assets: "{docs/welcome/*,*.js}"
+assets: "{docs/welcome/*,*.js,css/*.css}"
