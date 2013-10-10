@@ -8,11 +8,11 @@ $green: #8bf5a5
 +spinning-odometer($themeName)
 
 .odometer.odometer-auto-theme, .odometer#{"." + $themeName}
+    +background-image(radial-gradient(rgba($green, 0.4), #000))
+    background-color: #000
     font-family: "Wallpoet", monospace
     padding: 0 .2em
-    background-color: #000
     line-height: 1.1em
-    background-image: -webkit-radial-gradient(rgba($green, 0.4), #000)
     color: $green
 
     .odometer-digit + .odometer-digit
