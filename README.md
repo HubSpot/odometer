@@ -4,6 +4,11 @@ Odometer
 <div class="odometer">0</div>
 <link rel="stylesheet" href="https://rawgithub.com/HubSpot/odometer/v0.3.1/themes/odometer-theme-plaza.css" />
 <script src="https://rawgithub.com/HubSpot/odometer/v0.3.1/odometer.min.js"></script>
+<style>
+  .odometer {
+    font-size: 40px;
+  }
+</style>
 <script>
   setTimeout(function(){
     document.querySelector('.odometer').innerText = 1000000;
@@ -17,6 +22,8 @@ Odometer's animations are handled entirely in CSS using transforms making
 them extremely performant, with automatic fallback on older browsers.
 
 The library and largest theme is less than 3kb when minified and compressed.
+
+All of the themes can be resized by setting the `font-size` of the `.odometer` element.
 
 Usage
 -----
