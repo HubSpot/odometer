@@ -18,7 +18,7 @@ Odometer
           document.querySelector('.odometer').innerHTML = data.watchers_count;
       },
       complete: function(){
-        setTimeout(update, 5000);
+        setTimeout(update, 2000);
       } 
     });
   };
