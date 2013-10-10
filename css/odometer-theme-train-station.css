@@ -1,20 +1,80 @@
 @import url("http://fonts.googleapis.com/css?family=Economica");
-/* line 7, ../sass/odometer-theme-train-station.sass */
-.odometer {
+.odometer.odometer-auto-theme, .odometer.odometer-theme-train-station {
   display: -moz-inline-box;
   -moz-box-orient: vertical;
   display: inline-block;
   vertical-align: middle;
   *vertical-align: auto;
   position: relative;
-  font-family: "Economica", sans-serif;
 }
-/* line 7, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/css3/_inline-block.scss */
-.odometer {
+.odometer.odometer-auto-theme, .odometer.odometer-theme-train-station {
   *display: inline;
 }
-/* line 12, ../sass/odometer-theme-train-station.sass */
-.odometer .odometer-digit {
+.odometer.odometer-auto-theme .odometer-digit, .odometer.odometer-theme-train-station .odometer-digit {
+  display: -moz-inline-box;
+  -moz-box-orient: vertical;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  position: relative;
+}
+.odometer.odometer-auto-theme .odometer-digit, .odometer.odometer-theme-train-station .odometer-digit {
+  *display: inline;
+}
+.odometer.odometer-auto-theme .odometer-digit .odometer-digit-spacer, .odometer.odometer-theme-train-station .odometer-digit .odometer-digit-spacer {
+  display: -moz-inline-box;
+  -moz-box-orient: vertical;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  visibility: hidden;
+}
+.odometer.odometer-auto-theme .odometer-digit .odometer-digit-spacer, .odometer.odometer-theme-train-station .odometer-digit .odometer-digit-spacer {
+  *display: inline;
+}
+.odometer.odometer-auto-theme .odometer-digit .odometer-digit-inner, .odometer.odometer-theme-train-station .odometer-digit .odometer-digit-inner {
+  text-align: left;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+}
+.odometer.odometer-auto-theme .odometer-digit .odometer-ribbon, .odometer.odometer-theme-train-station .odometer-digit .odometer-ribbon {
+  display: block;
+}
+.odometer.odometer-auto-theme .odometer-digit .odometer-ribbon-inner, .odometer.odometer-theme-train-station .odometer-digit .odometer-ribbon-inner {
+  display: block;
+}
+.odometer.odometer-auto-theme .odometer-digit .odometer-value, .odometer.odometer-theme-train-station .odometer-digit .odometer-value {
+  display: block;
+}
+.odometer.odometer-auto-theme .odometer-digit .odometer-value.odometer-last-value, .odometer.odometer-theme-train-station .odometer-digit .odometer-value.odometer-last-value {
+  position: absolute;
+}
+.odometer.odometer-auto-theme.odometer-animating-up .odometer-ribbon-inner, .odometer.odometer-theme-train-station.odometer-animating-up .odometer-ribbon-inner {
+  -webkit-transition: -webkit-transform 2s;
+}
+.odometer.odometer-auto-theme.odometer-animating-up.odometer-animating .odometer-ribbon-inner, .odometer.odometer-theme-train-station.odometer-animating-up.odometer-animating .odometer-ribbon-inner {
+  -webkit-transform: translateY(-100%);
+}
+.odometer.odometer-auto-theme.odometer-animating-down .odometer-ribbon-inner, .odometer.odometer-theme-train-station.odometer-animating-down .odometer-ribbon-inner {
+  -webkit-transform: translateY(-100%);
+}
+.odometer.odometer-auto-theme.odometer-animating-down.odometer-animating .odometer-ribbon-inner, .odometer.odometer-theme-train-station.odometer-animating-down.odometer-animating .odometer-ribbon-inner {
+  -webkit-transition: -webkit-transform 2s;
+  -webkit-transform: translateY(0);
+}
+.odometer.odometer-auto-theme.odometer-no-transitions .odometer-digit .odometer-digit-spacer, .odometer.odometer-theme-train-station.odometer-no-transitions .odometer-digit .odometer-digit-spacer {
+  display: none;
+}
+
+.odometer.odometer-auto-theme, .odometer.odometer-theme-train-station {
+  font-family: "Economica", sans-serif;
+}
+.odometer.odometer-auto-theme .odometer-digit, .odometer.odometer-theme-train-station .odometer-digit {
   display: -moz-inline-box;
   -moz-box-orient: vertical;
   display: inline-block;
@@ -26,59 +86,15 @@
   -ms-border-radius: 0.1em;
   -khtml-border-radius: 0.1em;
   border-radius: 0.1em;
-  background-color: #222222;
   background: -webkit-linear-gradient(top, #111111 0%, #111111 35%, #333333 55%, #111111 55%, #111111 100%);
+  background-color: #222222;
   margin-right: 0.1em;
   padding: 0 0.15em;
-  position: relative;
   color: white;
 }
-/* line 7, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/css3/_inline-block.scss */
-.odometer .odometer-digit {
+.odometer.odometer-auto-theme .odometer-digit, .odometer.odometer-theme-train-station .odometer-digit {
   *display: inline;
 }
-/* line 22, ../sass/odometer-theme-train-station.sass */
-.odometer .odometer-digit .odometer-digit-spacer {
-  display: -moz-inline-box;
-  -moz-box-orient: vertical;
-  display: inline-block;
-  vertical-align: middle;
-  *vertical-align: auto;
-  visibility: hidden;
-}
-/* line 7, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/css3/_inline-block.scss */
-.odometer .odometer-digit .odometer-digit-spacer {
-  *display: inline;
-}
-/* line 26, ../sass/odometer-theme-train-station.sass */
-.odometer .odometer-digit .odometer-digit-inner {
-  display: block;
-  position: absolute;
-  top: 0;
+.odometer.odometer-auto-theme .odometer-digit .odometer-digit-inner, .odometer.odometer-theme-train-station .odometer-digit .odometer-digit-inner {
   left: 0.15em;
-  right: 0;
-  bottom: 0;
-  overflow: hidden;
-}
-/* line 35, ../sass/odometer-theme-train-station.sass */
-.odometer .odometer-digit .odometer-ribbon {
-  display: block;
-}
-/* line 38, ../sass/odometer-theme-train-station.sass */
-.odometer .odometer-digit .odometer-ribbon-inner {
-  display: block;
-  -webkit-transition: -webkit-transform 2s;
-}
-/* line 42, ../sass/odometer-theme-train-station.sass */
-.odometer .odometer-digit .odometer-value {
-  display: block;
-}
-/* line 45, ../sass/odometer-theme-train-station.sass */
-.odometer .odometer-digit .odometer-value.odometer-terminal-value {
-  position: absolute;
-}
-
-/* line 48, ../sass/odometer-theme-train-station.sass */
-.odometer-animating-up .odometer-ribbon-inner {
-  -webkit-transform: translateY(-100%);
 }
