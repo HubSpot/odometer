@@ -1,5 +1,5 @@
 THEMES = [{
-    name: 'default'
+    name: 'minimal'
     numbers: [{
         number: 10000
         description: '= 28<sup>2</sup> + 96<sup>2</sup> = 60<sup>2</sup> + 80<sup>2</sup>'
