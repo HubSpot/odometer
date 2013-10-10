@@ -75,7 +75,7 @@ class Odometer
     @
 
   cleanValue: (val) ->
-    val.replace /[.,]/g, ''
+    val.toString().replace /[.,]/g, ''
 
   bindTransitionEnd: ->
     return if @transitionEndBound
@@ -275,10 +275,10 @@ class Odometer
         if j == 0
           numEl.className += ' odometer-first-value'
 
-Odometer.options ?= {}
+Odometer.options = window.odometerOptions ? {}
 
 document.addEventListener 'DOMContentLoaded', ->
-  if Odometer.auto isnt false
+  if Odometer.options.auto isnt false
     elements = document.querySelectorAll '.odometer'
 
     for el in elements

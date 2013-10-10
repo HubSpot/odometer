@@ -1,5 +1,5 @@
 (function() {
-  var COUNT_FRAMERATE, COUNT_MS_PER_FRAME, DIGIT_FORMAT, DIGIT_HTML, DIGIT_SPEEDBOOST, DURATION, FORMAT_MARK_HTML, FRAMERATE, FRAMES_PER_VALUE, MS_PER_FRAME, Odometer, RIBBON_HTML, TRANSITION_END_EVENTS, TRANSITION_SUPPORT, VALUE_HTML, createFromHTML, now, renderTemplate;
+  var COUNT_FRAMERATE, COUNT_MS_PER_FRAME, DIGIT_FORMAT, DIGIT_HTML, DIGIT_SPEEDBOOST, DURATION, FORMAT_MARK_HTML, FRAMERATE, FRAMES_PER_VALUE, MS_PER_FRAME, Odometer, RIBBON_HTML, TRANSITION_END_EVENTS, TRANSITION_SUPPORT, VALUE_HTML, createFromHTML, now, renderTemplate, _ref;
 
   DIGIT_HTML = '<span class="odometer-digit"><span class="odometer-digit-spacer">8</span><span class="odometer-digit-inner"></span></span>';
 
@@ -93,7 +93,7 @@
     }
 
     Odometer.prototype.cleanValue = function(val) {
-      return val.replace(/[.,]/g, '');
+      return val.toString().replace(/[.,]/g, '');
     };
 
     Odometer.prototype.bindTransitionEnd = function() {
@@ -343,13 +343,11 @@
 
   })();
 
-  if (Odometer.options == null) {
-    Odometer.options = {};
-  }
+  Odometer.options = (_ref = window.odometerOptions) != null ? _ref : {};
 
   document.addEventListener('DOMContentLoaded', function() {
     var el, elements, _i, _len, _results;
-    if (Odometer.auto !== false) {
+    if (Odometer.options.auto !== false) {
       elements = document.querySelectorAll('.odometer');
       _results = [];
       for (_i = 0, _len = elements.length; _i < _len; _i++) {
