@@ -13,12 +13,13 @@ Odometer
 <script>
   update = function(){
     $.ajax("https://api.github.com/repos/HubSpot/odometer", {
+      cache: false,
       success: function(data){
         if (data.watchers_count)
           document.querySelector('.odometer').innerHTML = data.watchers_count;
       },
       complete: function(){
-        setTimeout(update, 2000);
+        setTimeout(update, 5000);
       } 
     });
   };
