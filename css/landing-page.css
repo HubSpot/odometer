@@ -159,14 +159,17 @@ body {
     text-align: center;
 }
 
-.down-arrow {
+.down-arrow:before {
+    content: "\2193";
     position: absolute;
+    margin: auto;
+    display: block;
     left: 0;
-    -webkit-transform: rotate(180deg);
-    -moz-transform: rotate(180deg);
-    -ms-transform: rotate(180deg);
-    -o-transform: rotate(180deg);
-    transform: rotate(180deg);
-    bottom: 30px;
-    content: "\u8682";
+    right: 0;
+    font-size: 2em;
+    bottom: 1em;
+    height: 1em;
+    width: 1em;
+    text-align: center;
+    opacity: 0.5;
 }
