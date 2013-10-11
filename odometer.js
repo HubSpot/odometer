@@ -121,7 +121,7 @@
     }
 
     Odometer.prototype.cleanValue = function(val) {
-      return val.toString().replace(/[.,]/g, '');
+      return parseInt(val.toString().replace(/[.,]/g, ''), 10) || 0;
     };
 
     Odometer.prototype.bindTransitionEnd = function() {

@@ -95,7 +95,7 @@ class Odometer
     @
 
   cleanValue: (val) ->
-    val.toString().replace /[.,]/g, ''
+    parseInt(val.toString().replace(/[.,]/g, ''), 10) or 0
 
   bindTransitionEnd: ->
     return if @transitionEndBound
