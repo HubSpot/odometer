@@ -146,7 +146,7 @@ el.innerHTML = 555
 Browser Support
 ---------------
 
-Odometer is intended to support IE8+, FF4+, Chrome and Safari.
+Odometer is intended to support IE8+, FF4+, Safari 6+, and Chrome.
 
 Dependencies
 ------------
