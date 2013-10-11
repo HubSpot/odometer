@@ -93,7 +93,6 @@ class Odometer
             set: (val) =>
               @update @cleanValue val
         catch e
-          console.log "Odometer wrapping error, .innerText and .innerHTML won't be able to trigger odometer", e
 
     @
 

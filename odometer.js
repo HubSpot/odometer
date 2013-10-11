@@ -116,7 +116,6 @@
           });
         } catch (_error) {
           e = _error;
-          return console.log("Odometer wrapping error, .innerText and .innerHTML won't be able to trigger odometer", e);
         }
       };
       for (_j = 0, _len1 = _ref2.length; _j < _len1; _j++) {
