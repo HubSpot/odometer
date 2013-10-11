@@ -85,12 +85,15 @@ class Odometer
 
     for property in ['HTML', 'Text']
       do (property) =>
-        Object.defineProperty @el, "inner#{ property }",
-          get: =>
-            @inside["outer#{ property }"]
+        try
+          Object.defineProperty @el, "inner#{ property }",
+            get: =>
+              @inside["outer#{ property }"]
 
-          set: (val) =>
-            @update @cleanValue val
+            set: (val) =>
+              @update @cleanValue val
+        catch e
+          console.log "Odometer wrapping error, .innerText and .innerHTML won't be able to trigger odometer", e
 
     @
 
