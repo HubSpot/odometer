@@ -87,9 +87,6 @@
   -o-transform: translateY(0);
   transform: translateY(0);
 }
-.odometer.odometer-auto-theme.odometer-no-transitions .odometer-digit .odometer-digit-spacer, .odometer.odometer-theme-default.odometer-no-transitions .odometer-digit .odometer-digit-spacer {
-  display: none;
-}
 
 .odometer.odometer-auto-theme, .odometer.odometer-theme-default {
   font-family: "Helvetica Neue", sans-serif;

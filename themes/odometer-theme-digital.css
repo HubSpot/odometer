@@ -88,9 +88,6 @@
   -o-transform: translateY(0);
   transform: translateY(0);
 }
-.odometer.odometer-auto-theme.odometer-no-transitions .odometer-digit .odometer-digit-spacer, .odometer.odometer-theme-digital.odometer-no-transitions .odometer-digit .odometer-digit-spacer {
-  display: none;
-}
 
 .odometer.odometer-auto-theme, .odometer.odometer-theme-digital {
   background-image: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 100, color-stop(0%, rgba(139, 245, 165, 0.4)), color-stop(100%, #000000));

@@ -87,6 +87,3 @@
   -o-transform: translateY(0);
   transform: translateY(0);
 }
-.odometer.odometer-auto-theme.odometer-no-transitions .odometer-digit .odometer-digit-spacer, .odometer.odometer-theme-minimal.odometer-no-transitions .odometer-digit .odometer-digit-spacer {
-  display: none;
-}
