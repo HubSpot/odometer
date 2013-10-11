@@ -109,7 +109,7 @@ Example
 
 <div class="odometer odometer-theme-car odometer-example">123</div>
 
-Play with this simple example on [jsFiddle](http://jsfiddle.net/rx6BQ/2/).
+Play with this simple example on [jsFiddle](http://jsfiddle.net/rx6BQ/7/).
 
 Advanced
 --------
