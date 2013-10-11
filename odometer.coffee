@@ -27,7 +27,15 @@ MS_PER_FRAME = 1000 / FRAMERATE
 COUNT_MS_PER_FRAME = 1000 / COUNT_FRAMERATE
 
 TRANSITION_END_EVENTS = 'transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd'
-TRANSITION_SUPPORT = document.createElement('div').style.transition?
+
+transitionCheckStyles = document.createElement('div').style
+TRANSITION_SUPPORT = transitionCheckStyles.transition? or transitionCheckStyles.webkitTransition? or
+                     transitionCheckStyles.mozTransition? or transitionCheckStyles.oTransition?
+
+requestAnimationFrame = window.requestAnimationFrame or window.mozRequestAnimationFrame or
+                        window.webkitRequestAnimationFrame or window.msRequestAnimationFrame
+
+MutationObserver = window.MutationObserver or window.WebKitMutationObserver or window.MozMutationObserver
 
 createFromHTML = (html) ->
   el = document.createElement('div')
@@ -70,31 +78,59 @@ class Odometer
 
     @value = @cleanValue(@options.value ? '')
 
-    @inside = document.createElement 'div'
-    @inside.className = 'odometer-inside'
-    @el.innerHTML = ''
-    @el.appendChild @inside
-
     @options.format ?= DIGIT_FORMAT
     @options.format or= 'd'
 
     @options.duration ?= DURATION
     @MAX_VALUES = ((@options.duration / MS_PER_FRAME) / FRAMES_PER_VALUE) | 0
 
+    @renderInside()
     @render()
 
-    for property in ['HTML', 'Text']
-      do (property) =>
-        try
+    try
+      for property in ['HTML', 'Text']
+        do (property) =>
           Object.defineProperty @el, "inner#{ property }",
             get: =>
               @inside["outer#{ property }"]
 
             set: (val) =>
               @update @cleanValue val
-        catch e
+    catch e
+      # Safari
+      @watchForMutations()
 
     @
+
+  renderInside: ->
+    @inside = document.createElement 'div'
+    @inside.className = 'odometer-inside'
+    @el.innerHTML = ''
+    @el.appendChild @inside
+
+  watchForMutations: ->
+    # Safari doesn't allow us to wrap .innerHTML, so we listen for it
+    # changing.
+    return unless MutationObserver?
+
+    try
+      @observer ?= new MutationObserver (mutations) =>
+        newVal = @el.innerText
+
+        @renderInside()
+        @render @value
+        @update newVal
+
+      @watchMutations = true
+      @startWatchingMutations()
+    catch e
+
+  startWatchingMutations: ->
+    if @watchMutations
+      @observer.observe @el, {childList: true}
+
+  stopWatchingMutations: ->
+    @observer?.disconnect()
 
   cleanValue: (val) ->
     parseInt(val.toString().replace(/[.,]/g, ''), 10) or 0
@@ -124,6 +160,7 @@ class Odometer
     @format = @options.format.split('').reverse().join('')
 
   render: (value=@value) ->
+    @stopWatchingMutations()
     @resetFormat()
 
     @inside.innerHTML = ''
@@ -152,11 +189,13 @@ class Odometer
 
     @digits = []
     for digit in value.toString().split('').reverse()
-      ctx = {value: digit}
-
       @addDigit digit
 
+    @startWatchingMutations()
+
   update: (newValue) ->
+    newValue = @cleanValue newValue
+
     return unless diff = newValue - @value
 
     if diff > 0
@@ -164,7 +203,9 @@ class Odometer
     else
       @el.className += ' odometer-animating-down'
 
+    @stopWatchingMutations()
     @animate newValue
+    @startWatchingMutations()
 
     setTimeout =>
       @el.className += ' odometer-animating'
@@ -213,7 +254,7 @@ class Odometer
       @animateCount newValue
 
   animateCount: (newValue) ->
-    return unless diff = newValue - @value
+    return unless diff = +newValue - @value
 
     start = last = now()
 

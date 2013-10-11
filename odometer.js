@@ -1,5 +1,5 @@
 (function() {
-  var COUNT_FRAMERATE, COUNT_MS_PER_FRAME, DIGIT_FORMAT, DIGIT_HTML, DIGIT_SPEEDBOOST, DURATION, FORMAT_MARK_HTML, FRAMERATE, FRAMES_PER_VALUE, MS_PER_FRAME, Odometer, RIBBON_HTML, TRANSITION_END_EVENTS, TRANSITION_SUPPORT, VALUE_HTML, createFromHTML, now, wrapJQuery, _jQueryWrapped, _old, _ref, _ref1;
+  var COUNT_FRAMERATE, COUNT_MS_PER_FRAME, DIGIT_FORMAT, DIGIT_HTML, DIGIT_SPEEDBOOST, DURATION, FORMAT_MARK_HTML, FRAMERATE, FRAMES_PER_VALUE, MS_PER_FRAME, MutationObserver, Odometer, RIBBON_HTML, TRANSITION_END_EVENTS, TRANSITION_SUPPORT, VALUE_HTML, createFromHTML, now, requestAnimationFrame, transitionCheckStyles, wrapJQuery, _jQueryWrapped, _old, _ref, _ref1;
 
   VALUE_HTML = '<span class="odometer-value"></span>';
 
@@ -27,7 +27,13 @@
 
   TRANSITION_END_EVENTS = 'transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd';
 
-  TRANSITION_SUPPORT = document.createElement('div').style.transition != null;
+  transitionCheckStyles = document.createElement('div').style;
+
+  TRANSITION_SUPPORT = (transitionCheckStyles.transition != null) || (transitionCheckStyles.webkitTransition != null) || (transitionCheckStyles.mozTransition != null) || (transitionCheckStyles.oTransition != null);
+
+  requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+
+  MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
 
   createFromHTML = function(html) {
     var el;
@@ -73,7 +79,7 @@
 
   Odometer = (function() {
     function Odometer(options) {
-      var k, property, v, _base, _base1, _base2, _fn, _i, _j, _len, _len1, _ref, _ref1, _ref2,
+      var e, k, property, v, _base, _base1, _base2, _fn, _i, _j, _len, _len1, _ref, _ref1, _ref2,
         _this = this;
       this.options = options;
       this.el = this.options.el;
@@ -89,10 +95,6 @@
         }
       }
       this.value = this.cleanValue((_ref1 = this.options.value) != null ? _ref1 : '');
-      this.inside = document.createElement('div');
-      this.inside.className = 'odometer-inside';
-      this.el.innerHTML = '';
-      this.el.appendChild(this.inside);
       if ((_base = this.options).format == null) {
         _base.format = DIGIT_FORMAT;
       }
@@ -101,11 +103,11 @@
         _base2.duration = DURATION;
       }
       this.MAX_VALUES = ((this.options.duration / MS_PER_FRAME) / FRAMES_PER_VALUE) | 0;
+      this.renderInside();
       this.render();
-      _ref2 = ['HTML', 'Text'];
-      _fn = function(property) {
-        var e;
-        try {
+      try {
+        _ref2 = ['HTML', 'Text'];
+        _fn = function(property) {
           return Object.defineProperty(_this.el, "inner" + property, {
             get: function() {
               return _this.inside["outer" + property];
@@ -114,16 +116,60 @@
               return _this.update(_this.cleanValue(val));
             }
           });
-        } catch (_error) {
-          e = _error;
+        };
+        for (_j = 0, _len1 = _ref2.length; _j < _len1; _j++) {
+          property = _ref2[_j];
+          _fn(property);
         }
-      };
-      for (_j = 0, _len1 = _ref2.length; _j < _len1; _j++) {
-        property = _ref2[_j];
-        _fn(property);
+      } catch (_error) {
+        e = _error;
+        this.watchForMutations();
       }
       this;
     }
+
+    Odometer.prototype.renderInside = function() {
+      this.inside = document.createElement('div');
+      this.inside.className = 'odometer-inside';
+      this.el.innerHTML = '';
+      return this.el.appendChild(this.inside);
+    };
+
+    Odometer.prototype.watchForMutations = function() {
+      var e,
+        _this = this;
+      if (MutationObserver == null) {
+        return;
+      }
+      try {
+        if (this.observer == null) {
+          this.observer = new MutationObserver(function(mutations) {
+            var newVal;
+            newVal = _this.el.innerText;
+            _this.renderInside();
+            _this.render(_this.value);
+            return _this.update(newVal);
+          });
+        }
+        this.watchMutations = true;
+        return this.startWatchingMutations();
+      } catch (_error) {
+        e = _error;
+      }
+    };
+
+    Odometer.prototype.startWatchingMutations = function() {
+      if (this.watchMutations) {
+        return this.observer.observe(this.el, {
+          childList: true
+        });
+      }
+    };
+
+    Odometer.prototype.stopWatchingMutations = function() {
+      var _ref;
+      return (_ref = this.observer) != null ? _ref.disconnect() : void 0;
+    };
 
     Odometer.prototype.cleanValue = function(val) {
       return parseInt(val.toString().replace(/[.,]/g, ''), 10) || 0;
@@ -161,10 +207,11 @@
     };
 
     Odometer.prototype.render = function(value) {
-      var classes, cls, ctx, digit, newClasses, _i, _j, _len, _len1, _ref, _results;
+      var classes, cls, digit, newClasses, _i, _j, _len, _len1, _ref;
       if (value == null) {
         value = this.value;
       }
+      this.stopWatchingMutations();
       this.resetFormat();
       this.inside.innerHTML = '';
       classes = this.el.className.split(' ');
@@ -190,20 +237,17 @@
       this.ribbons = {};
       this.digits = [];
       _ref = value.toString().split('').reverse();
-      _results = [];
       for (_j = 0, _len1 = _ref.length; _j < _len1; _j++) {
         digit = _ref[_j];
-        ctx = {
-          value: digit
-        };
-        _results.push(this.addDigit(digit));
+        this.addDigit(digit);
       }
-      return _results;
+      return this.startWatchingMutations();
     };
 
     Odometer.prototype.update = function(newValue) {
       var diff,
         _this = this;
+      newValue = this.cleanValue(newValue);
       if (!(diff = newValue - this.value)) {
         return;
       }
@@ -212,7 +256,9 @@
       } else {
         this.el.className += ' odometer-animating-down';
       }
+      this.stopWatchingMutations();
       this.animate(newValue);
+      this.startWatchingMutations();
       setTimeout(function() {
         return _this.el.className += ' odometer-animating';
       }, 0);
@@ -268,7 +314,7 @@
     Odometer.prototype.animateCount = function(newValue) {
       var cur, diff, last, start, tick,
         _this = this;
-      if (!(diff = newValue - this.value)) {
+      if (!(diff = +newValue - this.value)) {
         return;
       }
       start = last = now();
