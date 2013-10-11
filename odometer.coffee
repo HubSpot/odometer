@@ -266,7 +266,9 @@ class Odometer
         while (dist > 0 and cur < end) or (dist < 0 and cur > end)
           frames.push Math.round cur
           cur += incr
-        frames.push end
+
+        if frames[frames.length - 1] isnt end
+          frames.push end
 
         boosted++
       else

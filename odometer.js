@@ -312,7 +312,9 @@
             frames.push(Math.round(cur));
             cur += incr;
           }
-          frames.push(end);
+          if (frames[frames.length - 1] !== end) {
+            frames.push(end);
+          }
           boosted++;
         } else {
           frames = (function() {
