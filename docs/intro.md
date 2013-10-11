@@ -28,26 +28,46 @@ Odometer
   padding-left: 13px;
   opacity: 0.7;
 }
+.odometer-theme-car {
+  font-size: 80px;
+}
 </style>
 
+<link rel="stylesheet" href="https://rawgithub.com/HubSpot/odometer/master/themes/odometer-theme-minimal.css" />
+<script>
+  odometerOptions = { auto: false };
+</script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<link rel="stylesheet" href="https://rawgithub.com/HubSpot/odometer/master/themes/odometer-theme-default.css" />
+<link rel="stylesheet" href="https://rawgithub.com/HubSpot/odometer/master/themes/odometer-theme-car.css" />
 <script src="https://rawgithub.com/HubSpot/odometer/master/odometer.min.js"></script>
 <script>
-  update = function(){
-    $.ajax("https://api.github.com/repos/HubSpot/odometer", {
-      cache: false,
-      success: function(data){
-        if (data.watchers_count)
-          document.querySelector('.odometer').innerHTML = data.watchers_count;
-      },
-      complete: function(){
-        setTimeout(update, 5000);
-      } 
-    });
-  };
+  $(function(){
+    var starsOdometer = new Odometer({ el: $('.odometer-github-stars .odometer')[0], theme: 'minimal', value: 0 });
+    starsOdometer.render()
 
-  setTimeout(update, 1000);
+    var exampleOdometerValue = 123456;
+    var exampleOdometer = new Odometer({ el: $('.odometer-example')[0], theme: 'car', value: exampleOdometerValue });
+    exampleOdometer.render()
+
+    setInterval(function(){
+      exampleOdometer.update(exampleOdometerValue++);
+    }, 3000);
+
+    var update = function() {
+      $.ajax("https://api.github.com/repos/HubSpot/odometer", {
+        cache: false,
+        success: function(data){
+          if (data.watchers_count)
+            starsOdometer.update(data.watchers_count);
+        },
+        complete: function(){
+          setTimeout(update, 5000);
+        }
+      });
+    };
+
+    setTimeout(update, 1000);
+  });
 </script>
 
 <h3 class="odometer-github-stars"><span class="odometer-label">GitHub ★ s so far:</span><div class="odometer">0</div></h3>
@@ -74,6 +94,13 @@ will happen automatically.  Any libraries you're using to update their value, pr
 the `odometer` element, will work just fine.
 
 On older browsers, it will automatically fallback to a simpler animation which won't tax their fragile javascript runtime.
+
+Example
+-------
+
+<div class="odometer odometer-theme-car odometer-example">123</div>
+
+Play with this simple example on [jsFiddle](http://jsfiddle.net/adamschwartz/rx6BQ/).
 
 Advanced
 --------
