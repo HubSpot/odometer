@@ -28,8 +28,9 @@ Odometer
   padding-left: 13px;
   opacity: 0.7;
 }
-.odometer-theme-car {
+.odometer.odometer-theme-car {
   font-size: 80px;
+  line-height: 100px;
 }
 </style>
 
