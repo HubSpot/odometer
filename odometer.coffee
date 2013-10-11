@@ -263,12 +263,9 @@ class Odometer
         incr = dist / (@MAX_VALUES + @MAX_VALUES * boosted * DIGIT_SPEEDBOOST)
         cur = start
 
-        if dist
-          frames.push start
-
         while (dist > 0 and cur < end) or (dist < 0 and cur > end)
-          cur += incr
           frames.push Math.round cur
+          cur += incr
         frames.push end
 
         boosted++
