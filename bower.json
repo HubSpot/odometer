@@ -1,0 +1,10 @@
+{
+  "name": "odometer",
+  "version": "0.3.4",
+  "main": "odometer.js",
+  "ignore": [
+    "*",
+    "!themes/*",
+    "!odometer.js"
+  ]
+}
