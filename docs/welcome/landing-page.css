@@ -117,6 +117,12 @@ body {
     margin: 2em auto;
     border: .15em solid;
     display: inline-block;
+    line-height: 1.7;
+}
+
+.dark-button {
+    color: white;
+    background-color: #222;
 }
 
 .number-source {
