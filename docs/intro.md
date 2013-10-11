@@ -40,10 +40,10 @@ Odometer
 </script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <link rel="stylesheet" href="https://rawgithub.com/HubSpot/odometer/master/themes/odometer-theme-car.css" />
-<script src="https://rawgithub.com/HubSpot/odometer/master/odometer.min.js"></script>
+<script src="odometer.js"></script>
 <script>
   $(function(){
-    var starsOdometer = new Odometer({ el: $('.odometer-github-stars .odometer')[0], theme: 'minimal', value: 0 });
+    var starsOdometer = new Odometer({ el: $('.odometer-github-stars .odometer')[0], theme: 'minimal', value: '0' });
     starsOdometer.render()
 
     var exampleOdometerValue = 123456;
@@ -54,6 +54,7 @@ Odometer
       exampleOdometer.update(exampleOdometerValue++);
     }, 3000);
 
+    var i = 0;
     var update = function() {
       $.ajax("https://api.github.com/repos/HubSpot/odometer", {
         cache: false,
@@ -61,11 +62,18 @@ Odometer
           if (data.watchers_count)
             starsOdometer.update(data.watchers_count);
         },
-        complete: function(){
-          setTimeout(update, 5000);
+        complete: function(xhr){
+          remaining = xhr.getResponseHeader('X-RateLimit-Remaining');
+
+          setTimeout(update, 1000 * (4 + Math.pow(1.1, (60 - remaining))));
         }
       });
     };
+
+    setInterval(function(){
+      // Github's limits reset every hour
+      i = 0;
+    }, 3600*1000);
 
     setTimeout(update, 1000);
   });
