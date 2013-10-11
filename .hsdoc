@@ -1,3 +1,4 @@
 title: "Odometer"
 source: "odometer.coffee"
+examples: "**/*.md"
 assets: "{docs/welcome/*,odometer.js,themes/*}"
