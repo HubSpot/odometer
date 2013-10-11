@@ -208,6 +208,8 @@ class Odometer
     @startWatchingMutations()
 
     setTimeout =>
+      @el.offsetHeight
+
       @el.className += ' odometer-animating'
     , 0
 
