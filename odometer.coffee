@@ -1,7 +1,7 @@
-DIGIT_HTML = '<span class="odometer-digit"><span class="odometer-digit-spacer">8</span><span class="odometer-digit-inner"></span></span>'
-RIBBON_HTML = '<span class="odometer-ribbon"><span class="odometer-ribbon-inner"></span></span>'
-VALUE_HTML = '<span class="odometer-value">{value}</span>'
-FORMAT_MARK_HTML = '<span class="odometer-formatting-mark">{char}</span>'
+VALUE_HTML = '<span class="odometer-value"></span>'
+RIBBON_HTML = '<span class="odometer-ribbon"><span class="odometer-ribbon-inner">' + VALUE_HTML + '</span></span>'
+DIGIT_HTML = '<span class="odometer-digit"><span class="odometer-digit-spacer">8</span><span class="odometer-digit-inner">' + RIBBON_HTML + '</span></span>'
+FORMAT_MARK_HTML = '<span class="odometer-formatting-mark"></span>'
 DIGIT_FORMAT = ',ddd'
 
 # What is our target framerate?
@@ -28,10 +28,6 @@ COUNT_MS_PER_FRAME = 1000 / COUNT_FRAMERATE
 
 TRANSITION_END_EVENTS = 'transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd'
 TRANSITION_SUPPORT = document.createElement('div').style.transition?
-
-renderTemplate = (template, ctx) ->
-  template.replace /\{([\s\S]*?)\}/gm, (match, val) ->
-    ctx[val]
 
 createFromHTML = (html) ->
   el = document.createElement('div')
@@ -169,18 +165,13 @@ class Odometer
     @animate newValue
 
     setTimeout =>
-      # Force a repaint
-      @el.offsetHeight
-
       @el.className += ' odometer-animating'
     , 0
 
     @value = newValue
 
   renderDigit: ->
-    digit = createFromHTML renderTemplate DIGIT_HTML
-    digit.querySelector('.odometer-digit-inner').innerHTML = renderTemplate RIBBON_HTML
-    digit
+    createFromHTML DIGIT_HTML
 
   insertDigit: (digit) ->
     if not @inside.children.length
@@ -203,11 +194,12 @@ class Odometer
 
       break if char is 'd'
 
-      spacer = createFromHTML renderTemplate(FORMAT_MARK_HTML, {char})
+      spacer = createFromHTML FORMAT_MARK_HTML
+      spacer.innerHTML = char
       @insertDigit spacer
 
     digit = @renderDigit()
-    digit.querySelector('.odometer-ribbon-inner').innerHTML = renderTemplate VALUE_HTML, {value}
+    digit.querySelector('.odometer-value').innerHTML = value
     @digits.push digit
 
     @insertDigit digit
@@ -296,7 +288,9 @@ class Odometer
         frames = frames.reverse()
 
       for frame, j in frames
-        numEl = createFromHTML renderTemplate VALUE_HTML, {value: frame}
+        numEl = document.createElement('div')
+        numEl.className = 'odometer-value'
+        numEl.innerHTML = frame
 
         @ribbons[i].appendChild numEl
 

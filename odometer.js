@@ -1,13 +1,13 @@
 (function() {
-  var COUNT_FRAMERATE, COUNT_MS_PER_FRAME, DIGIT_FORMAT, DIGIT_HTML, DIGIT_SPEEDBOOST, DURATION, FORMAT_MARK_HTML, FRAMERATE, FRAMES_PER_VALUE, MS_PER_FRAME, Odometer, RIBBON_HTML, TRANSITION_END_EVENTS, TRANSITION_SUPPORT, VALUE_HTML, createFromHTML, now, renderTemplate, wrapJQuery, _jQueryWrapped, _old, _ref, _ref1;
+  var COUNT_FRAMERATE, COUNT_MS_PER_FRAME, DIGIT_FORMAT, DIGIT_HTML, DIGIT_SPEEDBOOST, DURATION, FORMAT_MARK_HTML, FRAMERATE, FRAMES_PER_VALUE, MS_PER_FRAME, Odometer, RIBBON_HTML, TRANSITION_END_EVENTS, TRANSITION_SUPPORT, VALUE_HTML, createFromHTML, now, wrapJQuery, _jQueryWrapped, _old, _ref, _ref1;
 
-  DIGIT_HTML = '<span class="odometer-digit"><span class="odometer-digit-spacer">8</span><span class="odometer-digit-inner"></span></span>';
+  VALUE_HTML = '<span class="odometer-value"></span>';
 
-  RIBBON_HTML = '<span class="odometer-ribbon"><span class="odometer-ribbon-inner"></span></span>';
+  RIBBON_HTML = '<span class="odometer-ribbon"><span class="odometer-ribbon-inner">' + VALUE_HTML + '</span></span>';
 
-  VALUE_HTML = '<span class="odometer-value">{value}</span>';
+  DIGIT_HTML = '<span class="odometer-digit"><span class="odometer-digit-spacer">8</span><span class="odometer-digit-inner">' + RIBBON_HTML + '</span></span>';
 
-  FORMAT_MARK_HTML = '<span class="odometer-formatting-mark">{char}</span>';
+  FORMAT_MARK_HTML = '<span class="odometer-formatting-mark"></span>';
 
   DIGIT_FORMAT = ',ddd';
 
@@ -28,12 +28,6 @@
   TRANSITION_END_EVENTS = 'transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd';
 
   TRANSITION_SUPPORT = document.createElement('div').style.transition != null;
-
-  renderTemplate = function(template, ctx) {
-    return template.replace(/\{([\s\S]*?)\}/gm, function(match, val) {
-      return ctx[val];
-    });
-  };
 
   createFromHTML = function(html) {
     var el;
@@ -215,17 +209,13 @@
       }
       this.animate(newValue);
       setTimeout(function() {
-        _this.el.offsetHeight;
         return _this.el.className += ' odometer-animating';
       }, 0);
       return this.value = newValue;
     };
 
     Odometer.prototype.renderDigit = function() {
-      var digit;
-      digit = createFromHTML(renderTemplate(DIGIT_HTML));
-      digit.querySelector('.odometer-digit-inner').innerHTML = renderTemplate(RIBBON_HTML);
-      return digit;
+      return createFromHTML(DIGIT_HTML);
     };
 
     Odometer.prototype.insertDigit = function(digit) {
@@ -252,15 +242,12 @@
         if (char === 'd') {
           break;
         }
-        spacer = createFromHTML(renderTemplate(FORMAT_MARK_HTML, {
-          char: char
-        }));
+        spacer = createFromHTML(FORMAT_MARK_HTML);
+        spacer.innerHTML = char;
         this.insertDigit(spacer);
       }
       digit = this.renderDigit();
-      digit.querySelector('.odometer-ribbon-inner').innerHTML = renderTemplate(VALUE_HTML, {
-        value: value
-      });
+      digit.querySelector('.odometer-value').innerHTML = value;
       this.digits.push(digit);
       return this.insertDigit(digit);
     };
@@ -359,9 +346,9 @@
           _results2 = [];
           for (j = _m = 0, _len2 = frames.length; _m < _len2; j = ++_m) {
             frame = frames[j];
-            numEl = createFromHTML(renderTemplate(VALUE_HTML, {
-              value: frame
-            }));
+            numEl = document.createElement('div');
+            numEl.className = 'odometer-value';
+            numEl.innerHTML = frame;
             this.ribbons[i].appendChild(numEl);
             if (j === frames.length - 1) {
               numEl.className += ' odometer-last-value';
