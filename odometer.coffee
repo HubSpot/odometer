@@ -5,7 +5,7 @@ FORMAT_MARK_HTML = '<span class="odometer-formatting-mark"></span>'
 DIGIT_FORMAT = ',ddd'
 
 # What is our target framerate?
-FRAMERATE = 60
+FRAMERATE = 30
 
 # How long will the animation last?
 DURATION = 2000

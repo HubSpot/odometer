@@ -11,7 +11,7 @@
 
   DIGIT_FORMAT = ',ddd';
 
-  FRAMERATE = 60;
+  FRAMERATE = 30;
 
   DURATION = 2000;
 
