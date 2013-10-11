@@ -82,12 +82,12 @@ them extremely performant, with automatic fallback on older browsers.
 
 The library and largest theme is less than 3kb when minified and compressed.
 
-All of the themes can be resized by setting the `font-size` of the `.odometer` element.
+All of [the themes](http://github.hubspot.com/odometer/api/themes/) can be resized by setting the `font-size` of the `.odometer` element.
 
 Usage
 -----
 
-**The simplest possible usage is just including [the javascript](https://raw.github.com/HubSpot/odometer/v0.3.4/odometer.min.js) and a theme css
+**The simplest possible usage is just including [the javascript](https://raw.github.com/HubSpot/odometer/v0.3.4/odometer.min.js) and a (theme css)[http://github.hubspot.com/odometer/api/themes/]
 file on your page.  Add the `odometer` class to any numbers you'd like to animate on change.  You're done.**
 
 Just set the `innerHTML`, `innerText`, or use jQuery's `.text()` or `.html()` methods to change their contents, and the animation
