@@ -260,6 +260,7 @@
       this.animate(newValue);
       this.startWatchingMutations();
       setTimeout(function() {
+        _this.el.offsetHeight;
         return _this.el.className += ' odometer-animating';
       }, 0);
       return this.value = newValue;
@@ -277,10 +278,24 @@
       }
     };
 
+    Odometer.prototype.addSpacer = function(char) {
+      var spacer;
+      spacer = createFromHTML(FORMAT_MARK_HTML);
+      spacer.innerHTML = char;
+      return this.insertDigit(spacer);
+    };
+
     Odometer.prototype.addDigit = function(value) {
-      var char, digit, resetted, spacer;
+      var char, digit, resetted;
+      if (value === '-') {
+        this.addSpacer('-');
+        return;
+      }
       resetted = false;
       while (true) {
+        if (value === '-') {
+          break;
+        }
         if (!this.format.length) {
           if (resetted) {
             throw new Error("Bad odometer format without digits");
@@ -293,9 +308,7 @@
         if (char === 'd') {
           break;
         }
-        spacer = createFromHTML(FORMAT_MARK_HTML);
-        spacer.innerHTML = char;
-        this.insertDigit(spacer);
+        this.addSpacer(char);
       }
       digit = this.renderDigit();
       digit.querySelector('.odometer-value').innerHTML = value;
@@ -376,7 +389,7 @@
         }
         for (i = _k = 0, _len = frames.length; _k < _len; i = ++_k) {
           frame = frames[i];
-          frames[i] = frame % 10;
+          frames[i] = Math.abs(frame % 10);
         }
         digits.push(frames);
       }

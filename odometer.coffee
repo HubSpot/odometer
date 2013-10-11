@@ -224,9 +224,20 @@ class Odometer
     else
       @inside.insertBefore digit, @inside.children[0]
 
+  addSpacer: (char) ->
+    spacer = createFromHTML FORMAT_MARK_HTML
+    spacer.innerHTML = char
+    @insertDigit spacer
+
   addDigit: (value) ->
+    if value is '-'
+      @addSpacer '-'
+      return
+
     resetted = false
     while true
+      break if value is '-'
+
       if not @format.length
         if resetted
           throw new Error "Bad odometer format without digits"
@@ -239,9 +250,7 @@ class Odometer
 
       break if char is 'd'
 
-      spacer = createFromHTML FORMAT_MARK_HTML
-      spacer.innerHTML = char
-      @insertDigit spacer
+      @addSpacer char
 
     digit = @renderDigit()
     digit.querySelector('.odometer-value').innerHTML = value
@@ -321,7 +330,7 @@ class Odometer
 
       # We only care about the last digit
       for frame, i in frames
-        frames[i] = frame % 10
+        frames[i] = Math.abs(frame % 10)
 
       digits.push frames
 
