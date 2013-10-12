@@ -77,6 +77,13 @@ setupOnePageScroll = ->
         $('.main').onepage_scroll
             sectionContainer: '.section'
 
+        $('.down-arrow').click -> $('.main').moveDown()
+
+        $(document).keydown (e) ->
+            switch e.keyCode
+                when 40, 34 then $('.main').moveDown()
+                when 33, 38 then $('.main').moveUp()
+
 setupNumberSections = ->
     $afterSections = $('.after-number-sections')
     $numberSectionTemplate = $('.number-section.template')

@@ -92,8 +92,21 @@
 
   setupOnePageScroll = function() {
     return $(function() {
-      return $('.main').onepage_scroll({
+      $('.main').onepage_scroll({
         sectionContainer: '.section'
+      });
+      $('.down-arrow').click(function() {
+        return $('.main').moveDown();
+      });
+      return $(document).keydown(function(e) {
+        switch (e.keyCode) {
+          case 40:
+          case 34:
+            return $('.main').moveDown();
+          case 33:
+          case 38:
+            return $('.main').moveUp();
+        }
       });
     });
   };

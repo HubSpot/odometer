@@ -205,9 +205,9 @@ body {
     text-align: center;
 }
 
-.down-arrow:before {
-    content: "\2193";
+.down-arrow {
     position: absolute;
+    cursor: pointer;
     margin: auto;
     display: block;
     left: 0;
@@ -218,6 +218,15 @@ body {
     width: 1em;
     text-align: center;
     opacity: 0.5;
+}
+
+.down-arrow:hover {
+    opacity: 1;
+}
+
+.down-arrow:before {
+    content: "\2193";
+    display: block;
 }
 
 /* Social sharing */
