@@ -15,651 +15,186 @@
         <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="http://underscorejs.org/underscore.js"></script>
-        <link rel="stylesheet" href="/odometer/css/odometer-theme-minimal.css" />
-        <link rel="stylesheet" href="/odometer/css/odometer-theme-default.css" />
-        <link rel="stylesheet" href="/odometer/css/odometer-theme-digital.css" />
-        <link rel="stylesheet" href="/odometer/css/odometer-theme-car.css" />
-        <link rel="stylesheet" href="/odometer/css/odometer-theme-train-station.css" />
+        <link rel="stylesheet" href="/odometer/themes/odometer-theme-minimal.css" />
+        <link rel="stylesheet" href="/odometer/themes/odometer-theme-default.css" />
+        <link rel="stylesheet" href="/odometer/themes/odometer-theme-digital.css" />
+        <link rel="stylesheet" href="/odometer/themes/odometer-theme-car.css" />
+        <link rel="stylesheet" href="/odometer/themes/odometer-theme-train-station.css" />
+        <link rel="stylesheet" href="/odometer/themes/odometer-theme-slot-machine.css" />
         <link rel="stylesheet" href="onepage-scroll.css" />
         <link rel="stylesheet" href="landing-page.css" />
     </head>
     <body>
-    <div class="main">
-        <div class="section number-section title-number-section">
-            <div class="number-container">
-                <div class="odometer-container">
-                    <div class="odometer odometer-theme-minimal odometer-theme-odometer">
-                        <span class="odometer-digit"><span class="odometer-digit-spacer">O</span><span class="odometer-digit-inner"><span class="odometer-ribbon"><span class="odometer-ribbon-inner">
-                            <span class="odometer-value odometer-first-value">&nbsp;</span>
-                            <span class="odometer-value">K</span>
-                            <span class="odometer-value">L</span>
-                            <span class="odometer-value">M</span>
-                            <span class="odometer-value odometer-last-value">O</span>
-                        </span></span></span></span>
-                        <span class="odometer-digit"><span class="odometer-digit-spacer">D</span><span class="odometer-digit-inner"><span class="odometer-ribbon"><span class="odometer-ribbon-inner">
-                            <span class="odometer-value odometer-first-value">&nbsp;</span>
-                            <span class="odometer-value">U</span>
-                            <span class="odometer-value">V</span>
-                            <span class="odometer-value">W</span>
-                            <span class="odometer-value">X</span>
-                            <span class="odometer-value">Y</span>
-                            <span class="odometer-value">Z</span>
-                            <span class="odometer-value">A</span>
-                            <span class="odometer-value">B</span>
-                            <span class="odometer-value">C</span>
-                            <span class="odometer-value odometer-last-value">D</span>
-                        </span></span></span></span>
-                        <span class="odometer-digit"><span class="odometer-digit-spacer">O</span><span class="odometer-digit-inner"><span class="odometer-ribbon"><span class="odometer-ribbon-inner">
-                            <span class="odometer-value odometer-first-value">&nbsp;</span>
-                            <span class="odometer-value">O</span>
-                            <span class="odometer-value">P</span>
-                            <span class="odometer-value">Q</span>
-                            <span class="odometer-value">R</span>
-                            <span class="odometer-value">S</span>
-                            <span class="odometer-value">T</span>
-                            <span class="odometer-value">U</span>
-                            <span class="odometer-value">V</span>
-                            <span class="odometer-value">W</span>
-                            <span class="odometer-value">X</span>
-                            <span class="odometer-value">Y</span>
-                            <span class="odometer-value">Z</span>
-                            <span class="odometer-value">A</span>
-                            <span class="odometer-value">B</span>
-                            <span class="odometer-value">C</span>
-                            <span class="odometer-value">D</span>
-                            <span class="odometer-value">E</span>
-                            <span class="odometer-value">F</span>
-                            <span class="odometer-value">G</span>
-                            <span class="odometer-value">H</span>
-                            <span class="odometer-value">I</span>
-                            <span class="odometer-value">J</span>
-                            <span class="odometer-value">K</span>
-                            <span class="odometer-value">L</span>
-                            <span class="odometer-value">M</span>
-                            <span class="odometer-value odometer-last-value">O</span>
-                        </span></span></span></span>
-                        <span class="odometer-digit"><span class="odometer-digit-spacer">M</span><span class="odometer-digit-inner"><span class="odometer-ribbon"><span class="odometer-ribbon-inner">
-                            <span class="odometer-value odometer-first-value">&nbsp;</span>
-                            <span class="odometer-value">V</span>
-                            <span class="odometer-value">W</span>
-                            <span class="odometer-value">X</span>
-                            <span class="odometer-value">Y</span>
-                            <span class="odometer-value">Z</span>
-                            <span class="odometer-value">A</span>
-                            <span class="odometer-value">B</span>
-                            <span class="odometer-value">C</span>
-                            <span class="odometer-value">D</span>
-                            <span class="odometer-value">E</span>
-                            <span class="odometer-value">F</span>
-                            <span class="odometer-value">G</span>
-                            <span class="odometer-value">H</span>
-                            <span class="odometer-value">I</span>
-                            <span class="odometer-value">J</span>
-                            <span class="odometer-value">K</span>
-                            <span class="odometer-value">L</span>
-                            <span class="odometer-value">M</span>
-                            <span class="odometer-value">N</span>
-                            <span class="odometer-value">O</span>
-                            <span class="odometer-value">P</span>
-                            <span class="odometer-value">Q</span>
-                            <span class="odometer-value">R</span>
-                            <span class="odometer-value">S</span>
-                            <span class="odometer-value">T</span>
-                            <span class="odometer-value">U</span>
-                            <span class="odometer-value">V</span>
-                            <span class="odometer-value">W</span>
-                            <span class="odometer-value">X</span>
-                            <span class="odometer-value">Y</span>
-                            <span class="odometer-value">Z</span>
-                            <span class="odometer-value">A</span>
-                            <span class="odometer-value">B</span>
-                            <span class="odometer-value">C</span>
-                            <span class="odometer-value">D</span>
-                            <span class="odometer-value">E</span>
-                            <span class="odometer-value">F</span>
-                            <span class="odometer-value">G</span>
-                            <span class="odometer-value">H</span>
-                            <span class="odometer-value">I</span>
-                            <span class="odometer-value">J</span>
-                            <span class="odometer-value">K</span>
-                            <span class="odometer-value">L</span>
-                            <span class="odometer-value odometer-last-value">M</span>
-                        </span></span></span></span>
-                        <span class="odometer-digit"><span class="odometer-digit-spacer">E</span><span class="odometer-digit-inner"><span class="odometer-ribbon"><span class="odometer-ribbon-inner">
-                            <span class="odometer-value odometer-first-value">&nbsp;</span>
-                            <span class="odometer-value">A</span>
-                            <span class="odometer-value">B</span>
-                            <span class="odometer-value">C</span>
-                            <span class="odometer-value">D</span>
-                            <span class="odometer-value">E</span>
-                            <span class="odometer-value">F</span>
-                            <span class="odometer-value">G</span>
-                            <span class="odometer-value">H</span>
-                            <span class="odometer-value">I</span>
-                            <span class="odometer-value">J</span>
-                            <span class="odometer-value">K</span>
-                            <span class="odometer-value">L</span>
-                            <span class="odometer-value">M</span>
-                            <span class="odometer-value">N</span>
-                            <span class="odometer-value">O</span>
-                            <span class="odometer-value">P</span>
-                            <span class="odometer-value">Q</span>
-                            <span class="odometer-value">R</span>
-                            <span class="odometer-value">S</span>
-                            <span class="odometer-value">T</span>
-                            <span class="odometer-value">U</span>
-                            <span class="odometer-value">V</span>
-                            <span class="odometer-value">W</span>
-                            <span class="odometer-value">X</span>
-                            <span class="odometer-value">Y</span>
-                            <span class="odometer-value">Z</span>
-                            <span class="odometer-value">A</span>
-                            <span class="odometer-value">B</span>
-                            <span class="odometer-value">C</span>
-                            <span class="odometer-value">D</span>
-                            <span class="odometer-value">E</span>
-                            <span class="odometer-value">F</span>
-                            <span class="odometer-value">G</span>
-                            <span class="odometer-value">H</span>
-                            <span class="odometer-value">I</span>
-                            <span class="odometer-value">J</span>
-                            <span class="odometer-value">K</span>
-                            <span class="odometer-value">L</span>
-                            <span class="odometer-value">M</span>
-                            <span class="odometer-value">N</span>
-                            <span class="odometer-value">O</span>
-                            <span class="odometer-value">P</span>
-                            <span class="odometer-value">Q</span>
-                            <span class="odometer-value">R</span>
-                            <span class="odometer-value">S</span>
-                            <span class="odometer-value">T</span>
-                            <span class="odometer-value">U</span>
-                            <span class="odometer-value">V</span>
-                            <span class="odometer-value">W</span>
-                            <span class="odometer-value">X</span>
-                            <span class="odometer-value">Y</span>
-                            <span class="odometer-value">Z</span>
-                            <span class="odometer-value">A</span>
-                            <span class="odometer-value">B</span>
-                            <span class="odometer-value">C</span>
-                            <span class="odometer-value">D</span>
-                            <span class="odometer-value odometer-last-value">E</span>
-                        </span></span></span></span>
-                        <span class="odometer-digit"><span class="odometer-digit-spacer">T</span><span class="odometer-digit-inner"><span class="odometer-ribbon"><span class="odometer-ribbon-inner">
-                            <span class="odometer-value odometer-first-value">&nbsp;</span>
-                            <span class="odometer-value">A</span>
-                            <span class="odometer-value">B</span>
-                            <span class="odometer-value">C</span>
-                            <span class="odometer-value">D</span>
-                            <span class="odometer-value">E</span>
-                            <span class="odometer-value">F</span>
-                            <span class="odometer-value">G</span>
-                            <span class="odometer-value">H</span>
-                            <span class="odometer-value">I</span>
-                            <span class="odometer-value">J</span>
-                            <span class="odometer-value">K</span>
-                            <span class="odometer-value">L</span>
-                            <span class="odometer-value">M</span>
-                            <span class="odometer-value">N</span>
-                            <span class="odometer-value">O</span>
-                            <span class="odometer-value">P</span>
-                            <span class="odometer-value">Q</span>
-                            <span class="odometer-value">R</span>
-                            <span class="odometer-value">S</span>
-                            <span class="odometer-value">T</span>
-                            <span class="odometer-value">U</span>
-                            <span class="odometer-value">V</span>
-                            <span class="odometer-value">W</span>
-                            <span class="odometer-value">X</span>
-                            <span class="odometer-value">Y</span>
-                            <span class="odometer-value">Z</span>
-                            <span class="odometer-value">A</span>
-                            <span class="odometer-value">B</span>
-                            <span class="odometer-value">C</span>
-                            <span class="odometer-value">D</span>
-                            <span class="odometer-value">E</span>
-                            <span class="odometer-value">F</span>
-                            <span class="odometer-value">G</span>
-                            <span class="odometer-value">H</span>
-                            <span class="odometer-value">I</span>
-                            <span class="odometer-value">J</span>
-                            <span class="odometer-value">K</span>
-                            <span class="odometer-value">L</span>
-                            <span class="odometer-value">M</span>
-                            <span class="odometer-value">N</span>
-                            <span class="odometer-value">O</span>
-                            <span class="odometer-value">P</span>
-                            <span class="odometer-value">Q</span>
-                            <span class="odometer-value">R</span>
-                            <span class="odometer-value">S</span>
-                            <span class="odometer-value">T</span>
-                            <span class="odometer-value">U</span>
-                            <span class="odometer-value">V</span>
-                            <span class="odometer-value">W</span>
-                            <span class="odometer-value">X</span>
-                            <span class="odometer-value">Y</span>
-                            <span class="odometer-value">Z</span>
-                            <span class="odometer-value">A</span>
-                            <span class="odometer-value">B</span>
-                            <span class="odometer-value">C</span>
-                            <span class="odometer-value">D</span>
-                            <span class="odometer-value">E</span>
-                            <span class="odometer-value">F</span>
-                            <span class="odometer-value">G</span>
-                            <span class="odometer-value">H</span>
-                            <span class="odometer-value">I</span>
-                            <span class="odometer-value">J</span>
-                            <span class="odometer-value">K</span>
-                            <span class="odometer-value">L</span>
-                            <span class="odometer-value">M</span>
-                            <span class="odometer-value">N</span>
-                            <span class="odometer-value">O</span>
-                            <span class="odometer-value">P</span>
-                            <span class="odometer-value">Q</span>
-                            <span class="odometer-value">R</span>
-                            <span class="odometer-value">S</span>
-                            <span class="odometer-value">T</span>
-                            <span class="odometer-value">U</span>
-                            <span class="odometer-value">V</span>
-                            <span class="odometer-value">W</span>
-                            <span class="odometer-value">X</span>
-                            <span class="odometer-value">Y</span>
-                            <span class="odometer-value">Z</span>
-                            <span class="odometer-value">A</span>
-                            <span class="odometer-value">B</span>
-                            <span class="odometer-value">C</span>
-                            <span class="odometer-value">D</span>
-                            <span class="odometer-value">E</span>
-                            <span class="odometer-value">F</span>
-                            <span class="odometer-value">G</span>
-                            <span class="odometer-value">H</span>
-                            <span class="odometer-value">I</span>
-                            <span class="odometer-value">J</span>
-                            <span class="odometer-value">K</span>
-                            <span class="odometer-value">L</span>
-                            <span class="odometer-value">M</span>
-                            <span class="odometer-value">N</span>
-                            <span class="odometer-value">O</span>
-                            <span class="odometer-value">P</span>
-                            <span class="odometer-value">Q</span>
-                            <span class="odometer-value">R</span>
-                            <span class="odometer-value">S</span>
-                            <span class="odometer-value odometer-last-value">T</span>
-                        </span></span></span></span>
-                        <span class="odometer-digit"><span class="odometer-digit-spacer">E</span><span class="odometer-digit-inner"><span class="odometer-ribbon"><span class="odometer-ribbon-inner">
-                            <span class="odometer-value odometer-first-value">&nbsp;</span>
-                            <span class="odometer-value">A</span>
-                            <span class="odometer-value">B</span>
-                            <span class="odometer-value">C</span>
-                            <span class="odometer-value">D</span>
-                            <span class="odometer-value">E</span>
-                            <span class="odometer-value">F</span>
-                            <span class="odometer-value">G</span>
-                            <span class="odometer-value">H</span>
-                            <span class="odometer-value">I</span>
-                            <span class="odometer-value">J</span>
-                            <span class="odometer-value">K</span>
-                            <span class="odometer-value">L</span>
-                            <span class="odometer-value">M</span>
-                            <span class="odometer-value">N</span>
-                            <span class="odometer-value">O</span>
-                            <span class="odometer-value">P</span>
-                            <span class="odometer-value">Q</span>
-                            <span class="odometer-value">R</span>
-                            <span class="odometer-value">S</span>
-                            <span class="odometer-value">T</span>
-                            <span class="odometer-value">U</span>
-                            <span class="odometer-value">V</span>
-                            <span class="odometer-value">W</span>
-                            <span class="odometer-value">X</span>
-                            <span class="odometer-value">Y</span>
-                            <span class="odometer-value">Z</span>
-                            <span class="odometer-value">A</span>
-                            <span class="odometer-value">B</span>
-                            <span class="odometer-value">C</span>
-                            <span class="odometer-value">D</span>
-                            <span class="odometer-value">E</span>
-                            <span class="odometer-value">F</span>
-                            <span class="odometer-value">G</span>
-                            <span class="odometer-value">H</span>
-                            <span class="odometer-value">I</span>
-                            <span class="odometer-value">J</span>
-                            <span class="odometer-value">K</span>
-                            <span class="odometer-value">L</span>
-                            <span class="odometer-value">M</span>
-                            <span class="odometer-value">N</span>
-                            <span class="odometer-value">O</span>
-                            <span class="odometer-value">P</span>
-                            <span class="odometer-value">Q</span>
-                            <span class="odometer-value">R</span>
-                            <span class="odometer-value">S</span>
-                            <span class="odometer-value">T</span>
-                            <span class="odometer-value">U</span>
-                            <span class="odometer-value">V</span>
-                            <span class="odometer-value">W</span>
-                            <span class="odometer-value">X</span>
-                            <span class="odometer-value">Y</span>
-                            <span class="odometer-value">Z</span>
-                            <span class="odometer-value">A</span>
-                            <span class="odometer-value">B</span>
-                            <span class="odometer-value">C</span>
-                            <span class="odometer-value">D</span>
-                            <span class="odometer-value">E</span>
-                            <span class="odometer-value">F</span>
-                            <span class="odometer-value">G</span>
-                            <span class="odometer-value">H</span>
-                            <span class="odometer-value">I</span>
-                            <span class="odometer-value">J</span>
-                            <span class="odometer-value">K</span>
-                            <span class="odometer-value">L</span>
-                            <span class="odometer-value">M</span>
-                            <span class="odometer-value">N</span>
-                            <span class="odometer-value">O</span>
-                            <span class="odometer-value">P</span>
-                            <span class="odometer-value">Q</span>
-                            <span class="odometer-value">R</span>
-                            <span class="odometer-value">S</span>
-                            <span class="odometer-value">T</span>
-                            <span class="odometer-value">U</span>
-                            <span class="odometer-value">V</span>
-                            <span class="odometer-value">W</span>
-                            <span class="odometer-value">X</span>
-                            <span class="odometer-value">Y</span>
-                            <span class="odometer-value">Z</span>
-                            <span class="odometer-value">A</span>
-                            <span class="odometer-value">B</span>
-                            <span class="odometer-value">C</span>
-                            <span class="odometer-value">D</span>
-                            <span class="odometer-value">E</span>
-                            <span class="odometer-value">F</span>
-                            <span class="odometer-value">G</span>
-                            <span class="odometer-value">H</span>
-                            <span class="odometer-value">I</span>
-                            <span class="odometer-value">J</span>
-                            <span class="odometer-value">K</span>
-                            <span class="odometer-value">L</span>
-                            <span class="odometer-value">M</span>
-                            <span class="odometer-value">N</span>
-                            <span class="odometer-value">O</span>
-                            <span class="odometer-value">P</span>
-                            <span class="odometer-value">Q</span>
-                            <span class="odometer-value">R</span>
-                            <span class="odometer-value">S</span>
-                            <span class="odometer-value">T</span>
-                            <span class="odometer-value">U</span>
-                            <span class="odometer-value">V</span>
-                            <span class="odometer-value">W</span>
-                            <span class="odometer-value">X</span>
-                            <span class="odometer-value">Y</span>
-                            <span class="odometer-value">Z</span>
-                            <span class="odometer-value">A</span>
-                            <span class="odometer-value">B</span>
-                            <span class="odometer-value">C</span>
-                            <span class="odometer-value">D</span>
-                            <span class="odometer-value">E</span>
-                            <span class="odometer-value">F</span>
-                            <span class="odometer-value">G</span>
-                            <span class="odometer-value">H</span>
-                            <span class="odometer-value">I</span>
-                            <span class="odometer-value">J</span>
-                            <span class="odometer-value">K</span>
-                            <span class="odometer-value">L</span>
-                            <span class="odometer-value">M</span>
-                            <span class="odometer-value">N</span>
-                            <span class="odometer-value">O</span>
-                            <span class="odometer-value">P</span>
-                            <span class="odometer-value">Q</span>
-                            <span class="odometer-value">R</span>
-                            <span class="odometer-value">S</span>
-                            <span class="odometer-value">T</span>
-                            <span class="odometer-value">U</span>
-                            <span class="odometer-value">V</span>
-                            <span class="odometer-value">W</span>
-                            <span class="odometer-value">X</span>
-                            <span class="odometer-value">Y</span>
-                            <span class="odometer-value">Z</span>
-                            <span class="odometer-value">A</span>
-                            <span class="odometer-value">B</span>
-                            <span class="odometer-value">C</span>
-                            <span class="odometer-value">D</span>
-                            <span class="odometer-value odometer-last-value">E</span>
-                        </span></span></span></span>
-                        <span class="odometer-digit"><span class="odometer-digit-spacer">R</span><span class="odometer-digit-inner"><span class="odometer-ribbon"><span class="odometer-ribbon-inner">
-                            <span class="odometer-value odometer-first-value">&nbsp;</span>
-                            <span class="odometer-value">A</span>
-                            <span class="odometer-value">B</span>
-                            <span class="odometer-value">C</span>
-                            <span class="odometer-value">D</span>
-                            <span class="odometer-value">E</span>
-                            <span class="odometer-value">F</span>
-                            <span class="odometer-value">G</span>
-                            <span class="odometer-value">H</span>
-                            <span class="odometer-value">I</span>
-                            <span class="odometer-value">J</span>
-                            <span class="odometer-value">K</span>
-                            <span class="odometer-value">L</span>
-                            <span class="odometer-value">M</span>
-                            <span class="odometer-value">N</span>
-                            <span class="odometer-value">O</span>
-                            <span class="odometer-value">P</span>
-                            <span class="odometer-value">Q</span>
-                            <span class="odometer-value">R</span>
-                            <span class="odometer-value">S</span>
-                            <span class="odometer-value">T</span>
-                            <span class="odometer-value">U</span>
-                            <span class="odometer-value">V</span>
-                            <span class="odometer-value">W</span>
-                            <span class="odometer-value">X</span>
-                            <span class="odometer-value">Y</span>
-                            <span class="odometer-value">Z</span>
-                            <span class="odometer-value">A</span>
-                            <span class="odometer-value">B</span>
-                            <span class="odometer-value">C</span>
-                            <span class="odometer-value">D</span>
-                            <span class="odometer-value">E</span>
-                            <span class="odometer-value">F</span>
-                            <span class="odometer-value">G</span>
-                            <span class="odometer-value">H</span>
-                            <span class="odometer-value">I</span>
-                            <span class="odometer-value">J</span>
-                            <span class="odometer-value">K</span>
-                            <span class="odometer-value">L</span>
-                            <span class="odometer-value">M</span>
-                            <span class="odometer-value">N</span>
-                            <span class="odometer-value">O</span>
-                            <span class="odometer-value">P</span>
-                            <span class="odometer-value">Q</span>
-                            <span class="odometer-value">R</span>
-                            <span class="odometer-value">S</span>
-                            <span class="odometer-value">T</span>
-                            <span class="odometer-value">U</span>
-                            <span class="odometer-value">V</span>
-                            <span class="odometer-value">W</span>
-                            <span class="odometer-value">X</span>
-                            <span class="odometer-value">Y</span>
-                            <span class="odometer-value">Z</span>
-                            <span class="odometer-value">A</span>
-                            <span class="odometer-value">B</span>
-                            <span class="odometer-value">C</span>
-                            <span class="odometer-value">D</span>
-                            <span class="odometer-value">E</span>
-                            <span class="odometer-value">F</span>
-                            <span class="odometer-value">G</span>
-                            <span class="odometer-value">H</span>
-                            <span class="odometer-value">I</span>
-                            <span class="odometer-value">J</span>
-                            <span class="odometer-value">K</span>
-                            <span class="odometer-value">L</span>
-                            <span class="odometer-value">M</span>
-                            <span class="odometer-value">N</span>
-                            <span class="odometer-value">O</span>
-                            <span class="odometer-value">P</span>
-                            <span class="odometer-value">Q</span>
-                            <span class="odometer-value">R</span>
-                            <span class="odometer-value">S</span>
-                            <span class="odometer-value">T</span>
-                            <span class="odometer-value">U</span>
-                            <span class="odometer-value">V</span>
-                            <span class="odometer-value">W</span>
-                            <span class="odometer-value">X</span>
-                            <span class="odometer-value">Y</span>
-                            <span class="odometer-value">Z</span>
-                            <span class="odometer-value">A</span>
-                            <span class="odometer-value">B</span>
-                            <span class="odometer-value">C</span>
-                            <span class="odometer-value">D</span>
-                            <span class="odometer-value">E</span>
-                            <span class="odometer-value">F</span>
-                            <span class="odometer-value">G</span>
-                            <span class="odometer-value">H</span>
-                            <span class="odometer-value">I</span>
-                            <span class="odometer-value">J</span>
-                            <span class="odometer-value">K</span>
-                            <span class="odometer-value">L</span>
-                            <span class="odometer-value">M</span>
-                            <span class="odometer-value">N</span>
-                            <span class="odometer-value">O</span>
-                            <span class="odometer-value">P</span>
-                            <span class="odometer-value">Q</span>
-                            <span class="odometer-value">R</span>
-                            <span class="odometer-value">S</span>
-                            <span class="odometer-value">T</span>
-                            <span class="odometer-value">U</span>
-                            <span class="odometer-value">V</span>
-                            <span class="odometer-value">W</span>
-                            <span class="odometer-value">X</span>
-                            <span class="odometer-value">Y</span>
-                            <span class="odometer-value">Z</span>
-                            <span class="odometer-value">A</span>
-                            <span class="odometer-value">B</span>
-                            <span class="odometer-value">C</span>
-                            <span class="odometer-value">D</span>
-                            <span class="odometer-value">E</span>
-                            <span class="odometer-value">F</span>
-                            <span class="odometer-value">G</span>
-                            <span class="odometer-value">H</span>
-                            <span class="odometer-value">I</span>
-                            <span class="odometer-value">J</span>
-                            <span class="odometer-value">K</span>
-                            <span class="odometer-value">L</span>
-                            <span class="odometer-value">M</span>
-                            <span class="odometer-value">N</span>
-                            <span class="odometer-value">O</span>
-                            <span class="odometer-value">P</span>
-                            <span class="odometer-value">Q</span>
-                            <span class="odometer-value">R</span>
-                            <span class="odometer-value">S</span>
-                            <span class="odometer-value">T</span>
-                            <span class="odometer-value">U</span>
-                            <span class="odometer-value">V</span>
-                            <span class="odometer-value">W</span>
-                            <span class="odometer-value">X</span>
-                            <span class="odometer-value">Y</span>
-                            <span class="odometer-value">Z</span>
-                            <span class="odometer-value">A</span>
-                            <span class="odometer-value">B</span>
-                            <span class="odometer-value">C</span>
-                            <span class="odometer-value">D</span>
-                            <span class="odometer-value">E</span>
-                            <span class="odometer-value">F</span>
-                            <span class="odometer-value">G</span>
-                            <span class="odometer-value">H</span>
-                            <span class="odometer-value">I</span>
-                            <span class="odometer-value">J</span>
-                            <span class="odometer-value">K</span>
-                            <span class="odometer-value">L</span>
-                            <span class="odometer-value">M</span>
-                            <span class="odometer-value">N</span>
-                            <span class="odometer-value">O</span>
-                            <span class="odometer-value">P</span>
-                            <span class="odometer-value">Q</span>
-                            <span class="odometer-value">R</span>
-                            <span class="odometer-value">S</span>
-                            <span class="odometer-value">T</span>
-                            <span class="odometer-value">U</span>
-                            <span class="odometer-value">V</span>
-                            <span class="odometer-value">W</span>
-                            <span class="odometer-value">X</span>
-                            <span class="odometer-value">Y</span>
-                            <span class="odometer-value">Z</span>
-                            <span class="odometer-value">A</span>
-                            <span class="odometer-value">B</span>
-                            <span class="odometer-value">C</span>
-                            <span class="odometer-value">D</span>
-                            <span class="odometer-value">E</span>
-                            <span class="odometer-value">F</span>
-                            <span class="odometer-value">G</span>
-                            <span class="odometer-value">H</span>
-                            <span class="odometer-value">I</span>
-                            <span class="odometer-value">J</span>
-                            <span class="odometer-value">K</span>
-                            <span class="odometer-value">L</span>
-                            <span class="odometer-value">M</span>
-                            <span class="odometer-value">N</span>
-                            <span class="odometer-value">O</span>
-                            <span class="odometer-value">P</span>
-                            <span class="odometer-value">Q</span>
-                            <span class="odometer-value">R</span>
-                            <span class="odometer-value">S</span>
-                            <span class="odometer-value">T</span>
-                            <span class="odometer-value">U</span>
-                            <span class="odometer-value">V</span>
-                            <span class="odometer-value">W</span>
-                            <span class="odometer-value">X</span>
-                            <span class="odometer-value">Y</span>
-                            <span class="odometer-value">Z</span>
-                            <span class="odometer-value">A</span>
-                            <span class="odometer-value">B</span>
-                            <span class="odometer-value">C</span>
-                            <span class="odometer-value">D</span>
-                            <span class="odometer-value">E</span>
-                            <span class="odometer-value">F</span>
-                            <span class="odometer-value">G</span>
-                            <span class="odometer-value">H</span>
-                            <span class="odometer-value">I</span>
-                            <span class="odometer-value">J</span>
-                            <span class="odometer-value">K</span>
-                            <span class="odometer-value">L</span>
-                            <span class="odometer-value">M</span>
-                            <span class="odometer-value">O</span>
-                            <span class="odometer-value">P</span>
-                            <span class="odometer-value">Q</span>
-                            <span class="odometer-value odometer-last-value">R</span>
-                        </span></span></span></span>
+        <div class="main">
+            <div class="section number-section title-number-section">
+                <div class="number-container">
+                    <div class="odometer-container">
+                        <div class="odometer odometer-theme-minimal odometer-theme-odometer">
+                            <span class="odometer-digit"><span class="odometer-digit-spacer">O</span><span class="odometer-digit-inner"><span class="odometer-ribbon"><span class="odometer-ribbon-inner">
+                                <span class="odometer-value odometer-first-value">&nbsp;</span>
+                                <span class="odometer-value">L</span>
+                                <span class="odometer-value">M</span>
+                                <span class="odometer-value odometer-last-value">O</span>
+                            </span></span></span></span>
+                            <span class="odometer-digit"><span class="odometer-digit-spacer">D</span><span class="odometer-digit-inner"><span class="odometer-ribbon"><span class="odometer-ribbon-inner">
+                                <span class="odometer-value odometer-first-value">&nbsp;</span>
+                                <span class="odometer-value">Z</span>
+                                <span class="odometer-value">A</span>
+                                <span class="odometer-value">B</span>
+                                <span class="odometer-value">C</span>
+                                <span class="odometer-value odometer-last-value">D</span>
+                            </span></span></span></span>
+                            <span class="odometer-digit"><span class="odometer-digit-spacer">O</span><span class="odometer-digit-inner"><span class="odometer-ribbon"><span class="odometer-ribbon-inner">
+                                <span class="odometer-value odometer-first-value">&nbsp;</span>
+                                <span class="odometer-value">I</span>
+                                <span class="odometer-value">J</span>
+                                <span class="odometer-value">K</span>
+                                <span class="odometer-value">L</span>
+                                <span class="odometer-value">M</span>
+                                <span class="odometer-value odometer-last-value">O</span>
+                            </span></span></span></span>
+                            <span class="odometer-digit"><span class="odometer-digit-spacer">M</span><span class="odometer-digit-inner"><span class="odometer-ribbon"><span class="odometer-ribbon-inner">
+                                <span class="odometer-value odometer-first-value">&nbsp;</span>
+                                <span class="odometer-value">G</span>
+                                <span class="odometer-value">H</span>
+                                <span class="odometer-value">I</span>
+                                <span class="odometer-value">J</span>
+                                <span class="odometer-value">K</span>
+                                <span class="odometer-value">L</span>
+                                <span class="odometer-value odometer-last-value">M</span>
+                            </span></span></span></span>
+                            <span class="odometer-digit"><span class="odometer-digit-spacer">E</span><span class="odometer-digit-inner"><span class="odometer-ribbon"><span class="odometer-ribbon-inner">
+                                <span class="odometer-value odometer-first-value">&nbsp;</span>
+                                <span class="odometer-value">Y</span>
+                                <span class="odometer-value">Z</span>
+                                <span class="odometer-value">A</span>
+                                <span class="odometer-value">B</span>
+                                <span class="odometer-value">C</span>
+                                <span class="odometer-value">D</span>
+                                <span class="odometer-value odometer-last-value">E</span>
+                            </span></span></span></span>
+                            <span class="odometer-digit"><span class="odometer-digit-spacer">T</span><span class="odometer-digit-inner"><span class="odometer-ribbon"><span class="odometer-ribbon-inner">
+                                <span class="odometer-value odometer-first-value">&nbsp;</span>
+                                <span class="odometer-value">L</span>
+                                <span class="odometer-value">M</span>
+                                <span class="odometer-value">N</span>
+                                <span class="odometer-value">O</span>
+                                <span class="odometer-value">P</span>
+                                <span class="odometer-value">Q</span>
+                                <span class="odometer-value">R</span>
+                                <span class="odometer-value">S</span>
+                                <span class="odometer-value odometer-last-value">T</span>
+                            </span></span></span></span>
+                            <span class="odometer-digit"><span class="odometer-digit-spacer">E</span><span class="odometer-digit-inner"><span class="odometer-ribbon"><span class="odometer-ribbon-inner">
+                                <span class="odometer-value odometer-first-value">&nbsp;</span>
+                                <span class="odometer-value">V</span>
+                                <span class="odometer-value">W</span>
+                                <span class="odometer-value">X</span>
+                                <span class="odometer-value">Y</span>
+                                <span class="odometer-value">Z</span>
+                                <span class="odometer-value">A</span>
+                                <span class="odometer-value">B</span>
+                                <span class="odometer-value">C</span>
+                                <span class="odometer-value">D</span>
+                                <span class="odometer-value odometer-last-value">E</span>
+                            </span></span></span></span>
+                            <span class="odometer-digit"><span class="odometer-digit-spacer">R</span><span class="odometer-digit-inner"><span class="odometer-ribbon"><span class="odometer-ribbon-inner">
+                                <span class="odometer-value odometer-first-value">&nbsp;</span>
+                                <span class="odometer-value">G</span>
+                                <span class="odometer-value">H</span>
+                                <span class="odometer-value">I</span>
+                                <span class="odometer-value">J</span>
+                                <span class="odometer-value">K</span>
+                                <span class="odometer-value">L</span>
+                                <span class="odometer-value">M</span>
+                                <span class="odometer-value">O</span>
+                                <span class="odometer-value">P</span>
+                                <span class="odometer-value">Q</span>
+                                <span class="odometer-value odometer-last-value">R</span>
+                            </span></span></span></span>
+                        </div>
+                    </div>
+                    <div class="number-description">
+                        Transition numbers with ease<br/>
+                        <a class="button dark-button" href="http://github.hubspot.com/odometer">Docs</a>
+                        <a class="button" href="http://github.com/HubSpot/odometer">★ On Github</a>
                     </div>
                 </div>
-                <div class="number-description">
-                    Transition numbers with ease<br/>
-                    <a class="button" href="http://github.com/HubSpot/odometer">★ On Github</a>
+                <div class="down-arrow" title="Scroll down to learn more"></div>
+            </div>
+
+            <div class="after-number-sections"></div>
+
+            <div class="section">
+                <div class="about-section">
+                    <h1>How To Use</h1>
+                    <p>Add the <a href="https://raw.github.com/HubSpot/odometer/v0.3.6/odometer.min.js">js</a> and a <a href="http://github.hubspot.com/odometer/api/themes/">theme file</a> to your page:</p>
+<pre class="  language-markup"><code class="  language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>stylesheet<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>odometer-theme-car.css<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+<span class="token script"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>odometer.js<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span></span></code></pre>
+                    <p>Any element with class name "odometer" will automatically be made into an Odometer! When you want to update the value, simply update it the same way you normally would.</p>
+<pre class="  language-javascript"><code class="  language-javascript">element<span class="token punctuation">.</span>innerHTML <span class="token operator">=</span> <span class="token number">123</span><span class="token comment" spellcheck="true"> // Native, or...
+</span>$<span class="token punctuation">(</span><span class="token string">'.odometer'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">html<span class="token punctuation">(</span></span><span class="token number">123</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true"> // with jQuery</span></code></pre>
+                    <center><a class="button" href="http://github.com/HubSpot/odometer">★ On Github</a></center>
                 </div>
             </div>
-            <div class="down-arrow" title="Scroll down to learn more"></div>
-        </div>
 
-        <div class="after-number-sections"></div>
-
-        <div class="section">
-            About...
-        </div>
-
-        <div class="template section number-section">
-            <div class="number-container">
-                <div class="odometer-container"></div>
-                <a target="_blank" class="number-source">
-                    <div class="number-description"></div><br/>
-                    <div class="number-detail"></div>
-                </a>
+            <div class="section">
+                <div class="about-section">
+                    <h1>About</h1>
+                    <p>Odometer was made by <a href="https://twitter.com/adamfschwartz">Adam Schwartz</a> and <a href="https://twitter.com/zackbloom">Zack Bloom</a> of <a href="http://dev.hubspot.com/">HubSpot</a>.</p>
+                    <center><a class="button" href="http://github.com/HubSpot/odometer">★ On Github</a></center>
+                </div>
             </div>
-            <div class="down-arrow" title="Scroll down to learn more"></div>
+
+            <div class="template section number-section">
+                <div class="number-container">
+                    <div class="odometer-container"></div>
+                    <a target="_blank" class="number-source">
+                        <div class="number-description"></div><br/>
+                        <div class="number-detail"></div>
+                    </a>
+                </div>
+                <div class="down-arrow" title="Scroll down to learn more"></div>
+            </div>
         </div>
-    </div>
 
-        <script>
-          odometerOptions = {auto: false};
-        </script>
-
-        <script src="/odometer/js/odometer.js"></script>
+        <script>odometerOptions = {auto: false};</script>
+        <script src="/odometer/odometer.js"></script>
         <script src="onepage-scroll.js"></script>
         <script src="landing-page.js"></script>
+
+        <!-- Share -->
+
+        <div id="retweet_button" class="social-sharing-wrapper">
+            <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://github.hubspot.com/odometer/docs/welcome" data-text="odometer.js - Transition numbers with ease" data-count="horizontal" data-via="HubSpotDev">Tweet</a>
+            <script>
+              if (Math.random() >= 0.5)
+                var recommends = ['hubspotdev', 'zackbloom', 'adamfschwartz'];
+              else
+                var recommends = ['hubspotdev', 'adamfschwartz', 'zackbloom'];
+
+              var $button = $('.twitter-share-button');
+              if ($button.length)
+                $button.data('related', recommends.join(','));
+            </script>
+            <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+        </div>
+        <div id="github_stars" class="social-sharing-wrapper">
+            <iframe src="http://ghbtns.com/github-btn.html?user=HubSpot&amp;repo=odometer&amp;type=watch&amp;count=true&amp;size=small" allowtransparency="true" frameborder="0" scrolling="0" width="200" height="20"></iframe>
+        </div>
+
+        <!-- Start of Async HubSpot Analytics Code -->
+        <script type="text/javascript">
+            (function(d,s,i,r) {
+                if (d.getElementById(i)){return;}
+                var n=d.createElement(s),e=d.getElementsByTagName(s)[0];
+                n.id=i;n.src='//js.hubspot.com/analytics/'+(Math.ceil(new Date()/r)*r)+'/51294.js';
+                e.parentNode.insertBefore(n, e);
+            })(document,"script","hs-analytics",300000);
+        </script>
+        <!-- End of Async HubSpot Analytics Code -->
+
+        <!-- Force 3d acceleration always and forever :) -->
+        <div style="-webkit-transform: translateZ(0)"></div>
     </body>
 </html>

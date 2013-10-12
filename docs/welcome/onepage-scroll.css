@@ -39,7 +39,7 @@ body, .onepage-wrapper, html {
   left: auto;
   top: 0;
   bottom: 0;
-  height: 168px;
+  height: 190px;
   z-index: 5;
   list-style: none;
   padding: 0;
@@ -82,6 +82,10 @@ body.viewing-page-2 .onepage-pagination li a.active:before { border-color: #444;
 
 body.viewing-page-3 .onepage-pagination li a:before { background-color: #333; }
 body.viewing-page-3 .onepage-pagination li a.active:before { border-color: #333; background: none; }
+body.viewing-page-3 .social-sharing-wrapper { -webkit-filter: grayscale(1) sepia(1) hue-rotate(-47deg); }
+body.viewing-page-3 .social-sharing-wrapper:hover { -webkit-filter: none; }
 
 body.viewing-page-4 .onepage-pagination li a:before { background-color: #8bf5a5; }
 body.viewing-page-4 .onepage-pagination li a.active:before { border-color: #8bf5a5; background: none; }
+body.viewing-page-4 .social-sharing-wrapper { -webkit-filter: grayscale(1) contrast(1.3) invert(1); }
+body.viewing-page-4 .social-sharing-wrapper:hover { -webkit-filter: none; }

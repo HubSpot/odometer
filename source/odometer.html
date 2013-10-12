@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>odometer.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>odometer.coffee</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>VALUE_HTML = <span class="string">'&lt;span class="odometer-value"&gt;&lt;/span&gt;'</span>
+RIBBON_HTML = <span class="string">'&lt;span class="odometer-ribbon"&gt;&lt;span class="odometer-ribbon-inner"&gt;'</span> + VALUE_HTML + <span class="string">'&lt;/span&gt;&lt;/span&gt;'</span>
+DIGIT_HTML = <span class="string">'&lt;span class="odometer-digit"&gt;&lt;span class="odometer-digit-spacer"&gt;8&lt;/span&gt;&lt;span class="odometer-digit-inner"&gt;'</span> + RIBBON_HTML + <span class="string">'&lt;/span&gt;&lt;/span&gt;'</span>
+FORMAT_MARK_HTML = <span class="string">'&lt;span class="odometer-formatting-mark"&gt;&lt;/span&gt;'</span>
+DIGIT_FORMAT = <span class="string">',ddd'</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>What is our target framerate?</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>FRAMERATE = <span class="number">30</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>How long will the animation last?</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>DURATION = <span class="number">2000</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>What is the fastest we should update values when we are
+counting up (not using the wheel animation).</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>COUNT_FRAMERATE = <span class="number">20</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>What is the minimum number of frames for each value on the wheel?
+We won&#39;t render more values than could be reasonably seen</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>FRAMES_PER_VALUE = <span class="number">2</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>If more than one digit is hitting the frame limit, they would all get
+capped at that limit and appear to be moving at the same rate.  This
+factor adds a boost to subsequent digits to make them appear faster.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>DIGIT_SPEEDBOOST = <span class="number">.5</span>
+
+MS_PER_FRAME = <span class="number">1000</span> / FRAMERATE
+COUNT_MS_PER_FRAME = <span class="number">1000</span> / COUNT_FRAMERATE
+
+TRANSITION_END_EVENTS = <span class="string">'transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd'</span>
+
+transitionCheckStyles = document.createElement(<span class="string">'div'</span>).style
+TRANSITION_SUPPORT = transitionCheckStyles.transition? <span class="keyword">or</span> transitionCheckStyles.webkitTransition? <span class="keyword">or</span>
+                     transitionCheckStyles.mozTransition? <span class="keyword">or</span> transitionCheckStyles.oTransition?
+
+requestAnimationFrame = window.requestAnimationFrame <span class="keyword">or</span> window.mozRequestAnimationFrame <span class="keyword">or</span>
+                        window.webkitRequestAnimationFrame <span class="keyword">or</span> window.msRequestAnimationFrame
+
+MutationObserver = window.MutationObserver <span class="keyword">or</span> window.WebKitMutationObserver <span class="keyword">or</span> window.MozMutationObserver
+
+<span class="function"><span class="title">createFromHTML</span></span> = (html) -&gt;
+  el = document.createElement(<span class="string">'div'</span>)
+  el.innerHTML = html
+  el.children[<span class="number">0</span>]
+
+<span class="function"><span class="title">now</span></span> = -&gt;
+  window.performance?.now() ? +<span class="keyword">new</span> Date
+
+_jQueryWrapped = <span class="literal">false</span>
+<span class="keyword">do</span> <span class="function"><span class="title">wrapJQuery</span></span> = -&gt;
+  <span class="keyword">return</span> <span class="keyword">if</span> _jQueryWrapped
+
+  <span class="keyword">if</span> window.jQuery?
+    _jQueryWrapped = <span class="literal">true</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>We need to wrap jQuery&#39;s .html and .text because they don&#39;t always
+call .innerHTML/.innerText</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">for</span> property <span class="keyword">in</span> [<span class="string">'html'</span>, <span class="string">'text'</span>]
+      <span class="keyword">do</span> (property) -&gt;
+        old = window.jQuery.fn[property]
+        window.jQuery.fn[property] = (val) -&gt;
+          <span class="keyword">if</span> <span class="keyword">not</span> val? <span class="keyword">or</span> <span class="keyword">not</span> <span class="keyword">this</span>[<span class="number">0</span>].odometer?
+            <span class="keyword">return</span> old.apply <span class="keyword">this</span>, arguments
+
+          <span class="keyword">this</span>[<span class="number">0</span>].odometer.update val</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>In case jQuery is brought in after this file</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>setTimeout wrapJQuery, <span class="number">0</span>
+
+<span class="class"><span class="keyword">class</span> <span class="title">Odometer</span></span>
+  constructor: (<span class="property">@options</span>) -&gt;
+    <span class="property">@el</span> = <span class="property">@options</span>.el
+    <span class="keyword">return</span> <span class="property">@el</span>.odometer <span class="keyword">if</span> <span class="property">@el</span>.odometer?
+
+    <span class="property">@el</span>.odometer = @
+
+    <span class="keyword">for</span> k, v <span class="keyword">in</span> Odometer.options
+      <span class="keyword">if</span> <span class="keyword">not</span> <span class="property">@options</span>[k]?
+        <span class="property">@options</span>[k] = v
+
+    <span class="property">@value</span> = <span class="property">@cleanValue</span>(<span class="property">@options</span>.value ? <span class="string">''</span>)
+
+    <span class="property">@options</span>.format ?= DIGIT_FORMAT
+    <span class="property">@options</span>.format <span class="keyword">or</span>= <span class="string">'d'</span>
+
+    <span class="property">@options</span>.duration ?= DURATION
+    <span class="property">@MAX_VALUES</span> = ((<span class="property">@options</span>.duration / MS_PER_FRAME) / FRAMES_PER_VALUE) | <span class="number">0</span>
+
+    <span class="property">@renderInside</span>()
+    <span class="property">@render</span>()
+
+    <span class="keyword">try</span>
+      <span class="keyword">for</span> property <span class="keyword">in</span> [<span class="string">'HTML'</span>, <span class="string">'Text'</span>]
+        <span class="keyword">do</span> (property) =&gt;
+          Object.defineProperty <span class="property">@el</span>, <span class="string">"inner<span class="subst">#{ property }</span>"</span>,
+            get: =&gt;
+              <span class="property">@inside</span>[<span class="string">"outer<span class="subst">#{ property }</span>"</span>]
+
+            set: (val) =&gt;
+              <span class="property">@update</span> <span class="property">@cleanValue</span> val
+    <span class="keyword">catch</span> e</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>Safari</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="property">@watchForMutations</span>()
+
+    @
+
+  renderInside: -&gt;
+    <span class="property">@inside</span> = document.createElement <span class="string">'div'</span>
+    <span class="property">@inside</span>.className = <span class="string">'odometer-inside'</span>
+    <span class="property">@el</span>.innerHTML = <span class="string">''</span>
+    <span class="property">@el</span>.appendChild <span class="property">@inside</span>
+
+  watchForMutations: -&gt;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>Safari doesn&#39;t allow us to wrap .innerHTML, so we listen for it
+changing.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">return</span> <span class="keyword">unless</span> MutationObserver?
+
+    <span class="keyword">try</span>
+      <span class="property">@observer</span> ?= <span class="keyword">new</span> MutationObserver (mutations) =&gt;
+        newVal = <span class="property">@el</span>.innerText
+
+        <span class="property">@renderInside</span>()
+        <span class="property">@render</span> <span class="property">@value</span>
+        <span class="property">@update</span> newVal
+
+      <span class="property">@watchMutations</span> = <span class="literal">true</span>
+      <span class="property">@startWatchingMutations</span>()
+    <span class="keyword">catch</span> e
+
+  startWatchingMutations: -&gt;
+    <span class="keyword">if</span> <span class="property">@watchMutations</span>
+      <span class="property">@observer</span>.observe <span class="property">@el</span>, {childList: <span class="literal">true</span>}
+
+  stopWatchingMutations: -&gt;
+    <span class="property">@observer</span>?.disconnect()
+
+  cleanValue: (val) -&gt;
+    parseInt(val.toString().replace(<span class="regexp">/[.,]/g</span>, <span class="string">''</span>), <span class="number">10</span>) <span class="keyword">or</span> <span class="number">0</span>
+
+  bindTransitionEnd: -&gt;
+    <span class="keyword">return</span> <span class="keyword">if</span> <span class="property">@transitionEndBound</span>
+    <span class="property">@transitionEndBound</span> = <span class="literal">true</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>The event will be triggered once for each ribbon, we only
+want one render though</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    renderEnqueued = <span class="literal">false</span>
+    <span class="keyword">for</span> event <span class="keyword">in</span> TRANSITION_END_EVENTS.split(<span class="string">' '</span>)
+      <span class="property">@el</span>.addEventListener event, =&gt;
+        <span class="keyword">return</span> <span class="literal">true</span> <span class="keyword">if</span> renderEnqueued
+
+        renderEnqueued = <span class="literal">true</span>
+
+        setTimeout =&gt;
+          <span class="property">@render</span>()
+          renderEnqueued = <span class="literal">false</span>
+        , <span class="number">0</span>
+
+        <span class="literal">true</span>
+      , <span class="literal">false</span>
+
+  resetFormat: -&gt;
+    <span class="property">@format</span> = <span class="property">@options</span>.format.split(<span class="string">''</span>).reverse().join(<span class="string">''</span>)
+
+  render: (value=<span class="property">@value</span>) -&gt;
+    <span class="property">@stopWatchingMutations</span>()
+    <span class="property">@resetFormat</span>()
+
+    <span class="property">@inside</span>.innerHTML = <span class="string">''</span>
+
+    classes = <span class="property">@el</span>.className.split(<span class="string">' '</span>)
+    newClasses = []
+    <span class="keyword">for</span> cls <span class="keyword">in</span> classes <span class="keyword">when</span> cls.length
+      <span class="keyword">unless</span> <span class="regexp">/^odometer(-|$)/</span>.test(cls)
+        newClasses.push cls
+
+    newClasses.push <span class="string">'odometer'</span>
+
+    <span class="keyword">unless</span> TRANSITION_SUPPORT
+      newClasses.push <span class="string">'odometer-no-transitions'</span>
+
+    <span class="keyword">if</span> <span class="property">@options</span>.theme
+      newClasses.push <span class="string">"odometer-theme-<span class="subst">#{ @options.theme }</span>"</span>
+    <span class="keyword">else</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>This class matches all themes, so it should do what you&#39;d expect if only one
+theme css file is brought into the page.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      newClasses.push <span class="string">"odometer-auto-theme"</span>
+
+    <span class="property">@el</span>.className = newClasses.join(<span class="string">' '</span>)
+
+    <span class="property">@ribbons</span> = {}
+
+    <span class="property">@digits</span> = []
+    <span class="keyword">for</span> digit <span class="keyword">in</span> value.toString().split(<span class="string">''</span>).reverse()
+      <span class="property">@addDigit</span> digit
+
+    <span class="property">@startWatchingMutations</span>()
+
+  update: (newValue) -&gt;
+    newValue = <span class="property">@cleanValue</span> newValue
+
+    <span class="keyword">return</span> <span class="keyword">unless</span> diff = newValue - <span class="property">@value</span>
+
+    <span class="keyword">if</span> diff &gt; <span class="number">0</span>
+      <span class="property">@el</span>.className += <span class="string">' odometer-animating-up'</span>
+    <span class="keyword">else</span>
+      <span class="property">@el</span>.className += <span class="string">' odometer-animating-down'</span>
+
+    <span class="property">@stopWatchingMutations</span>()
+    <span class="property">@animate</span> newValue
+    <span class="property">@startWatchingMutations</span>()
+
+    setTimeout =&gt;
+      <span class="property">@el</span>.offsetHeight
+
+      <span class="property">@el</span>.className += <span class="string">' odometer-animating'</span>
+    , <span class="number">0</span>
+
+    <span class="property">@value</span> = newValue
+
+  renderDigit: -&gt;
+    createFromHTML DIGIT_HTML
+
+  insertDigit: (digit) -&gt;
+    <span class="keyword">if</span> <span class="keyword">not</span> <span class="property">@inside</span>.children.length
+      <span class="property">@inside</span>.appendChild digit
+    <span class="keyword">else</span>
+      <span class="property">@inside</span>.insertBefore digit, <span class="property">@inside</span>.children[<span class="number">0</span>]
+
+  addSpacer: (char) -&gt;
+    spacer = createFromHTML FORMAT_MARK_HTML
+    spacer.innerHTML = char
+    <span class="property">@insertDigit</span> spacer
+
+  addDigit: (value) -&gt;
+    <span class="keyword">if</span> value <span class="keyword">is</span> <span class="string">'-'</span>
+      <span class="property">@addSpacer</span> <span class="string">'-'</span>
+      <span class="keyword">return</span>
+
+    resetted = <span class="literal">false</span>
+    <span class="keyword">while</span> <span class="literal">true</span>
+      <span class="keyword">break</span> <span class="keyword">if</span> value <span class="keyword">is</span> <span class="string">'-'</span>
+
+      <span class="keyword">if</span> <span class="keyword">not</span> <span class="property">@format</span>.length
+        <span class="keyword">if</span> resetted
+          <span class="keyword">throw</span> <span class="keyword">new</span> Error <span class="string">"Bad odometer format without digits"</span>
+
+        <span class="property">@resetFormat</span>()
+        resetted = <span class="literal">true</span>
+
+      char = <span class="property">@format</span>[<span class="number">0</span>]
+      <span class="property">@format</span> = <span class="property">@format</span>.substring(<span class="number">1</span>)
+
+      <span class="keyword">break</span> <span class="keyword">if</span> char <span class="keyword">is</span> <span class="string">'d'</span>
+
+      <span class="property">@addSpacer</span> char
+
+    digit = <span class="property">@renderDigit</span>()
+    digit.querySelector(<span class="string">'.odometer-value'</span>).innerHTML = value
+    <span class="property">@digits</span>.push digit
+
+    <span class="property">@insertDigit</span> digit
+
+  animate: (newValue) -&gt;
+    <span class="keyword">if</span> TRANSITION_SUPPORT
+      <span class="property">@animateSlide</span> newValue
+    <span class="keyword">else</span>
+      <span class="property">@animateCount</span> newValue
+
+  animateCount: (newValue) -&gt;
+    <span class="keyword">return</span> <span class="keyword">unless</span> diff = +newValue - <span class="property">@value</span>
+
+    start = last = now()
+
+    cur = <span class="property">@value</span>
+    <span class="keyword">do</span> <span class="function"><span class="title">tick</span></span> = =&gt;
+      <span class="keyword">if</span> (now() - start) &gt; <span class="property">@options</span>.duration
+        <span class="property">@value</span> = newValue
+        <span class="property">@render</span>()
+        <span class="keyword">return</span>
+
+      delta = now() - last
+
+      <span class="keyword">if</span> delta &gt; COUNT_MS_PER_FRAME
+        last = now()
+
+        fraction = delta / <span class="property">@options</span>.duration
+        dist = diff * fraction
+
+        cur += dist
+        <span class="property">@render</span> Math.round cur
+
+      <span class="keyword">if</span> window.requestAnimationFrame?
+        requestAnimationFrame tick
+      <span class="keyword">else</span>
+        setTimeout tick, COUNT_MS_PER_FRAME
+
+  animateSlide: (newValue) -&gt;
+    <span class="keyword">return</span> <span class="keyword">unless</span> diff = newValue - <span class="property">@value</span>
+
+    <span class="property">@bindTransitionEnd</span>()
+
+    digitCount = Math.ceil(Math.log(Math.max(Math.abs(newValue), Math.abs(<span class="property">@value</span>)) + <span class="number">1</span>) / Math.log(<span class="number">10</span>))
+
+    digits = []
+    boosted = <span class="number">0</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>We create a array to represent the series of digits which should be
+animated in each column</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">for</span> i <span class="keyword">in</span> [<span class="number">0.</span>..digitCount]
+      start = Math.floor(<span class="property">@value</span> / Math.pow(<span class="number">10</span>, (digitCount - i - <span class="number">1</span>)))
+      end = Math.floor(newValue / Math.pow(<span class="number">10</span>, (digitCount - i - <span class="number">1</span>)))
+
+      dist = end - start
+
+      <span class="keyword">if</span> Math.abs(dist) &gt; <span class="property">@MAX_VALUES</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>We need to subsample</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        frames = []</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>Subsequent digits need to be faster than previous ones</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        incr = dist / (<span class="property">@MAX_VALUES</span> + <span class="property">@MAX_VALUES</span> * boosted * DIGIT_SPEEDBOOST)
+        cur = start
+
+        <span class="keyword">while</span> (dist &gt; <span class="number">0</span> <span class="keyword">and</span> cur &lt; end) <span class="keyword">or</span> (dist &lt; <span class="number">0</span> <span class="keyword">and</span> cur &gt; end)
+          frames.push Math.round cur
+          cur += incr
+
+        <span class="keyword">if</span> frames[frames.length - <span class="number">1</span>] <span class="keyword">isnt</span> end
+          frames.push end
+
+        boosted++
+      <span class="keyword">else</span>
+        frames = [start..end]</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <p>We only care about the last digit</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="keyword">for</span> frame, i <span class="keyword">in</span> frames
+        frames[i] = Math.abs(frame % <span class="number">10</span>)
+
+      digits.push frames
+
+    <span class="keyword">for</span> frames, i <span class="keyword">in</span> digits.reverse()
+      <span class="keyword">if</span> <span class="keyword">not</span> <span class="property">@digits</span>[i]
+        <span class="property">@addDigit</span> <span class="string">' '</span>
+
+      <span class="property">@ribbons</span>[i] ?= <span class="property">@digits</span>[i].querySelector(<span class="string">'.odometer-ribbon-inner'</span>)
+      <span class="property">@ribbons</span>[i].innerHTML = <span class="string">''</span>
+
+      <span class="keyword">if</span> diff &lt; <span class="number">0</span>
+        frames = frames.reverse()
+
+      <span class="keyword">for</span> frame, j <span class="keyword">in</span> frames
+        numEl = document.createElement(<span class="string">'div'</span>)
+        numEl.className = <span class="string">'odometer-value'</span>
+        numEl.innerHTML = frame
+
+        <span class="property">@ribbons</span>[i].appendChild numEl
+
+        <span class="keyword">if</span> j == frames.length - <span class="number">1</span>
+          numEl.className += <span class="string">' odometer-last-value'</span>
+        <span class="keyword">if</span> j == <span class="number">0</span>
+          numEl.className += <span class="string">' odometer-first-value'</span>
+
+Odometer.options = window.odometerOptions ? {}
+
+setTimeout -&gt;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <p>We do this in a seperate pass to allow people to set
+window.odometerOptions after bringing the file in.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="keyword">if</span> window.odometerOptions
+    <span class="keyword">for</span> k, v <span class="keyword">of</span> window.odometerOptions
+      Odometer.options[k] ?= v
+, <span class="number">0</span>
+
+Odometer.<span class="function"><span class="title">init</span></span> = -&gt;
+  elements = document.querySelectorAll (Odometer.options.selector <span class="keyword">or</span> <span class="string">'.odometer'</span>)
+
+  <span class="keyword">for</span> el <span class="keyword">in</span> elements
+    el.odometer = <span class="keyword">new</span> Odometer {el, value: el.innerText}
+
+<span class="keyword">if</span> document.documentElement?.doScroll? <span class="keyword">and</span> document.createEventObject?</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <p>IE &lt; 9</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  _old = document.onreadystatechange
+  document.<span class="function"><span class="title">onreadystatechange</span></span> = -&gt;
+    <span class="keyword">if</span> document.readyState <span class="keyword">is</span> <span class="string">'complete'</span> <span class="keyword">and</span> Odometer.options.auto <span class="keyword">isnt</span> <span class="literal">false</span>
+      Odometer.init()
+
+    _old?.apply <span class="keyword">this</span>, arguments
+<span class="keyword">else</span>
+  document.addEventListener <span class="string">'DOMContentLoaded'</span>, -&gt;
+    <span class="keyword">if</span> Odometer.options.auto <span class="keyword">isnt</span> <span class="literal">false</span>
+      Odometer.init()
+  , <span class="literal">false</span>
+
+window.Odometer = Odometer</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
