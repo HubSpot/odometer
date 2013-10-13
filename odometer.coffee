@@ -287,7 +287,7 @@ class Odometer
         cur += dist
         @render Math.round cur
 
-      if window.requestAnimationFrame?
+      if requestAnimationFrame?
         requestAnimationFrame tick
       else
         setTimeout tick, COUNT_MS_PER_FRAME
