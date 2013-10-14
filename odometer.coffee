@@ -2,9 +2,18 @@ VALUE_HTML = '<span class="odometer-value"></span>'
 RIBBON_HTML = '<span class="odometer-ribbon"><span class="odometer-ribbon-inner">' + VALUE_HTML + '</span></span>'
 DIGIT_HTML = '<span class="odometer-digit"><span class="odometer-digit-spacer">8</span><span class="odometer-digit-inner">' + RIBBON_HTML + '</span></span>'
 FORMAT_MARK_HTML = '<span class="odometer-formatting-mark"></span>'
+
+# The bit within the parenthesis will be repeated, so (,ddd) becomes 123,456,789....
+#
+# If your locale uses spaces to seperate digits, you could consider using a
+# Narrow No-Break Space ( ), as it's a bit more correct.
+#
+# Numbers will be rounded to the number of digits after the radix seperator.
+#
+# This is just the default, it can also be set as options.format.
 DIGIT_FORMAT = '(,ddd).dd'
 
-FORMAT_PARSER = /^(?:\((.*)\)(.)(d+))|(.*)$/
+FORMAT_PARSER = /^\(?([^)]*)\)?(?:(.)(d+))?$/
 
 # What is our target framerate?
 FRAMERATE = 30
@@ -179,9 +188,8 @@ class Odometer
       throw new Error "Odometer: Unparsable digit format"
 
     [repeating, radix, fractional] = parsed[1..3]
-    repeating or= parsed[4]
 
-    precision = fractional.length
+    precision = fractional?.length or 0
 
     @format = {repeating, radix, precision}
 

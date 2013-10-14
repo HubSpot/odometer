@@ -12,7 +12,7 @@
 
   DIGIT_FORMAT = '(,ddd).dd';
 
-  FORMAT_PARSER = /^(?:\((.*)\)(.)(d+))|(.*)$/;
+  FORMAT_PARSER = /^\(?([^)]*)\)?(?:(.)(d+))?$/;
 
   FRAMERATE = 30;
 
@@ -231,8 +231,7 @@
         throw new Error("Odometer: Unparsable digit format");
       }
       _ref1 = parsed.slice(1, 4), repeating = _ref1[0], radix = _ref1[1], fractional = _ref1[2];
-      repeating || (repeating = parsed[4]);
-      precision = fractional.length;
+      precision = (fractional != null ? fractional.length : void 0) || 0;
       return this.format = {
         repeating: repeating,
         radix: radix,
