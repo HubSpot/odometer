@@ -95,7 +95,7 @@ class Odometer
               @inside["outer#{ property }"]
 
             set: (val) =>
-              @update @cleanValue val
+              @update val
     catch e
       # Safari
       @watchForMutations()
