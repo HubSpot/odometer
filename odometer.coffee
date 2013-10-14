@@ -2,7 +2,9 @@ VALUE_HTML = '<span class="odometer-value"></span>'
 RIBBON_HTML = '<span class="odometer-ribbon"><span class="odometer-ribbon-inner">' + VALUE_HTML + '</span></span>'
 DIGIT_HTML = '<span class="odometer-digit"><span class="odometer-digit-spacer">8</span><span class="odometer-digit-inner">' + RIBBON_HTML + '</span></span>'
 FORMAT_MARK_HTML = '<span class="odometer-formatting-mark"></span>'
-DIGIT_FORMAT = ',ddd'
+DIGIT_FORMAT = '(,ddd).dd'
+
+FORMAT_PARSER = /^(?:\((.*)\)(.)(d+))|(.*)$/
 
 # What is our target framerate?
 FRAMERATE = 30
@@ -45,6 +47,17 @@ createFromHTML = (html) ->
 now = ->
   window.performance?.now() ? +new Date
 
+round = (val, precision=0) ->
+  return Math.round(val) unless precision
+
+  val *= Math.pow(10, precision)
+  val += 0.5
+  val = Math.floor(val)
+  val /= Math.pow(10, precision)
+
+fractionalPart = (val) ->
+  val - round(val)
+
 _jQueryWrapped = false
 do wrapJQuery = ->
   return if _jQueryWrapped
@@ -76,13 +89,12 @@ class Odometer
       if not @options[k]?
         @options[k] = v
 
-    @value = @cleanValue(@options.value ? '')
-
-    @options.format ?= DIGIT_FORMAT
-    @options.format or= 'd'
-
     @options.duration ?= DURATION
     @MAX_VALUES = ((@options.duration / MS_PER_FRAME) / FRAMES_PER_VALUE) | 0
+
+    @resetFormat()
+
+    @value = @cleanValue(@options.value ? '')
 
     @renderInside()
     @render()
@@ -133,7 +145,9 @@ class Odometer
     @observer?.disconnect()
 
   cleanValue: (val) ->
-    parseInt(val.toString().replace(/[.,]/g, ''), 10) or 0
+    if typeof val is 'string'
+      val = parseFloat(val.replace(/[, ]/g, ''), 10) or 0
+    round(val, @format.precision)
 
   bindTransitionEnd: ->
     return if @transitionEndBound
@@ -157,7 +171,19 @@ class Odometer
       , false
 
   resetFormat: ->
-    @format = @options.format.split('').reverse().join('')
+    format = @options.format ? DIGIT_FORMAT
+    format or= 'd'
+
+    parsed = FORMAT_PARSER.exec format
+    if not parsed
+      throw new Error "Odometer: Unparsable digit format"
+
+    [repeating, radix, fractional] = parsed[1..3]
+    repeating or= parsed[4]
+
+    precision = fractional.length
+
+    @format = {repeating, radix, precision}
 
   render: (value=@value) ->
     @stopWatchingMutations()
@@ -188,8 +214,12 @@ class Odometer
     @ribbons = {}
 
     @digits = []
+    wholePart = not @format.precision or not fractionalPart(value) or false
     for digit in value.toString().split('').reverse()
-      @addDigit digit
+      if digit is @format.radix
+        wholePart = true
+
+      @addDigit digit, wholePart
 
     @startWatchingMutations()
 
@@ -218,39 +248,43 @@ class Odometer
   renderDigit: ->
     createFromHTML DIGIT_HTML
 
-  insertDigit: (digit) ->
-    if not @inside.children.length
+  insertDigit: (digit, before) ->
+    if before?
+      @inside.insertBefore digit, before
+    else if not @inside.children.length
       @inside.appendChild digit
     else
       @inside.insertBefore digit, @inside.children[0]
 
-  addSpacer: (char) ->
+  addSpacer: (char, before, extraClasses) ->
     spacer = createFromHTML FORMAT_MARK_HTML
     spacer.innerHTML = char
-    @insertDigit spacer
+    spacer.className += " #{ extraClasses }" if extraClasses
+    @insertDigit spacer, before
 
-  addDigit: (value) ->
+  addDigit: (value, repeating=true) ->
     if value is '-'
-      @addSpacer '-'
-      return
+      return @addSpacer value, null, 'odometer-negation-mark'
 
-    resetted = false
-    while true
-      break if value is '-'
+    if value is @format.radix
+      return @addSpacer value, null, 'odometer-radix-mark'
 
-      if not @format.length
-        if resetted
-          throw new Error "Bad odometer format without digits"
+    if repeating
+      resetted = false
+      while true
+        if not @format.repeating.length
+          if resetted
+            throw new Error "Bad odometer format without digits"
 
-        @resetFormat()
-        resetted = true
+          @resetFormat()
+          resetted = true
 
-      char = @format[0]
-      @format = @format.substring(1)
+        char = @format.repeating[@format.repeating.length - 1]
+        @format.repeating = @format.repeating.substring(0, @format.repeating.length - 1)
 
-      break if char is 'd'
+        break if char is 'd'
 
-      @addSpacer char
+        @addSpacer char
 
     digit = @renderDigit()
     digit.querySelector('.odometer-value').innerHTML = value
@@ -292,19 +326,58 @@ class Odometer
       else
         setTimeout tick, COUNT_MS_PER_FRAME
 
+  getDigitCount: (values...) ->
+    for value, i in values
+      values[i] = Math.abs(value)
+
+    max = Math.max values...
+
+    Math.ceil(Math.log(max + 1) / Math.log(10))
+
+  getFractionalDigitCount: (values...) ->
+    # This assumes the value has already been rounded to
+    # @format.precision places
+    #
+    parser = /^\d*\.(\d*?)0*$/
+    for value, i in values
+      values[i] = value.toString()
+
+      parts = parser.exec values[i]
+
+      if not parts?
+        values[i] = 0
+      else
+        values[i] = parts[1].length
+
+    Math.max values...
+
+  resetDigits: ->
+    @digits = []
+    @ribbons = []
+    @inside.innerHTML = ''
+    @resetFormat()
+
   animateSlide: (newValue) ->
-    return unless diff = newValue - @value
+    oldValue = @value
+
+    fractionalCount = @getFractionalDigitCount oldValue, newValue
+
+    if fractionalCount
+      newValue = newValue * Math.pow(10, fractionalCount)
+      oldValue = oldValue * Math.pow(10, fractionalCount)
+
+    return unless diff = newValue - oldValue
 
     @bindTransitionEnd()
 
-    digitCount = Math.ceil(Math.log(Math.max(Math.abs(newValue), Math.abs(@value)) + 1) / Math.log(10))
+    digitCount = @getDigitCount(oldValue, newValue)
 
     digits = []
     boosted = 0
     # We create a array to represent the series of digits which should be
     # animated in each column
     for i in [0...digitCount]
-      start = Math.floor(@value / Math.pow(10, (digitCount - i - 1)))
+      start = Math.floor(oldValue / Math.pow(10, (digitCount - i - 1)))
       end = Math.floor(newValue / Math.pow(10, (digitCount - i - 1)))
 
       dist = end - start
@@ -334,9 +407,11 @@ class Odometer
 
       digits.push frames
 
+    @resetDigits()
+
     for frames, i in digits.reverse()
       if not @digits[i]
-        @addDigit ' '
+        @addDigit ' ', (i >= fractionalCount)
 
       @ribbons[i] ?= @digits[i].querySelector('.odometer-ribbon-inner')
       @ribbons[i].innerHTML = ''
@@ -355,6 +430,12 @@ class Odometer
           numEl.className += ' odometer-last-value'
         if j == 0
           numEl.className += ' odometer-first-value'
+
+    mark = @inside.querySelector('.odometer-radix-mark')
+    mark.parent.removeChild(mark) if mark?
+
+    if fractionalCount
+      @addSpacer @format.radix, @digits[fractionalCount - 1], 'odometer-radix-mark'
 
 Odometer.options = window.odometerOptions ? {}
 
