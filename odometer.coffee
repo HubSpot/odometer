@@ -155,7 +155,13 @@ class Odometer
 
   cleanValue: (val) ->
     if typeof val is 'string'
-      val = parseFloat(val.replace(/[, ]/g, ''), 10) or 0
+      badChars = '.,'
+      if @format.radix
+        badChars = badChars.replace @format.radix, ''
+      regex = new RegExp "[#{ badChars }\s]", 'g'
+
+      val = parseFloat(val.replace(regex, ''), 10) or 0
+
     round(val, @format.precision)
 
   bindTransitionEnd: ->

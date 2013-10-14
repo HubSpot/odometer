@@ -189,8 +189,14 @@
     };
 
     Odometer.prototype.cleanValue = function(val) {
+      var badChars, regex;
       if (typeof val === 'string') {
-        val = parseFloat(val.replace(/[, ]/g, ''), 10) || 0;
+        badChars = '.,';
+        if (this.format.radix) {
+          badChars = badChars.replace(this.format.radix, '');
+        }
+        regex = new RegExp("[" + badChars + "\s]", 'g');
+        val = parseFloat(val.replace(regex, ''), 10) || 0;
       }
       return round(val, this.format.precision);
     };
