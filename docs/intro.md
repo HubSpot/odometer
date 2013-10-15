@@ -131,7 +131,7 @@ You can manually initialize an odometer with the global `Odometer`:
 ```javascript
 var el = document.querySelector('.some-element');
 
-od = Odometer({
+od = new Odometer({
   el: el,
   value: 333555,
   format: '',
