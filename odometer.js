@@ -113,7 +113,7 @@
               return _this.inside["outer" + property];
             },
             set: function(val) {
-              return _this.update(_this.cleanValue(val));
+              return _this.update(val);
             }
           });
         };
@@ -347,7 +347,7 @@
           cur += dist;
           _this.render(Math.round(cur));
         }
-        if (window.requestAnimationFrame != null) {
+        if (requestAnimationFrame != null) {
           return requestAnimationFrame(tick);
         } else {
           return setTimeout(tick, COUNT_MS_PER_FRAME);
