@@ -1,6 +1,6 @@
 {
   "name": "odometer",
-  "version": "0.3.6",
+  "version": "0.4.0",
   "description": "Transition numbers with ease",
   "authors": [
     "Adam Schwartz <aschwartz@hubspot.com>",
