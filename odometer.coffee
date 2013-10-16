@@ -205,19 +205,27 @@ class Odometer
 
     @inside.innerHTML = ''
 
+    theme = @options.theme
+
     classes = @el.className.split(' ')
     newClasses = []
     for cls in classes when cls.length
-      unless /^odometer(-|$)/.test(cls)
-        newClasses.push cls
+      if match = /^odometer-theme-(.+)$/.exec(cls)
+        theme = match[1]
+        continue
+
+      if /^odometer(-|$)/.test(cls)
+        continue
+        
+      newClasses.push cls
 
     newClasses.push 'odometer'
 
     unless TRANSITION_SUPPORT
       newClasses.push 'odometer-no-transitions'
 
-    if @options.theme
-      newClasses.push "odometer-theme-#{ @options.theme }"
+    if theme
+      newClasses.push "odometer-theme-#{ theme }"
     else
       # This class matches all themes, so it should do what you'd expect if only one
       # theme css file is brought into the page.

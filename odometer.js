@@ -246,29 +246,36 @@
     };
 
     Odometer.prototype.render = function(value) {
-      var classes, cls, digit, newClasses, wholePart, _i, _j, _len, _len1, _ref;
+      var classes, cls, digit, match, newClasses, theme, wholePart, _i, _j, _len, _len1, _ref;
       if (value == null) {
         value = this.value;
       }
       this.stopWatchingMutations();
       this.resetFormat();
       this.inside.innerHTML = '';
+      theme = this.options.theme;
       classes = this.el.className.split(' ');
       newClasses = [];
       for (_i = 0, _len = classes.length; _i < _len; _i++) {
         cls = classes[_i];
-        if (cls.length) {
-          if (!/^odometer(-|$)/.test(cls)) {
-            newClasses.push(cls);
-          }
+        if (!cls.length) {
+          continue;
         }
+        if (match = /^odometer-theme-(.+)$/.exec(cls)) {
+          theme = match[1];
+          continue;
+        }
+        if (/^odometer(-|$)/.test(cls)) {
+          continue;
+        }
+        newClasses.push(cls);
       }
       newClasses.push('odometer');
       if (!TRANSITION_SUPPORT) {
         newClasses.push('odometer-no-transitions');
       }
-      if (this.options.theme) {
-        newClasses.push("odometer-theme-" + this.options.theme);
+      if (theme) {
+        newClasses.push("odometer-theme-" + theme);
       } else {
         newClasses.push("odometer-auto-theme");
       }
