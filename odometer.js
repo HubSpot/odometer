@@ -47,7 +47,7 @@
 
   now = function() {
     var _ref, _ref1;
-    return (_ref = (_ref1 = window.performance) != null ? _ref1.now() : void 0) != null ? _ref : +(new Date);
+    return (_ref = (_ref1 = window.performance) != null ? typeof _ref1.now === "function" ? _ref1.now() : void 0 : void 0) != null ? _ref : +(new Date);
   };
 
   round = function(val, precision) {
