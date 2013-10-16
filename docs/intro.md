@@ -114,15 +114,17 @@ Play with this simple example on [jsFiddle](http://jsfiddle.net/adamschwartz/rx6
 Advanced
 --------
 
-If you need to, you can set options by creating a `odometerOptions` object:
+You can set options by creating a `odometerOptions` object:
 
 ```javascript
 window.odometerOptions = {
   auto: false, // Don't automatically initialize everything with class 'odometer'
   selector: '.my-numbers', // Change the selector used to automatically find things to be animated
-  format: '.ddd', // Change how digit groups are formatted
+  format: '(,ddd).dd', // Change how digit groups are formatted, and how many digits are shown after the decimal point
   duration: 3000, // Change how long the javascript expects the CSS animation to take
-  theme: 'car' // Specify the theme (if you have more than one theme css file on the page)
+  theme: 'car', // Specify the theme (if you have more than one theme css file on the page)
+  animation: 'count' // Count is a simpler animation method which just increments the value,
+                     // use it when you're looking for something more subtle.
 };
 ```
 
@@ -134,6 +136,8 @@ var el = document.querySelector('.some-element');
 od = new Odometer({
   el: el,
   value: 333555,
+
+  // Any option (other than auto and selector) can be passed in here
   format: '',
   theme: 'digital'
 });
@@ -142,6 +146,20 @@ od.update(555)
 // or
 el.innerHTML = 555
 ```
+
+Format
+------
+
+The format option allows you to configure how the digit groups are formatted,
+and how many digits are shown after the decimal point.
+
+Format      |  Example
+--------------------------
+`(,ddd)`    |  12,345,678
+`(,ddd).dd` |  12,345,678.09
+`(.ddd),dd` |  12.345.678,09
+`( ddd),dd` |  12 345 678,09
+`d`         |  12345678
 
 Browser Support
 ---------------
