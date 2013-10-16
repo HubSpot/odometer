@@ -315,10 +315,10 @@ class Odometer
     @insertDigit digit
 
   animate: (newValue) ->
-    if TRANSITION_SUPPORT
-      @animateSlide newValue
-    else
+    if not TRANSITION_SUPPORT or @options.animation is 'count'
       @animateCount newValue
+    else
+      @animateSlide newValue
 
   animateCount: (newValue) ->
     return unless diff = +newValue - @value

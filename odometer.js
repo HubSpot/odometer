@@ -376,10 +376,10 @@
     };
 
     Odometer.prototype.animate = function(newValue) {
-      if (TRANSITION_SUPPORT) {
-        return this.animateSlide(newValue);
-      } else {
+      if (!TRANSITION_SUPPORT || this.options.animation === 'count') {
         return this.animateCount(newValue);
+      } else {
+        return this.animateSlide(newValue);
       }
     };
 
