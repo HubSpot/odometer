@@ -54,7 +54,7 @@ createFromHTML = (html) ->
   el.children[0]
 
 now = ->
-  window.performance?.now() ? +new Date
+  window.performance?.now?() ? +new Date
 
 round = (val, precision=0) ->
   return Math.round(val) unless precision
