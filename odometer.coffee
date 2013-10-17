@@ -470,6 +470,10 @@ setTimeout ->
 , 0
 
 Odometer.init = ->
+  if not document.querySelectorAll?
+    # IE 7 or 8 in Quirksmode
+    return
+
   elements = document.querySelectorAll (Odometer.options.selector or '.odometer')
 
   for el in elements
