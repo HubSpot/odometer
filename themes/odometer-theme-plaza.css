@@ -41,6 +41,7 @@
   right: 0;
   bottom: 0;
   overflow: hidden;
+  outline: 1px solid transparent;
 }
 .odometer.odometer-auto-theme .odometer-digit .odometer-ribbon, .odometer.odometer-theme-plaza .odometer-digit .odometer-ribbon {
   display: block;
