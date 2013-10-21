@@ -84,7 +84,8 @@
           var old;
           old = window.jQuery.fn[property];
           return window.jQuery.fn[property] = function(val) {
-            if ((val == null) || (this[0].odometer == null)) {
+            var _ref1;
+            if ((val == null) || (((_ref1 = this[0]) != null ? _ref1.odometer : void 0) == null)) {
               return old.apply(this, arguments);
             }
             return this[0].odometer.update(val);

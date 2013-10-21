@@ -79,7 +79,7 @@ do wrapJQuery = ->
       do (property) ->
         old = window.jQuery.fn[property]
         window.jQuery.fn[property] = (val) ->
-          if not val? or not this[0].odometer?
+          if not val? or not this[0]?.odometer?
             return old.apply this, arguments
 
           this[0].odometer.update val
