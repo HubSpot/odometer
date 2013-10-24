@@ -477,7 +477,7 @@ Odometer.init = ->
   elements = document.querySelectorAll (Odometer.options.selector or '.odometer')
 
   for el in elements
-    el.odometer = new Odometer {el, value: el.innerText}
+    el.odometer = new Odometer {el, value: (el.innerText ? el.textContent)}
 
 if document.documentElement?.doScroll? and document.createEventObject?
   # IE < 9

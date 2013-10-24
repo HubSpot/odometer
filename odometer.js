@@ -551,7 +551,7 @@
   }, 0);
 
   Odometer.init = function() {
-    var el, elements, _i, _len, _results;
+    var el, elements, _i, _len, _ref1, _results;
     if (document.querySelectorAll == null) {
       return;
     }
@@ -561,7 +561,7 @@
       el = elements[_i];
       _results.push(el.odometer = new Odometer({
         el: el,
-        value: el.innerText
+        value: (_ref1 = el.innerText) != null ? _ref1 : el.textContent
       }));
     }
     return _results;
