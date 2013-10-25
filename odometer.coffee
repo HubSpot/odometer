@@ -109,12 +109,16 @@ class Odometer
     @render()
 
     try
-      for property in ['HTML', 'Text']
+      for property in ['innerHTML', 'innerText', 'textContent']
         do (property) =>
-          Object.defineProperty @el, "inner#{ property }",
+          Object.defineProperty @el, property,
             get: =>
-              @inside["outer#{ property }"]
-
+              if property is 'innerHTML'
+                @inside.outerHTML
+              else
+                # It's just a single HTML element, so innerText is the
+                # same as outerText.
+                @inside.innerText ? @inside.textContent
             set: (val) =>
               @update val
     catch e
