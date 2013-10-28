@@ -60,6 +60,13 @@ addClass = (el, name) ->
   removeClass el, name
   el.className += " #{ name }"
 
+trigger = (el, name) ->
+  # Custom DOM events are not supported in IE8
+  if document.createEvent?
+    evt = document.createEvent('HTMLEvents')
+    evt.initEvent(name, true, true)
+    el.dispatchEvent(evt)
+
 now = ->
   window.performance?.now?() ? +new Date
 
@@ -191,6 +198,8 @@ class Odometer
         setTimeout =>
           @render()
           renderEnqueued = false
+
+          trigger @el, 'odometerdone'
         , 0
 
         true
@@ -343,6 +352,7 @@ class Odometer
       if (now() - start) > @options.duration
         @value = newValue
         @render()
+        trigger @el, 'odometerdone'
         return
 
       delta = now() - last
