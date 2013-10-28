@@ -53,6 +53,13 @@ createFromHTML = (html) ->
   el.innerHTML = html
   el.children[0]
 
+removeClass = (el, name) ->
+  el.className = el.className.replace new RegExp("(^| )#{ name.split(' ').join('|') }( |$)", 'gi'), ' '
+
+addClass = (el, name) ->
+  removeClass el, name
+  el.className += " #{ name }"
+
 now = ->
   window.performance?.now?() ? +new Date
 
@@ -109,7 +116,7 @@ class Odometer
     @render()
 
     try
-      for property in ['innerHTML', 'innerText', 'textContent'] when @el.property?
+      for property in ['innerHTML', 'innerText', 'textContent'] when @el[property]?
         do (property) =>
           Object.defineProperty @el, property,
             get: =>
@@ -254,19 +261,21 @@ class Odometer
 
     return unless diff = newValue - @value
 
+    removeClass @el, 'odometer-animating-up odometer-animating-down odometer-animating'
     if diff > 0
-      @el.className += ' odometer-animating-up'
+      addClass @el, 'odometer-animating-up'
     else
-      @el.className += ' odometer-animating-down'
+      addClass @el, 'odometer-animating-down'
 
     @stopWatchingMutations()
     @animate newValue
     @startWatchingMutations()
 
     setTimeout =>
+      # Force a repaint
       @el.offsetHeight
 
-      @el.className += ' odometer-animating'
+      addClass @el, 'odometer-animating'
     , 0
 
     @value = newValue
@@ -285,7 +294,7 @@ class Odometer
   addSpacer: (chr, before, extraClasses) ->
     spacer = createFromHTML FORMAT_MARK_HTML
     spacer.innerHTML = chr
-    spacer.className += " #{ extraClasses }" if extraClasses
+    addClass(spacer, extraClasses) if extraClasses
     @insertDigit spacer, before
 
   addDigit: (value, repeating=true) ->
@@ -453,9 +462,9 @@ class Odometer
         @ribbons[i].appendChild numEl
 
         if j == frames.length - 1
-          numEl.className += ' odometer-last-value'
+          addClass numEl, 'odometer-last-value'
         if j == 0
-          numEl.className += ' odometer-first-value'
+          addClass numEl, 'odometer-first-value'
 
     mark = @inside.querySelector('.odometer-radix-mark')
     mark.parent.removeChild(mark) if mark?

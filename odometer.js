@@ -1,5 +1,5 @@
 (function() {
-  var COUNT_FRAMERATE, COUNT_MS_PER_FRAME, DIGIT_FORMAT, DIGIT_HTML, DIGIT_SPEEDBOOST, DURATION, FORMAT_MARK_HTML, FORMAT_PARSER, FRAMERATE, FRAMES_PER_VALUE, MS_PER_FRAME, MutationObserver, Odometer, RIBBON_HTML, TRANSITION_END_EVENTS, TRANSITION_SUPPORT, VALUE_HTML, createFromHTML, fractionalPart, now, requestAnimationFrame, round, transitionCheckStyles, wrapJQuery, _jQueryWrapped, _old, _ref, _ref1,
+  var COUNT_FRAMERATE, COUNT_MS_PER_FRAME, DIGIT_FORMAT, DIGIT_HTML, DIGIT_SPEEDBOOST, DURATION, FORMAT_MARK_HTML, FORMAT_PARSER, FRAMERATE, FRAMES_PER_VALUE, MS_PER_FRAME, MutationObserver, Odometer, RIBBON_HTML, TRANSITION_END_EVENTS, TRANSITION_SUPPORT, VALUE_HTML, addClass, createFromHTML, fractionalPart, now, removeClass, requestAnimationFrame, round, transitionCheckStyles, wrapJQuery, _jQueryWrapped, _old, _ref, _ref1,
     __slice = [].slice;
 
   VALUE_HTML = '<span class="odometer-value"></span>';
@@ -43,6 +43,15 @@
     el = document.createElement('div');
     el.innerHTML = html;
     return el.children[0];
+  };
+
+  removeClass = function(el, name) {
+    return el.className = el.className.replace(new RegExp("(^| )" + (name.split(' ').join('|')) + "( |$)", 'gi'), ' ');
+  };
+
+  addClass = function(el, name) {
+    removeClass(el, name);
+    return el.className += " " + name;
   };
 
   now = function() {
@@ -127,7 +136,7 @@
         _ref2 = ['innerHTML', 'innerText', 'textContent'];
         for (_j = 0, _len1 = _ref2.length; _j < _len1; _j++) {
           property = _ref2[_j];
-          if (this.el.property != null) {
+          if (this.el[property] != null) {
             (function(property) {
               return Object.defineProperty(_this.el, property, {
                 get: function() {
@@ -308,17 +317,18 @@
       if (!(diff = newValue - this.value)) {
         return;
       }
+      removeClass(this.el, 'odometer-animating-up odometer-animating-down odometer-animating');
       if (diff > 0) {
-        this.el.className += ' odometer-animating-up';
+        addClass(this.el, 'odometer-animating-up');
       } else {
-        this.el.className += ' odometer-animating-down';
+        addClass(this.el, 'odometer-animating-down');
       }
       this.stopWatchingMutations();
       this.animate(newValue);
       this.startWatchingMutations();
       setTimeout(function() {
         _this.el.offsetHeight;
-        return _this.el.className += ' odometer-animating';
+        return addClass(_this.el, 'odometer-animating');
       }, 0);
       return this.value = newValue;
     };
@@ -342,7 +352,7 @@
       spacer = createFromHTML(FORMAT_MARK_HTML);
       spacer.innerHTML = chr;
       if (extraClasses) {
-        spacer.className += " " + extraClasses;
+        addClass(spacer, extraClasses);
       }
       return this.insertDigit(spacer, before);
     };
@@ -521,10 +531,10 @@
           numEl.innerHTML = frame;
           this.ribbons[i].appendChild(numEl);
           if (j === frames.length - 1) {
-            numEl.className += ' odometer-last-value';
+            addClass(numEl, 'odometer-last-value');
           }
           if (j === 0) {
-            numEl.className += ' odometer-first-value';
+            addClass(numEl, 'odometer-first-value');
           }
         }
       }
