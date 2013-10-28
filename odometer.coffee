@@ -282,9 +282,9 @@ class Odometer
     else
       @inside.insertBefore digit, @inside.children[0]
 
-  addSpacer: (char, before, extraClasses) ->
+  addSpacer: (chr, before, extraClasses) ->
     spacer = createFromHTML FORMAT_MARK_HTML
-    spacer.innerHTML = char
+    spacer.innerHTML = chr
     spacer.className += " #{ extraClasses }" if extraClasses
     @insertDigit spacer, before
 
@@ -305,12 +305,12 @@ class Odometer
           @resetFormat()
           resetted = true
 
-        char = @format.repeating[@format.repeating.length - 1]
+        chr = @format.repeating[@format.repeating.length - 1]
         @format.repeating = @format.repeating.substring(0, @format.repeating.length - 1)
 
-        break if char is 'd'
+        break if chr is 'd'
 
-        @addSpacer char
+        @addSpacer chr
 
     digit = @renderDigit()
     digit.querySelector('.odometer-value').innerHTML = value

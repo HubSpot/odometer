@@ -336,10 +336,10 @@
       }
     };
 
-    Odometer.prototype.addSpacer = function(char, before, extraClasses) {
+    Odometer.prototype.addSpacer = function(chr, before, extraClasses) {
       var spacer;
       spacer = createFromHTML(FORMAT_MARK_HTML);
-      spacer.innerHTML = char;
+      spacer.innerHTML = chr;
       if (extraClasses) {
         spacer.className += " " + extraClasses;
       }
@@ -347,7 +347,7 @@
     };
 
     Odometer.prototype.addDigit = function(value, repeating) {
-      var char, digit, resetted;
+      var chr, digit, resetted;
       if (repeating == null) {
         repeating = true;
       }
@@ -367,12 +367,12 @@
             this.resetFormat();
             resetted = true;
           }
-          char = this.format.repeating[this.format.repeating.length - 1];
+          chr = this.format.repeating[this.format.repeating.length - 1];
           this.format.repeating = this.format.repeating.substring(0, this.format.repeating.length - 1);
-          if (char === 'd') {
+          if (chr === 'd') {
             break;
           }
-          this.addSpacer(char);
+          this.addSpacer(chr);
         }
       }
       digit = this.renderDigit();
