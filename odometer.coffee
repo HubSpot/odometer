@@ -109,7 +109,7 @@ class Odometer
     @render()
 
     try
-      for property in ['innerHTML', 'innerText', 'textContent']
+      for property in ['innerHTML', 'innerText', 'textContent'] when @el.property?
         do (property) =>
           Object.defineProperty @el, property,
             get: =>

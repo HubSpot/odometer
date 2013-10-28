@@ -100,7 +100,7 @@
 
   Odometer = (function() {
     function Odometer(options) {
-      var e, k, property, v, _base, _fn, _i, _j, _len, _len1, _ref, _ref1, _ref2,
+      var e, k, property, v, _base, _i, _j, _len, _len1, _ref, _ref1, _ref2,
         _this = this;
       this.options = options;
       this.el = this.options.el;
@@ -125,24 +125,25 @@
       this.render();
       try {
         _ref2 = ['innerHTML', 'innerText', 'textContent'];
-        _fn = function(property) {
-          return Object.defineProperty(_this.el, property, {
-            get: function() {
-              var _ref3;
-              if (property === 'innerHTML') {
-                return _this.inside.outerHTML;
-              } else {
-                return (_ref3 = _this.inside.innerText) != null ? _ref3 : _this.inside.textContent;
-              }
-            },
-            set: function(val) {
-              return _this.update(val);
-            }
-          });
-        };
         for (_j = 0, _len1 = _ref2.length; _j < _len1; _j++) {
           property = _ref2[_j];
-          _fn(property);
+          if (this.el.property != null) {
+            (function(property) {
+              return Object.defineProperty(_this.el, property, {
+                get: function() {
+                  var _ref3;
+                  if (property === 'innerHTML') {
+                    return _this.inside.outerHTML;
+                  } else {
+                    return (_ref3 = _this.inside.innerText) != null ? _ref3 : _this.inside.textContent;
+                  }
+                },
+                set: function(val) {
+                  return _this.update(val);
+                }
+              });
+            })(property);
+          }
         }
       } catch (_error) {
         e = _error;
