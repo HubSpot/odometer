@@ -1,10 +1,29 @@
 {
   "name": "odometer",
-  "version": "0.4.2",
   "main": "odometer.js",
+  "version": "0.4.2",
+  "homepage": "http://github.hubspot.com/odometer/docs/welcome",
+  "authors": [
+    "Zack Bloom <zbloom@hubspot.com>",
+    "Adam Schwartz <aschwartz@hubspot.com>"
+  ],
+  "description": "Transition numbers with ease",
+  "keywords": [
+    "odometer",
+    "car",
+    "number",
+    "transition",
+    "animation",
+    "slot",
+    "machine",
+    "turnstile",
+    "javascript",
+    "client-side"
+  ],
+  "license": "MIT",
   "ignore": [
-    "*",
-    "!themes/*",
-    "!odometer.js"
+    "**/.*",
+    "node_modules",
+    "bower_components"
   ]
 }
