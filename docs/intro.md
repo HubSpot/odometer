@@ -34,11 +34,11 @@ Odometer
 }
 </style>
 
-<link rel="stylesheet" href="https://rawgithub.com/HubSpot/odometer/master/themes/odometer-theme-minimal.css" />
+<link rel="stylesheet" href="/odometer/themes/odometer-theme-minimal.css" />
 <script>
   odometerOptions = { auto: false };
 </script>
-<link rel="stylesheet" href="https://rawgithub.com/HubSpot/odometer/master/themes/odometer-theme-car.css" />
+<link rel="stylesheet" href="/odometer/themes/odometer-theme-car.css" />
 <script src="odometer.js"></script>
 <script>
   $(function(){

@@ -38,7 +38,7 @@ odometer.render();
 
 <!-- Resources for the demos -->
 <p style="-webkit-transform: translateZ(0)"></p>
-<link rel="stylesheet" href="https://rawgithub.com/HubSpot/odometer/master/themes/odometer-theme-minimal.css" />
+<link rel="stylesheet" href="/odometer/themes/odometer-theme-minimal.css" />
 <script>
     odometerOptions = { auto: false };
 </script>
@@ -48,12 +48,12 @@ odometer.render();
         line-height: 60px;
     }
 </style>
-<link rel="stylesheet" href="https://rawgithub.com/HubSpot/odometer/master/themes/odometer-theme-default.css" />
-<link rel="stylesheet" href="https://rawgithub.com/HubSpot/odometer/master/themes/odometer-theme-car.css" />
-<link rel="stylesheet" href="https://rawgithub.com/HubSpot/odometer/master/themes/odometer-theme-slot-machine.css" />
-<link rel="stylesheet" href="https://rawgithub.com/HubSpot/odometer/master/themes/odometer-theme-plaza.css" />
-<link rel="stylesheet" href="https://rawgithub.com/HubSpot/odometer/master/themes/odometer-theme-train-station.css" />
-<script src="https://rawgithub.com/HubSpot/odometer/master/odometer.min.js"></script>
+<link rel="stylesheet" href="/odometer/themes/odometer-theme-default.css" />
+<link rel="stylesheet" href="/odometer/themes/odometer-theme-car.css" />
+<link rel="stylesheet" href="/odometer/themes/odometer-theme-slot-machine.css" />
+<link rel="stylesheet" href="/odometer/themes/odometer-theme-plaza.css" />
+<link rel="stylesheet" href="/odometer/themes/odometer-theme-train-station.css" />
+<script src="/odometer/odometer.min.js"></script>
 <script>
     (function(){
         $('[data-theme]').each(function(){
