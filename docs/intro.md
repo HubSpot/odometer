@@ -38,7 +38,6 @@ Odometer
 <script>
   odometerOptions = { auto: false };
 </script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <link rel="stylesheet" href="https://rawgithub.com/HubSpot/odometer/master/themes/odometer-theme-car.css" />
 <script src="odometer.js"></script>
 <script>
