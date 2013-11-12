@@ -108,7 +108,7 @@ class Odometer
 
     @el.odometer = @
 
-    for k, v in Odometer.options
+    for k, v of Odometer.options
       if not @options[k]?
         @options[k] = v
 

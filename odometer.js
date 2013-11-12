@@ -118,7 +118,7 @@
 
   Odometer = (function() {
     function Odometer(options) {
-      var e, k, property, v, _base, _i, _j, _len, _len1, _ref, _ref1, _ref2,
+      var e, k, property, v, _base, _i, _len, _ref, _ref1, _ref2,
         _this = this;
       this.options = options;
       this.el = this.options.el;
@@ -127,8 +127,8 @@
       }
       this.el.odometer = this;
       _ref = Odometer.options;
-      for (v = _i = 0, _len = _ref.length; _i < _len; v = ++_i) {
-        k = _ref[v];
+      for (k in _ref) {
+        v = _ref[k];
         if (this.options[k] == null) {
           this.options[k] = v;
         }
@@ -143,8 +143,8 @@
       this.render();
       try {
         _ref2 = ['innerHTML', 'innerText', 'textContent'];
-        for (_j = 0, _len1 = _ref2.length; _j < _len1; _j++) {
-          property = _ref2[_j];
+        for (_i = 0, _len = _ref2.length; _i < _len; _i++) {
+          property = _ref2[_i];
           if (this.el[property] != null) {
             (function(property) {
               return Object.defineProperty(_this.el, property, {
