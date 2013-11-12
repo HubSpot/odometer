@@ -13,13 +13,13 @@ To use a builtin theme, simply include the theme style sheet:
 <th></th>
 </tr>
 <tbody>
-<tr><td>Default</td><td>`default`</td><td><div class="odometer-theme-example"><div data-theme="default"><div></div></td></tr>
-<tr><td>Minimal</td><td>`minimal`</td><td><div class="odometer-theme-example"><div data-theme="minimal"><div></div></td></tr>
-<tr><td>Car</td><td>`car`</td><td><div class="odometer-theme-example"><div data-theme="car"><div></div></td></tr>
-<tr><td>Plaza</td><td>`plaza`</td><td><div class="odometer-theme-example"><div data-theme="plaza"><div></div></td></tr>
-<tr><td>Slot Machine</td><td>`slot-machine`</td><td><div class="odometer-theme-example"><div data-theme="slot-machine"><div></div></td></tr>
-<tr><td>Train Station</td><td>`train-station`</td><td><div class="odometer-theme-example"><div data-theme="train-station"><div></div></td></tr>
-<tr><td>Digital</td><td>`digital`</td><td><div class="odometer-theme-example"><div data-theme="digital"><div></div></td></tr>
+<tr><td>Default</td><td><a href="https://raw.github.com/HubSpot/odometer/master/themes/odometer-theme-car.css">`default`</a></td><td><div class="odometer-theme-example"><div data-theme="default"><div></div></td></tr>
+<tr><td>Minimal</td><td><a href="https://raw.github.com/HubSpot/odometer/master/themes/odometer-theme-minimal.css">`minimal`</a></td><td><div class="odometer-theme-example"><div data-theme="minimal"><div></div></td></tr>
+<tr><td>Car</td><td><a href="https://raw.github.com/HubSpot/odometer/master/themes/odometer-theme-car.css">`car`</a></td><td><div class="odometer-theme-example"><div data-theme="car"><div></div></td></tr>
+<tr><td>Plaza</td><td><a href="https://raw.github.com/HubSpot/odometer/master/themes/odometer-theme-plaza.css">`plaza`</a></td><td><div class="odometer-theme-example"><div data-theme="plaza"><div></div></td></tr>
+<tr><td>Slot Machine</td><td><a href="https://raw.github.com/HubSpot/odometer/master/themes/odometer-theme-slot-machine.css">`slot-machine`</a></td><td><div class="odometer-theme-example"><div data-theme="slot-machine"><div></div></td></tr>
+<tr><td>Train Station</td><td><a href="https://raw.github.com/HubSpot/odometer/master/themes/odometer-theme-train-station.css">`train-station`</a></td><td><div class="odometer-theme-example"><div data-theme="train-station"><div></div></td></tr>
+<tr><td>Digital</td><td><a href="https://raw.github.com/HubSpot/odometer/master/themes/odometer-theme-digital.css">`digital`</a></td><td><div class="odometer-theme-example"><div data-theme="digital"><div></div></td></tr>
 </tbody>
 </table>
 
