@@ -152,12 +152,12 @@ Format
 The format option allows you to configure how the digit groups are formatted,
 and how many digits are shown after the decimal point.
 
-     Format     -  Example
-    `(,ddd)`    -  12,345,678
-    `(,ddd).dd` -  12,345,678.09
-    `(.ddd),dd` -  12.345.678,09
-    `( ddd),dd` -  12 345 678,09
-    `d`         -  12345678
+    Format    -  Example
+    (,ddd)    -  12,345,678
+    (,ddd).dd -  12,345,678.09
+    (.ddd),dd -  12.345.678,09
+    ( ddd),dd -  12 345 678,09
+    d         -  12345678
 
 Browser Support
 ---------------
