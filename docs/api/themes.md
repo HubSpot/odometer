@@ -13,7 +13,7 @@ To use a builtin theme, simply include the theme style sheet:
 <th></th>
 </tr>
 <tbody>
-<tr><td>Default</td><td><a href="https://raw.github.com/HubSpot/odometer/master/themes/odometer-theme-car.css">`default`</a></td><td><div class="odometer-theme-example"><div data-theme="default"><div></div></td></tr>
+<tr><td>Default</td><td><a href="https://raw.github.com/HubSpot/odometer/master/themes/odometer-theme-default.css">`default`</a></td><td><div class="odometer-theme-example"><div data-theme="default"><div></div></td></tr>
 <tr><td>Minimal</td><td><a href="https://raw.github.com/HubSpot/odometer/master/themes/odometer-theme-minimal.css">`minimal`</a></td><td><div class="odometer-theme-example"><div data-theme="minimal"><div></div></td></tr>
 <tr><td>Car</td><td><a href="https://raw.github.com/HubSpot/odometer/master/themes/odometer-theme-car.css">`car`</a></td><td><div class="odometer-theme-example"><div data-theme="car"><div></div></td></tr>
 <tr><td>Plaza</td><td><a href="https://raw.github.com/HubSpot/odometer/master/themes/odometer-theme-plaza.css">`plaza`</a></td><td><div class="odometer-theme-example"><div data-theme="plaza"><div></div></td></tr>
