@@ -21,6 +21,7 @@ At the moment, there are 6 themes:
 <tr><td>Plaza</td><td>`plaza`</td><td><div class="odometer-theme-example"><div data-theme="plaza"><div></div></td></tr>
 <tr><td>Slot Machine</td><td>`slot-machine`</td><td><div class="odometer-theme-example"><div data-theme="slot-machine"><div></div></td></tr>
 <tr><td>Train Station</td><td>`train-station`</td><td><div class="odometer-theme-example"><div data-theme="train-station"><div></div></td></tr>
+<tr><td>Digital</td><td>`digital`</td><td><div class="odometer-theme-example"><div data-theme="digital"><div></div></td></tr>
 </tbody>
 </table>
 
@@ -53,6 +54,7 @@ odometer.render();
 <link rel="stylesheet" href="/odometer/themes/odometer-theme-slot-machine.css" />
 <link rel="stylesheet" href="/odometer/themes/odometer-theme-plaza.css" />
 <link rel="stylesheet" href="/odometer/themes/odometer-theme-train-station.css" />
+<link rel="stylesheet" href="/odometer/themes/odometer-theme-digital.css" />
 <script src="/odometer/odometer.min.js"></script>
 <script>
     (function(){
