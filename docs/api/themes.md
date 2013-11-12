@@ -6,12 +6,10 @@ To use a builtin theme, simply include the theme style sheet:
 <link rel="stylesheet" href="odometer-theme-default.css" />
 ```
 
-At the moment, there are 6 themes:
-
 <table class="hs-table">
 <tr>
 <th>Name</th>
-<th>`theme`</th>
+<th>Theme</th>
 <th></th>
 </tr>
 <tbody>
@@ -55,7 +53,7 @@ odometer.render();
 <link rel="stylesheet" href="/odometer/themes/odometer-theme-plaza.css" />
 <link rel="stylesheet" href="/odometer/themes/odometer-theme-train-station.css" />
 <link rel="stylesheet" href="/odometer/themes/odometer-theme-digital.css" />
-<script src="/odometer/odometer.min.js"></script>
+<script src="/odometer/odometer.js"></script>
 <script>
     (function(){
         $('[data-theme]').each(function(){
