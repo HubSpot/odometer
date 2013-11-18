@@ -214,14 +214,12 @@
     };
 
     Odometer.prototype.cleanValue = function(val) {
-      var badChars, regex;
+      var _ref;
       if (typeof val === 'string') {
-        badChars = '.,';
-        if (this.format.radix) {
-          badChars = badChars.replace(this.format.radix, '');
-        }
-        regex = new RegExp("[" + badChars + "\s]", 'g');
-        val = parseFloat(val.replace(regex, ''), 10) || 0;
+        val = val.replace((_ref = this.format.radix) != null ? _ref : '.', '<radix>');
+        val = val.replace(/[.,]/g, '');
+        val = val.replace('<radix>', '.');
+        val = parseFloat(val, 10) || 0;
       }
       return round(val, this.format.precision);
     };
@@ -312,7 +310,7 @@
       _ref = value.toString().split('').reverse();
       for (_j = 0, _len1 = _ref.length; _j < _len1; _j++) {
         digit = _ref[_j];
-        if (digit === this.format.radix) {
+        if (digit === '.') {
           wholePart = true;
         }
         this.addDigit(digit, wholePart);
@@ -368,15 +366,15 @@
     };
 
     Odometer.prototype.addDigit = function(value, repeating) {
-      var chr, digit, resetted;
+      var chr, digit, resetted, _ref;
       if (repeating == null) {
         repeating = true;
       }
       if (value === '-') {
         return this.addSpacer(value, null, 'odometer-negation-mark');
       }
-      if (value === this.format.radix) {
-        return this.addSpacer(value, null, 'odometer-radix-mark');
+      if (value === '.') {
+        return this.addSpacer((_ref = this.format.radix) != null ? _ref : '.', null, 'odometer-radix-mark');
       }
       if (repeating) {
         resetted = false;

@@ -5,6 +5,11 @@
   font-size: 40px;
 }
 </style>
+<script>
+window.odometerOptions = {
+  format: '(d).d'
+};
+</script>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="../odometer.js"></script>
@@ -12,6 +17,6 @@
 
 <script>
   setTimeout(function(){
-    $('.odometer').html('123222');
+    $('.odometer').html('123.22');
   }, 1000);
 </script>

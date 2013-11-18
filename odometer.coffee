@@ -10,6 +10,9 @@ FORMAT_MARK_HTML = '<span class="odometer-formatting-mark"></span>'
 #
 # Numbers will be rounded to the number of digits after the radix seperator.
 #
+# When values are set using `.update` or the `.innerHTML`-type attributes,
+# strings are assumed to already be in the locale's format.
+#
 # This is just the default, it can also be set as options.format.
 DIGIT_FORMAT = '(,ddd).dd'
 
@@ -173,12 +176,12 @@ class Odometer
 
   cleanValue: (val) ->
     if typeof val is 'string'
-      badChars = '.,'
-      if @format.radix
-        badChars = badChars.replace @format.radix, ''
-      regex = new RegExp "[#{ badChars }\s]", 'g'
-
-      val = parseFloat(val.replace(regex, ''), 10) or 0
+      # We need to normalize the format so we can properly turn it into
+      # a float.
+      val = val.replace((@format.radix ? '.'), '<radix>')
+      val = val.replace /[.,]/g, ''
+      val = val.replace '<radix>', '.'
+      val = parseFloat(val, 10) or 0
 
     round(val, @format.precision)
 
@@ -258,7 +261,7 @@ class Odometer
     @digits = []
     wholePart = not @format.precision or not fractionalPart(value) or false
     for digit in value.toString().split('').reverse()
-      if digit is @format.radix
+      if digit is '.'
         wholePart = true
 
       @addDigit digit, wholePart
@@ -310,8 +313,8 @@ class Odometer
     if value is '-'
       return @addSpacer value, null, 'odometer-negation-mark'
 
-    if value is @format.radix
-      return @addSpacer value, null, 'odometer-radix-mark'
+    if value is '.'
+      return @addSpacer (@format.radix ? '.'), null, 'odometer-radix-mark'
 
     if repeating
       resetted = false
