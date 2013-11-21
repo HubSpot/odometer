@@ -23,7 +23,7 @@ THEMES = [{
     }, {
         number: 25114
         description: 'flat tires'
-        detail: 'occur in american each hour'
+        detail: 'occur in america each hour'
         source: 'http://excelmathmike.blogspot.com/2011/04/phooey-on-flats-part-i.html'
     }]
 }, {

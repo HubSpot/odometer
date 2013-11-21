@@ -26,6 +26,7 @@ body {
     height: 100%;
     width: 100%;
     position: relative;
+    -webkit-transform: translateZ(0);
 }
 
 .number-container, .about-section {
@@ -38,6 +39,7 @@ body {
     width: 100%;
     height: 20em;
     text-align: center;
+    -webkit-transform: translateZ(0);
 }
 
 .about-section {
@@ -218,6 +220,7 @@ body {
     width: 1em;
     text-align: center;
     opacity: 0.5;
+    -webkit-transform: translateZ(0);
 }
 
 .down-arrow:hover {

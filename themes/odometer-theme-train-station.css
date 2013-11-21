@@ -1,4 +1,4 @@
-@import url("http://fonts.googleapis.com/css?family=Economica");
+@import url("//fonts.googleapis.com/css?family=Economica");
 .odometer.odometer-auto-theme, .odometer.odometer-theme-train-station {
   display: -moz-inline-box;
   -moz-box-orient: vertical;
@@ -47,9 +47,11 @@
 }
 .odometer.odometer-auto-theme .odometer-digit .odometer-ribbon-inner, .odometer.odometer-theme-train-station .odometer-digit .odometer-ribbon-inner {
   display: block;
+  -webkit-backface-visibility: hidden;
 }
 .odometer.odometer-auto-theme .odometer-digit .odometer-value, .odometer.odometer-theme-train-station .odometer-digit .odometer-value {
   display: block;
+  -webkit-transform: translateZ(0);
 }
 .odometer.odometer-auto-theme .odometer-digit .odometer-value.odometer-last-value, .odometer.odometer-theme-train-station .odometer-digit .odometer-value.odometer-last-value {
   position: absolute;
@@ -79,7 +81,6 @@
   -webkit-transition: -webkit-transform 2s;
   -moz-transition: -moz-transform 2s;
   -ms-transition: -ms-transform 2s;
-  -o-transition: -o-transform 2s;
   -o-transition: -o-transform 2s;
   transition: transform 2s;
   -webkit-transform: translateY(0);

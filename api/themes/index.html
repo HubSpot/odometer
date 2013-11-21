@@ -10,8 +10,13 @@
                     </a>
                 </li>
                 <li>
-                    <a href="http://hubspot.github.com">
+                    <a class="current-nav-item" href="http://hubspot.github.com">
                         Open Source
+                    </a>
+                </li>
+                <li>
+                    <a href="http://dev.hubspot.com/blog">
+                        Blog
                     </a>
                 </li>
             </ul>
@@ -26,20 +31,20 @@
 <div class="hs-page-width-normal"><div class="row-fluid"><div class="span6"><h1 class="hs-doc-page-header"><a class="hs-doc-homepage-link" href="../../">odometer</a></h1></div><div class="span6 hidden-phone"><div class="hs-doc-slim-github-link-wrapper"><a class="hs-doc-slim-github-link" href="http://github.com/HubSpot/odometer">On GitHub</a></div></div></div></div><div class="hs-page-width-normal"><div class="row-fluid"><div class="span3"><div class="hs-doc-sidenav"><nav><ul class="hs-public-sidenav"><li class=""><a href="../../">Home</a></li><li><b>Api</b></li><li class="current-nav-item"><a href="../../api/themes">Themes</a></li><li><b>Annotated source</b></li><li><a target="_blank" href="../../source/odometer.html">odometer.coffee</a></li></ul></nav></div></div><div class="span9"><div class="hs-doc-content"><h2>Themes</h2>
 <p>To use a builtin theme, simply include the theme style sheet:</p>
 <pre><code class="lang-html"><span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span> <span class="attribute">href</span>=<span class="value">"odometer-theme-default.css"</span> /&gt;</span></code></pre>
-<p>At the moment, there are 6 themes:</p>
 <table class="hs-table">
 <tr>
 <th>Name</th>
-<th><code>theme</code></th>
+<th>Theme</th>
 <th></th>
 </tr>
 <tbody>
-<tr><td>Default</td><td><code>default</code></td><td><div class="odometer-theme-example"><div data-theme="default"><div></div></td></tr>
-<tr><td>Minimal</td><td><code>minimal</code></td><td><div class="odometer-theme-example"><div data-theme="minimal"><div></div></td></tr>
-<tr><td>Car</td><td><code>car</code></td><td><div class="odometer-theme-example"><div data-theme="car"><div></div></td></tr>
-<tr><td>Plaza</td><td><code>plaza</code></td><td><div class="odometer-theme-example"><div data-theme="plaza"><div></div></td></tr>
-<tr><td>Slot Machine</td><td><code>slot-machine</code></td><td><div class="odometer-theme-example"><div data-theme="slot-machine"><div></div></td></tr>
-<tr><td>Train Station</td><td><code>train-station</code></td><td><div class="odometer-theme-example"><div data-theme="train-station"><div></div></td></tr>
+<tr><td>Default</td><td><a href="https://raw.github.com/HubSpot/odometer/master/themes/odometer-theme-default.css"><code>default</code></a></td><td><div class="odometer-theme-example"><div data-theme="default"><div></div></td></tr>
+<tr><td>Minimal</td><td><a href="https://raw.github.com/HubSpot/odometer/master/themes/odometer-theme-minimal.css"><code>minimal</code></a></td><td><div class="odometer-theme-example"><div data-theme="minimal"><div></div></td></tr>
+<tr><td>Car</td><td><a href="https://raw.github.com/HubSpot/odometer/master/themes/odometer-theme-car.css"><code>car</code></a></td><td><div class="odometer-theme-example"><div data-theme="car"><div></div></td></tr>
+<tr><td>Plaza</td><td><a href="https://raw.github.com/HubSpot/odometer/master/themes/odometer-theme-plaza.css"><code>plaza</code></a></td><td><div class="odometer-theme-example"><div data-theme="plaza"><div></div></td></tr>
+<tr><td>Slot Machine</td><td><a href="https://raw.github.com/HubSpot/odometer/master/themes/odometer-theme-slot-machine.css"><code>slot-machine</code></a></td><td><div class="odometer-theme-example"><div data-theme="slot-machine"><div></div></td></tr>
+<tr><td>Train Station</td><td><a href="https://raw.github.com/HubSpot/odometer/master/themes/odometer-theme-train-station.css"><code>train-station</code></a></td><td><div class="odometer-theme-example"><div data-theme="train-station"><div></div></td></tr>
+<tr><td>Digital</td><td><a href="https://raw.github.com/HubSpot/odometer/master/themes/odometer-theme-digital.css"><code>digital</code></a></td><td><div class="odometer-theme-example"><div data-theme="digital"><div></div></td></tr>
 </tbody>
 </table>
 
@@ -52,7 +57,7 @@
 odometer.render();</code></pre>
 <p><!-- Resources for the demos --></p>
 <p><p style="-webkit-transform: translateZ(0)"></p></p>
-<p><link rel="stylesheet" href="https://rawgithub.com/HubSpot/odometer/master/themes/odometer-theme-minimal.css" /></p>
+<p><link rel="stylesheet" href="/odometer/themes/odometer-theme-minimal.css" /></p>
 <script>
     odometerOptions = { auto: false };
 </script>
@@ -62,13 +67,13 @@ odometer.render();</code></pre>
         line-height: 60px;
     }
 </style>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<link rel="stylesheet" href="https://rawgithub.com/HubSpot/odometer/master/themes/odometer-theme-default.css" />
-<link rel="stylesheet" href="https://rawgithub.com/HubSpot/odometer/master/themes/odometer-theme-car.css" />
-<link rel="stylesheet" href="https://rawgithub.com/HubSpot/odometer/master/themes/odometer-theme-slot-machine.css" />
-<link rel="stylesheet" href="https://rawgithub.com/HubSpot/odometer/master/themes/odometer-theme-plaza.css" />
-<link rel="stylesheet" href="https://rawgithub.com/HubSpot/odometer/master/themes/odometer-theme-train-station.css" />
-<script src="https://rawgithub.com/HubSpot/odometer/master/odometer.min.js"></script>
+<link rel="stylesheet" href="/odometer/themes/odometer-theme-default.css" />
+<link rel="stylesheet" href="/odometer/themes/odometer-theme-car.css" />
+<link rel="stylesheet" href="/odometer/themes/odometer-theme-slot-machine.css" />
+<link rel="stylesheet" href="/odometer/themes/odometer-theme-plaza.css" />
+<link rel="stylesheet" href="/odometer/themes/odometer-theme-train-station.css" />
+<link rel="stylesheet" href="/odometer/themes/odometer-theme-digital.css" />
+<script src="/odometer/odometer.js"></script>
 <script>
     (function(){
         $('[data-theme]').each(function(){
@@ -84,7 +89,8 @@ odometer.render();</code></pre>
             }, 3000);
         });
     })();
-</script></div></div></div></div><div class="hs3-public-footer"><div class="row-fluid hs-page-width-normal"><div class="span3 hidden-phone"><h3>HubSpot</h3><ul><li><a href="http://www.hubspot.com">Home</a></li><li><a href="http://www.hubspot.com/software">Products</a></li><li><a href="http://www.hubspot.com/internet-marketing-company/">About</a></li></ul></div><div class="span3"><h3>Projects</h3><ul><li><a href="http://github.hubspot.com/messenger">Messenger</a></li><li><a href="http://github.hubspot.com/facewall">Facewall</a></li><li><a href="http://github.hubspot.com/jquery-zoomer">jQuery Zoomer</a></li><li><a href="http://github.hubspot.com/humanize">Humanize</a></li><li><a href="http://github.hubspot.com/teeble">Teeble</a></li></ul></div><div class="span3"><h3>Development Team</h3><ul><li><a href="http://dev.hubspot.com">Home</a></li><li><a href="http://dev.hubspot.com/teams">Teams</a></li><li><a href="http://dev.hubspot.com/people">People</a></li><li><a href="http://dev.hubspot.com/jobs">Jobs</a></li></ul></div><div class="span3 hidden-phone"><h3>Developer API</h3><ul><li><a href="http://developers.hubspot.com/">Developer Documentation</a></li></ul></div></div></div><!-- Start of Async HubSpot Analytics Code -->
+</script>
+</div></div></div></div><div class="hs3-public-footer"><div class="row-fluid hs-page-width-normal"><div class="span3 hidden-phone"><h3>HubSpot</h3><ul><li><a href="http://www.hubspot.com">Home</a></li><li><a href="http://www.hubspot.com/software">Products</a></li><li><a href="http://www.hubspot.com/internet-marketing-company/">About</a></li></ul></div><div class="span3"><h3>Projects</h3><ul><li><a href="http://github.hubspot.com/messenger">Messenger</a></li><li><a href="http://github.hubspot.com/facewall">Facewall</a></li><li><a href="http://github.hubspot.com/jquery-zoomer">jQuery Zoomer</a></li><li><a href="http://github.hubspot.com/humanize">Humanize</a></li><li><a href="http://github.hubspot.com/teeble">Teeble</a></li></ul></div><div class="span3"><h3>Development Team</h3><ul><li><a href="http://dev.hubspot.com">Home</a></li><li><a href="http://dev.hubspot.com/teams">Teams</a></li><li><a href="http://dev.hubspot.com/people">People</a></li><li><a href="http://dev.hubspot.com/jobs">Jobs</a></li></ul></div><div class="span3 hidden-phone"><h3>Developer API</h3><ul><li><a href="http://developers.hubspot.com/">Developer Documentation</a></li></ul></div></div></div><!-- Start of Async HubSpot Analytics Code -->
 <script type="text/javascript">
     (function(d,s,i,r) {
         if (d.getElementById(i)){return;}
@@ -93,4 +99,15 @@ odometer.render();</code></pre>
         e.parentNode.insertBefore(n, e);
     })(document,"script","hs-analytics",300000);
 </script>
-<!-- End of Async HubSpot Analytics Code --></body></html>
+<!-- End of Async HubSpot Analytics Code -->
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-45159009-1', 'hubspot.com');
+  ga('send', 'pageview');
+</script>
+</body></html>
