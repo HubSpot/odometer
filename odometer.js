@@ -1,5 +1,5 @@
 (function() {
-  var COUNT_FRAMERATE, COUNT_MS_PER_FRAME, DIGIT_FORMAT, DIGIT_HTML, DIGIT_SPEEDBOOST, DURATION, FORMAT_MARK_HTML, FORMAT_PARSER, FRAMERATE, FRAMES_PER_VALUE, MS_PER_FRAME, MutationObserver, Odometer, RIBBON_HTML, TRANSITION_END_EVENTS, TRANSITION_SUPPORT, VALUE_HTML, addClass, createFromHTML, fractionalPart, now, removeClass, requestAnimationFrame, round, transitionCheckStyles, trigger, wrapJQuery, _jQueryWrapped, _old, _ref, _ref1,
+  var COUNT_FRAMERATE, COUNT_MS_PER_FRAME, DIGIT_FORMAT, DIGIT_HTML, DIGIT_SPEEDBOOST, DURATION, FORMAT_MARK_HTML, FORMAT_PARSER, FRAMERATE, FRAMES_PER_VALUE, MS_PER_FRAME, MutationObserver, Odometer, RIBBON_HTML, TRANSITION_END_EVENTS, TRANSITION_SUPPORT, VALUE_HTML, addClass, createFromHTML, fractionalPart, now, removeClass, requestAnimationFrame, round, transitionCheckStyles, trigger, truncate, wrapJQuery, _jQueryWrapped, _old, _ref, _ref1,
     __slice = [].slice;
 
   VALUE_HTML = '<span class="odometer-value"></span>';
@@ -79,6 +79,14 @@
     val += 0.5;
     val = Math.floor(val);
     return val /= Math.pow(10, precision);
+  };
+
+  truncate = function(val) {
+    if (val < 0) {
+      return Math.ceil(val);
+    } else {
+      return Math.floor(val);
+    }
   };
 
   fractionalPart = function(val) {
@@ -454,7 +462,7 @@
     Odometer.prototype.getFractionalDigitCount = function() {
       var i, parser, parts, value, values, _i, _len;
       values = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-      parser = /^\d*\.(\d*?)0*$/;
+      parser = /^\-?\d*\.(\d*?)0*$/;
       for (i = _i = 0, _len = values.length; _i < _len; i = ++_i) {
         value = values[i];
         values[i] = value.toString();
@@ -491,8 +499,8 @@
       digits = [];
       boosted = 0;
       for (i = _i = 0; 0 <= digitCount ? _i < digitCount : _i > digitCount; i = 0 <= digitCount ? ++_i : --_i) {
-        start = Math.floor(oldValue / Math.pow(10, digitCount - i - 1));
-        end = Math.floor(newValue / Math.pow(10, digitCount - i - 1));
+        start = truncate(oldValue / Math.pow(10, digitCount - i - 1));
+        end = truncate(newValue / Math.pow(10, digitCount - i - 1));
         dist = end - start;
         if (Math.abs(dist) > this.MAX_VALUES) {
           frames = [];
@@ -546,6 +554,9 @@
             addClass(numEl, 'odometer-first-value');
           }
         }
+      }
+      if (start < 0) {
+        this.addDigit('-');
       }
       mark = this.inside.querySelector('.odometer-radix-mark');
       if (mark != null) {

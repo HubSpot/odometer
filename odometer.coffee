@@ -81,6 +81,13 @@ round = (val, precision=0) ->
   val = Math.floor(val)
   val /= Math.pow(10, precision)
 
+truncate = (val) ->
+  # | 0 fails on numbers greater than 2^32
+  if val < 0
+    Math.ceil(val)
+  else
+    Math.floor(val)
+
 fractionalPart = (val) ->
   val - round(val)
 
@@ -386,7 +393,7 @@ class Odometer
     # This assumes the value has already been rounded to
     # @format.precision places
     #
-    parser = /^\d*\.(\d*?)0*$/
+    parser = /^\-?\d*\.(\d*?)0*$/
     for value, i in values
       values[i] = value.toString()
 
@@ -425,8 +432,8 @@ class Odometer
     # We create a array to represent the series of digits which should be
     # animated in each column
     for i in [0...digitCount]
-      start = Math.floor(oldValue / Math.pow(10, (digitCount - i - 1)))
-      end = Math.floor(newValue / Math.pow(10, (digitCount - i - 1)))
+      start = truncate(oldValue  / Math.pow(10, (digitCount - i - 1)))
+      end = truncate(newValue / Math.pow(10, (digitCount - i - 1)))
 
       dist = end - start
 
@@ -478,6 +485,9 @@ class Odometer
           addClass numEl, 'odometer-last-value'
         if j == 0
           addClass numEl, 'odometer-first-value'
+
+    if start < 0
+      @addDigit '-'
 
     mark = @inside.querySelector('.odometer-radix-mark')
     mark.parent.removeChild(mark) if mark?
