@@ -195,7 +195,7 @@ class Odometer
   bindTransitionEnd: ->
     return if @transitionEndBound
     @transitionEndBound = true
-    
+
     # The event will be triggered once for each ribbon, we only
     # want one render though
     renderEnqueued = false
@@ -246,7 +246,7 @@ class Odometer
 
       if /^odometer(-|$)/.test(cls)
         continue
-        
+
       newClasses.push cls
 
     newClasses.push 'odometer'
@@ -529,4 +529,14 @@ else
       Odometer.init()
   , false
 
-window.Odometer = Odometer
+
+if typeof define is 'function' and define.amd
+  # AMD. Register as an anonymous module.
+  define ['jquery'], ->
+    Odometer
+else if typeof exports is not 'undefined'
+  # CommonJS
+  module.exports = Odometer
+else
+  # Browser globals
+  window.Odometer = Odometer
