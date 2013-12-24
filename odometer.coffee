@@ -88,9 +88,6 @@ truncate = (val) ->
   else
     Math.floor(val)
 
-fractionalPart = (val) ->
-  val - round(val)
-
 _jQueryWrapped = false
 do wrapJQuery = ->
   return if _jQueryWrapped
@@ -266,8 +263,8 @@ class Odometer
     @ribbons = {}
 
     @digits = []
-    wholePart = not @format.precision or not fractionalPart(value) or false
-    for digit in value.toString().split('').reverse()
+    wholePart = not @format.precision
+    for digit in value.toFixed(@format.precision).split('').reverse()
       if digit is '.'
         wholePart = true
 
@@ -393,9 +390,10 @@ class Odometer
     # This assumes the value has already been rounded to
     # @format.precision places
     #
-    parser = /^\-?\d*\.(\d*?)0*$/
+    parser = /^\-?\d*\.(\d*?)$/
+
     for value, i in values
-      values[i] = value.toString()
+      values[i] = value.toFixed(@format.precision)
 
       parts = parser.exec values[i]
 
