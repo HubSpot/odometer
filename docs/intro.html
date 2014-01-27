@@ -28,7 +28,7 @@
         </div>
     </div>
 </div>
-<div class="hs-page-width-normal"><div class="row-fluid"><div class="span6"><h1 class="hs-doc-page-header"><a class="hs-doc-homepage-link" href="../">odometer</a></h1></div><div class="span6 hidden-phone"><div class="hs-doc-slim-github-link-wrapper"><a class="hs-doc-slim-github-link" href="http://github.com/HubSpot/odometer">On GitHub</a></div></div></div></div><div class="hs-page-width-normal"><div class="row-fluid"><div class="span3"><div class="hs-doc-sidenav"><nav><ul class="hs-public-sidenav"><li class=""><a href="../">Home</a></li><li><b>Api</b></li><li class=""><a href="../api/themes">Themes</a></li><li><b>Annotated source</b></li><li><a target="_blank" href="../source/odometer.html">odometer.coffee</a></li></ul></nav></div></div><div class="span9"><div class="hs-doc-content"><h1>Odometer</h1>
+<div class="hs-page-width-normal"><div class="row-fluid"><div class="span6"><h1 class="hs-doc-page-header"><a class="hs-doc-homepage-link" href="../../">odometer</a></h1></div><div class="span6 hidden-phone"><div class="hs-doc-slim-github-link-wrapper"><a class="hs-doc-slim-github-link" href="http://github.com/HubSpot/odometer">On GitHub</a></div></div></div></div><div class="hs-page-width-normal"><div class="row-fluid"><div class="span3"><div class="hs-doc-sidenav"><nav><ul class="hs-public-sidenav"><li class=""><a href="../../">Home</a></li><li><b>Api</b></li><li class=""><a href="../../api/themes">Themes</a></li><li><b>Annotated source</b></li><li><a target="_blank" href="../../source/odometer.html">odometer.coffee</a></li></ul></nav></div></div><div class="span9"><div class="hs-doc-content"><h1 id="odometer">Odometer</h1>
 <style>
 .odometer-github-stars {
   margin-bottom: 6px;
@@ -115,18 +115,18 @@ See the <a href="http://github.hubspot.com/odometer/docs/welcome">demo page</a> 
 them extremely performant, with automatic fallback on older browsers.</p>
 <p>The library and largest theme is less than 3kb when minified and compressed.</p>
 <p>All of <a href="http://github.hubspot.com/odometer/api/themes/">the themes</a> can be resized by setting the <code>font-size</code> of the <code>.odometer</code> element.</p>
-<h2>Usage</h2>
-<p><strong>The simplest possible usage is just including <a href="https://raw.github.com/HubSpot/odometer/v0.4.5/odometer.min.js">the javascript</a> and a <a href="http://github.hubspot.com/odometer/api/themes/">theme css</a>
+<h2 id="usage">Usage</h2>
+<p><strong>The simplest possible usage is just including <a href="https://raw.github.com/HubSpot/odometer/v0.4.6/odometer.min.js">the javascript</a> and a <a href="http://github.hubspot.com/odometer/api/themes/">theme css</a>
 file on your page.  Add the <code>odometer</code> class to any numbers you&#39;d like to animate on change.  You&#39;re done.</strong></p>
 <p>Just set the <code>innerHTML</code>, <code>innerText</code>, or use jQuery&#39;s <code>.text()</code> or <code>.html()</code> methods to change their contents, and the animation
 will happen automatically.  Any libraries you&#39;re using to update their value, provided they don&#39;t update by erasing and rerendering
 the <code>odometer</code> element, will work just fine.</p>
 <p>On older browsers, it will automatically fallback to a simpler animation which won&#39;t tax their fragile javascript runtime.</p>
-<h2>Example</h2>
+<h2 id="example">Example</h2>
 <div class="odometer odometer-theme-car odometer-example">123</div>
 
 <p>Play with this simple example on <a href="http://jsfiddle.net/adamschwartz/rx6BQ/">jsFiddle</a>.</p>
-<h2>Advanced</h2>
+<h2 id="advanced">Advanced</h2>
 <p>You can set options by creating a <code>odometerOptions</code> object:</p>
 <pre><code class="lang-javascript">window.odometerOptions = {
   auto: <span class="literal">false</span>, <span class="comment">// Don't automatically initialize everything with class 'odometer'</span>
@@ -152,7 +152,7 @@ od = <span class="keyword">new</span> Odometer({
 od.update(<span class="number">555</span>)
 <span class="comment">// or</span>
 el.innerHTML = <span class="number">555</span></code></pre>
-<h2>Format</h2>
+<h2 id="format">Format</h2>
 <p>The format option allows you to configure how the digit groups are formatted,
 and how many digits are shown after the decimal point.</p>
 <pre><code><span class="comment">Format</span>    <span class="literal">-</span>  <span class="comment">Example</span>
@@ -161,11 +161,11 @@ and how many digits are shown after the decimal point.</p>
 <span class="comment">(</span>.<span class="comment">ddd)</span>,<span class="comment">dd</span> <span class="literal">-</span>  <span class="comment">12</span>.<span class="comment">345</span>.<span class="comment">678</span>,<span class="comment">09</span>
 <span class="comment">( ddd)</span>,<span class="comment">dd</span> <span class="literal">-</span>  <span class="comment">12 345 678</span>,<span class="comment">09</span>
 <span class="comment">d</span>         <span class="literal">-</span>  <span class="comment">12345678</code></pre>
-<h2>Browser Support</h2>
+<h2 id="browser-support">Browser Support</h2>
 <p>Odometer is intended to support IE8+, FF4+, Safari 6+, and Chrome.</p>
-<h2>Dependencies</h2>
+<h2 id="dependencies">Dependencies</h2>
 <p>None!</p>
-<h2>Contributing</h2>
+<h2 id="contributing">Contributing</h2>
 <p>Odometer is built using Grunt.  To setup the build environment you first
 must have Node.js installed.  Then:</p>
 <pre><code class="lang-bash"><span class="comment"># In the project directory</span>

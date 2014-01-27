@@ -461,7 +461,7 @@ want one render though</p>
 
       <span class="keyword">if</span> <span class="regexp">/^odometer(-|$)/</span>.test(cls)
         <span class="keyword">continue</span>
-        
+
       newClasses.push cls
 
     newClasses.push <span class="string">'odometer'</span>
@@ -871,7 +871,56 @@ Odometer.<span class="function"><span class="title">init</span></span> = -&gt;
       Odometer.init()
   , <span class="literal">false</span>
 
-window.Odometer = Odometer</pre></div></div>
+
+<span class="keyword">if</span> <span class="keyword">typeof</span> define <span class="keyword">is</span> <span class="string">'function'</span> <span class="keyword">and</span> define.amd</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-27">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-27">&#182;</a>
+              </div>
+              <p>AMD. Register as an anonymous module.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  define [<span class="string">'jquery'</span>], -&gt;
+    Odometer
+<span class="keyword">else</span> <span class="keyword">if</span> <span class="keyword">typeof</span> exports <span class="keyword">is</span> <span class="keyword">not</span> <span class="string">'undefined'</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-28">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-28">&#182;</a>
+              </div>
+              <p>CommonJS</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  module.exports = Odometer
+<span class="keyword">else</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-29">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-29">&#182;</a>
+              </div>
+              <p>Browser globals</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  window.Odometer = Odometer</pre></div></div>
             
         </li>
         
