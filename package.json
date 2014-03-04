@@ -2,9 +2,10 @@
   "name": "odometer",
   "version": "0.4.6",
   "description": "Transition numbers with ease",
+  "main": "odometer.js",
   "authors": [
-    "Adam Schwartz <aschwartz@hubspot.com>",
-    "Zack Bloom <zbloom@hubspot.com>"
+    "Adam Schwartz <adam.flynn.schwartz@gmail.com>",
+    "Zack Bloom <zackbloom@gmail.com>"
   ],
   "license": "MIT",
   "devDependencies": {
