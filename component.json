@@ -1,0 +1,22 @@
+{
+  "name": "odometer",
+  "version": "0.0.1",
+  "repo": "hubspot/odometer",
+  "description": "Transition numbers with ease",
+  "keywords": [
+    "odometer",
+    "car",
+    "number",
+    "transition",
+    "animation",
+    "slot",
+    "machine",
+    "turnstile",
+    "javascript",
+    "client-side"
+  ],
+  "styles": ["themes/odometer-theme-default.css"],
+  "scripts": [
+    "odometer.js"
+  ]
+}
