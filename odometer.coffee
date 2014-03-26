@@ -344,7 +344,9 @@ class Odometer
     digit.querySelector('.odometer-value').innerHTML = value
     @digits.push digit
 
-    @insertDigit digit
+    rv = @insertDigit digit
+    trigger @el, 'odometer-digit-added'
+    rv
 
   animate: (newValue) ->
     if not TRANSITION_SUPPORT or @options.animation is 'count'
