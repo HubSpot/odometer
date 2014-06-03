@@ -265,15 +265,32 @@ class Odometer
 
     @ribbons = {}
 
-    @digits = []
-    wholePart = not @format.precision or not fractionalPart(value) or false
-    for digit in value.toString().split('').reverse()
-      if digit is '.'
-        wholePart = true
-
-      @addDigit digit, wholePart
+    @formatDigits(value)
 
     @startWatchingMutations()
+
+  formatDigits: (value) ->
+    @digits = []
+
+    if @options.formatFunction
+      valueString = @options.formatFunction(value)
+      for valueDigit in valueString.split('').reverse()
+        if valueDigit.match(/0-9/)
+          digit = @renderDigit()
+          digit.querySelector('.odometer-value').innerHTML = valueDigit
+          @digits.push digit
+          @insertDigit digit
+        else
+          @addSpacer valueDigit
+    else
+      wholePart = not @format.precision or not fractionalPart(value) or false
+      for digit in value.toString().split('').reverse()
+        if digit is '.'
+          wholePart = true
+
+        @addDigit digit, wholePart
+
+    return
 
   update: (newValue) ->
     newValue = @cleanValue newValue
