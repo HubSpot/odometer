@@ -278,7 +278,7 @@
     };
 
     Odometer.prototype.render = function(value) {
-      var classes, cls, digit, match, newClasses, theme, wholePart, _i, _j, _len, _len1, _ref;
+      var classes, cls, match, newClasses, theme, _i, _len;
       if (value == null) {
         value = this.value;
       }
@@ -313,17 +313,38 @@
       }
       this.el.className = newClasses.join(' ');
       this.ribbons = {};
-      this.digits = [];
-      wholePart = !this.format.precision || !fractionalPart(value) || false;
-      _ref = value.toString().split('').reverse();
-      for (_j = 0, _len1 = _ref.length; _j < _len1; _j++) {
-        digit = _ref[_j];
-        if (digit === '.') {
-          wholePart = true;
-        }
-        this.addDigit(digit, wholePart);
-      }
+      this.formatDigits(value);
       return this.startWatchingMutations();
+    };
+
+    Odometer.prototype.formatDigits = function(value) {
+      var digit, valueDigit, valueString, wholePart, _i, _j, _len, _len1, _ref, _ref1;
+      this.digits = [];
+      if (this.options.formatFunction) {
+        valueString = this.options.formatFunction(value);
+        _ref = valueString.split('').reverse();
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          valueDigit = _ref[_i];
+          if (valueDigit.match(/0-9/)) {
+            digit = this.renderDigit();
+            digit.querySelector('.odometer-value').innerHTML = valueDigit;
+            this.digits.push(digit);
+            this.insertDigit(digit);
+          } else {
+            this.addSpacer(valueDigit);
+          }
+        }
+      } else {
+        wholePart = !this.format.precision || !fractionalPart(value) || false;
+        _ref1 = value.toString().split('').reverse();
+        for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+          digit = _ref1[_j];
+          if (digit === '.') {
+            wholePart = true;
+          }
+          this.addDigit(digit, wholePart);
+        }
+      }
     };
 
     Odometer.prototype.update = function(newValue) {

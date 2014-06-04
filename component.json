@@ -1,6 +1,6 @@
 {
   "name": "odometer",
-  "version": "0.4.6",
+  "version": "0.4.7",
   "repo": "hubspot/odometer",
   "description": "Transition numbers with ease",
   "keywords": [
