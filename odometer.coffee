@@ -551,7 +551,7 @@ if typeof define is 'function' and define.amd
   # AMD. Register as an anonymous module.
   define ['jquery'], ->
     Odometer
-else if typeof exports is not 'undefined'
+else if exports?
   # CommonJS
   module.exports = Odometer
 else
