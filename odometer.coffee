@@ -44,7 +44,7 @@ TRANSITION_END_EVENTS = 'transitionend webkitTransitionEnd oTransitionEnd otrans
 
 transitionCheckStyles = document.createElement('div').style
 TRANSITION_SUPPORT = transitionCheckStyles.transition? or transitionCheckStyles.webkitTransition? or
-                     transitionCheckStyles.mozTransition? or transitionCheckStyles.oTransition?
+                     transitionCheckStyles.MozTransition? or transitionCheckStyles.oTransition?
 
 requestAnimationFrame = window.requestAnimationFrame or window.mozRequestAnimationFrame or
                         window.webkitRequestAnimationFrame or window.msRequestAnimationFrame
