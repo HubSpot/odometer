@@ -32,7 +32,7 @@
 
   transitionCheckStyles = document.createElement('div').style;
 
-  TRANSITION_SUPPORT = (transitionCheckStyles.transition != null) || (transitionCheckStyles.webkitTransition != null) || (transitionCheckStyles.mozTransition != null) || (transitionCheckStyles.oTransition != null);
+  TRANSITION_SUPPORT = (transitionCheckStyles.transition != null) || (transitionCheckStyles.webkitTransition != null) || (transitionCheckStyles.MozTransition != null) || (transitionCheckStyles.oTransition != null);
 
   requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
 
@@ -644,7 +644,7 @@
     define(['jquery'], function() {
       return Odometer;
     });
-  } else if (typeof exports === !'undefined') {
+  } else if (typeof exports !== "undefined" && exports !== null) {
     module.exports = Odometer;
   } else {
     window.Odometer = Odometer;
