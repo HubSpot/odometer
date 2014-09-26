@@ -1,5 +1,7 @@
 @import compass/css3
 
+$duration: 2s
+
 =spinning-odometer($themeName)
     .odometer.odometer-auto-theme, .odometer#{"." + $themeName}
         +inline-block
@@ -40,11 +42,11 @@
         &.odometer-animating-up
 
             .odometer-ribbon-inner
-                -webkit-transition: -webkit-transform 2s
-                -moz-transition: -moz-transform 2s
-                -ms-transition: -ms-transform 2s
-                -o-transition: -o-transform 2s
-                transition: transform 2s
+                -webkit-transition: -webkit-transform $duration
+                -moz-transition: -moz-transform $duration
+                -ms-transition: -ms-transform $duration
+                -o-transition: -o-transform $duration
+                transition: transform $duration
 
             &.odometer-animating .odometer-ribbon-inner
                 -webkit-transform: translateY(-100%)
@@ -63,11 +65,11 @@
                 transform: translateY(-100%)
 
             &.odometer-animating .odometer-ribbon-inner
-                -webkit-transition: -webkit-transform 2s
-                -moz-transition: -moz-transform 2s
-                -ms-transition: -ms-transform 2s
-                -o-transition: -o-transform 2s
-                transition: transform 2s
+                -webkit-transition: -webkit-transform $duration
+                -moz-transition: -moz-transform $duration
+                -ms-transition: -ms-transform $duration
+                -o-transition: -o-transform $duration
+                transition: transform $duration
 
                 -webkit-transform: translateY(0)
                 -moz-transform: translateY(0)
