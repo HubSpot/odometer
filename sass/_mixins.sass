@@ -42,37 +42,17 @@ $duration: 2s
         &.odometer-animating-up
 
             .odometer-ribbon-inner
-                -webkit-transition: -webkit-transform $duration
-                -moz-transition: -moz-transform $duration
-                -ms-transition: -ms-transform $duration
-                -o-transition: -o-transform $duration
-                transition: transform $duration
+                +single-transition(transform, $duration)
 
             &.odometer-animating .odometer-ribbon-inner
-                -webkit-transform: translateY(-100%)
-                -moz-transform: translateY(-100%)
-                -ms-transform: translateY(-100%)
-                -o-transform: translateY(-100%)
-                transform: translateY(-100%)
+                +translateY(-100%)
 
         &.odometer-animating-down
 
             .odometer-ribbon-inner
-                -webkit-transform: translateY(-100%)
-                -moz-transform: translateY(-100%)
-                -ms-transform: translateY(-100%)
-                -o-transform: translateY(-100%)
-                transform: translateY(-100%)
+                +translateY(-100%)
 
             &.odometer-animating .odometer-ribbon-inner
-                -webkit-transition: -webkit-transform $duration
-                -moz-transition: -moz-transform $duration
-                -ms-transition: -ms-transform $duration
-                -o-transition: -o-transform $duration
-                transition: transform $duration
+                +single-transition(transform, $duration)
 
-                -webkit-transform: translateY(0)
-                -moz-transform: translateY(0)
-                -ms-transform: translateY(0)
-                -o-transform: translateY(0)
-                transform: translateY(0)
+                +translateY(0)
