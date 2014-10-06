@@ -644,7 +644,7 @@
     define(['jquery'], function() {
       return Odometer;
     });
-  } else if (typeof exports === !'undefined') {
+  } else if (typeof exports !== "undefined" && exports !== null) {
     module.exports = Odometer;
   } else {
     window.Odometer = Odometer;
