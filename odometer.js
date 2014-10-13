@@ -270,6 +270,7 @@
       }
       _ref1 = parsed.slice(1, 4), repeating = _ref1[0], radix = _ref1[1], fractional = _ref1[2];
       precision = (fractional != null ? fractional.length : void 0) || 0;
+      radix = (radix.length > 0 ? radix : null);
       return this.format = {
         repeating: repeating,
         radix: radix,
