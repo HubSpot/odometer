@@ -16,7 +16,7 @@ FORMAT_MARK_HTML = '<span class="odometer-formatting-mark"></span>'
 # This is just the default, it can also be set as options.format.
 DIGIT_FORMAT = '(,ddd).dd'
 
-FORMAT_PARSER = /^\(?([^)]*)\)?(?:(.)(d+))?$/
+FORMAT_PARSER = /^\(?([^)]*)\)?(?:(.)(D*)(d*))?$/
 
 # What is our target framerate?
 FRAMERATE = 30
@@ -87,9 +87,6 @@ truncate = (val) ->
     Math.ceil(val)
   else
     Math.floor(val)
-
-fractionalPart = (val) ->
-  val - round(val)
 
 _jQueryWrapped = false
 do wrapJQuery = ->
@@ -223,11 +220,13 @@ class Odometer
     if not parsed
       throw new Error "Odometer: Unparsable digit format"
 
-    [repeating, radix, fractional] = parsed[1..3]
+    [repeating, radix, fractional1, fractional2] = parsed[1..4]
 
-    precision = fractional?.length or 0
+    fractional = fractional1?.length or 0
 
-    @format = {repeating, radix, precision}
+    precision = fractional + fractional2?.length or 0
+
+    @format = {repeating, radix, precision, fractional}
 
   render: (value=@value) ->
     @stopWatchingMutations()
@@ -283,12 +282,21 @@ class Odometer
         else
           @addSpacer valueDigit
     else
-      wholePart = not @format.precision or not fractionalPart(value) or false
-      for digit in value.toString().split('').reverse()
-        if digit is '.'
-          wholePart = true
+      v = Math.abs value
+      fractionalCount = Math.max @format.fractional, @getFractionalDigitCount v
+      if fractionalCount
+        v = v * Math.pow(10, fractionalCount)
 
-        @addDigit digit, wholePart
+      i = 0
+      while v > 0
+        @addDigit (v % 10).toString(), i >= fractionalCount
+        v = Math.floor(v / 10);
+        i += 1
+        if i == fractionalCount
+          @addDigit '.', true
+
+      if value < 0
+        @addDigit '-', true
 
     return
 
@@ -432,7 +440,7 @@ class Odometer
   animateSlide: (newValue) ->
     oldValue = @value
 
-    fractionalCount = @getFractionalDigitCount oldValue, newValue
+    fractionalCount = Math.max @format.fractional, @getFractionalDigitCount oldValue, newValue
 
     if fractionalCount
       newValue = newValue * Math.pow(10, fractionalCount)
