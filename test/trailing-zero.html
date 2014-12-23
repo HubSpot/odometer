@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="../themes/odometer-theme-minimal.css" />
+<style>
+    .desc {font-family: monospace;}
+    .error {color: red;}
+</style>
+<script>
+window.odometerOptions = {
+  auto: false
+};
+</script>
+<script src="../odometer.js"></script>
+<div><span class="desc"></span>:&nbsp;<span class="odometer"></span></div>
+<div><span class="desc"></span>:&nbsp;<span class="odometer" data-format="( ddd)"></span></div>
+<div><span class="desc"></span>:&nbsp;<span class="odometer" data-format="( ddd)."></span></div>
+<div><span class="desc"></span>:&nbsp;<span class="odometer" data-format="( ddd).dd"></span></div>
+<div><span class="desc"></span>:&nbsp;<span class="odometer" data-format="( ddd).DD"></span></div>
+<div><span class="desc"></span>:&nbsp;<span class="odometer" data-format="( ddd).DDd"></span></div>
+<div><span class="desc"></span>:&nbsp;<span class="odometer" data-format="( ddd).DDD"></span></div>
+<div><span class="desc"></span>:&nbsp;<span class="odometer negative" data-format="( ddd).dd"></span></div>
+
+<script>
+  var k = 0;
+  var odometers = document.querySelectorAll(".odometer");
+
+  for (var i = 0, len = odometers.length; i < len; ++i) {
+    var it = odometers[i];
+    var desc = it.parentNode.querySelector(".desc");
+    var format = it.getAttribute("data-format");
+    if (!format) {
+      desc.textContent = "real value";
+    } else {
+      try {
+        new Odometer({el: it, format: format})
+        desc.textContent = format;
+      } catch (e) {
+        desc.textContent = format + ": " + e.message;
+        desc.className += " error";
+      }
+    }
+  }
+
+  setInterval(function() {
+    k += 1;
+    var value = 100 + 0.05 * k;
+    for (var i = 0, len = odometers.length; i < len; ++i) {
+      var m = odometers[i].className.indexOf("negative") >= 0 ? -1 : 1;
+      odometers[i].textContent = m * value;
+    }
+  }, 3000);
+</script>

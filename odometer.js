@@ -1,5 +1,5 @@
 (function() {
-  var COUNT_FRAMERATE, COUNT_MS_PER_FRAME, DIGIT_FORMAT, DIGIT_HTML, DIGIT_SPEEDBOOST, DURATION, FORMAT_MARK_HTML, FORMAT_PARSER, FRAMERATE, FRAMES_PER_VALUE, MS_PER_FRAME, MutationObserver, Odometer, RIBBON_HTML, TRANSITION_END_EVENTS, TRANSITION_SUPPORT, VALUE_HTML, addClass, createFromHTML, fractionalPart, now, removeClass, requestAnimationFrame, round, transitionCheckStyles, trigger, truncate, wrapJQuery, _jQueryWrapped, _old, _ref, _ref1,
+  var COUNT_FRAMERATE, COUNT_MS_PER_FRAME, DIGIT_FORMAT, DIGIT_HTML, DIGIT_SPEEDBOOST, DURATION, FORMAT_MARK_HTML, FORMAT_PARSER, FRAMERATE, FRAMES_PER_VALUE, MS_PER_FRAME, MutationObserver, Odometer, RIBBON_HTML, TRANSITION_END_EVENTS, TRANSITION_SUPPORT, VALUE_HTML, addClass, createFromHTML, now, removeClass, requestAnimationFrame, round, transitionCheckStyles, trigger, truncate, wrapJQuery, _jQueryWrapped, _old, _ref, _ref1,
     __slice = [].slice;
 
   VALUE_HTML = '<span class="odometer-value"></span>';
@@ -12,7 +12,7 @@
 
   DIGIT_FORMAT = '(,ddd).dd';
 
-  FORMAT_PARSER = /^\(?([^)]*)\)?(?:(.)(d+))?$/;
+  FORMAT_PARSER = /^\(?([^)]*)\)?(?:(.)(D*)(d*))?$/;
 
   FRAMERATE = 30;
 
@@ -87,10 +87,6 @@
     } else {
       return Math.floor(val);
     }
-  };
-
-  fractionalPart = function(val) {
-    return val - round(val);
   };
 
   _jQueryWrapped = false;
@@ -261,19 +257,21 @@
     };
 
     Odometer.prototype.resetFormat = function() {
-      var format, fractional, parsed, precision, radix, repeating, _ref, _ref1;
+      var format, fractional, fractional1, fractional2, parsed, precision, radix, repeating, _ref, _ref1;
       format = (_ref = this.options.format) != null ? _ref : DIGIT_FORMAT;
       format || (format = 'd');
       parsed = FORMAT_PARSER.exec(format);
       if (!parsed) {
         throw new Error("Odometer: Unparsable digit format");
       }
-      _ref1 = parsed.slice(1, 4), repeating = _ref1[0], radix = _ref1[1], fractional = _ref1[2];
-      precision = (fractional != null ? fractional.length : void 0) || 0;
+      _ref1 = parsed.slice(1, 5), repeating = _ref1[0], radix = _ref1[1], fractional1 = _ref1[2], fractional2 = _ref1[3];
+      fractional = (fractional1 != null ? fractional1.length : void 0) || 0;
+      precision = fractional + (fractional2 != null ? fractional2.length : void 0) || 0;
       return this.format = {
         repeating: repeating,
         radix: radix,
-        precision: precision
+        precision: precision,
+        fractional: fractional
       };
     };
 
@@ -318,7 +316,7 @@
     };
 
     Odometer.prototype.formatDigits = function(value) {
-      var digit, valueDigit, valueString, wholePart, _i, _j, _len, _len1, _ref, _ref1;
+      var digit, fractionalCount, i, v, valueDigit, valueString, _i, _len, _ref;
       this.digits = [];
       if (this.options.formatFunction) {
         valueString = this.options.formatFunction(value);
@@ -335,14 +333,22 @@
           }
         }
       } else {
-        wholePart = !this.format.precision || !fractionalPart(value) || false;
-        _ref1 = value.toString().split('').reverse();
-        for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
-          digit = _ref1[_j];
-          if (digit === '.') {
-            wholePart = true;
+        v = Math.abs(value);
+        fractionalCount = Math.max(this.format.fractional, this.getFractionalDigitCount(v));
+        if (fractionalCount) {
+          v = v * Math.pow(10, fractionalCount);
+        }
+        i = 0;
+        while (v > 0) {
+          this.addDigit((v % 10).toString(), i >= fractionalCount);
+          v = Math.floor(v / 10);
+          i += 1;
+          if (i === fractionalCount) {
+            this.addDigit('.', true);
           }
-          this.addDigit(digit, wholePart);
+        }
+        if (value < 0) {
+          this.addDigit('-', true);
         }
       }
     };
@@ -507,7 +513,7 @@
     Odometer.prototype.animateSlide = function(newValue) {
       var boosted, cur, diff, digitCount, digits, dist, end, fractionalCount, frame, frames, i, incr, j, mark, numEl, oldValue, start, _base, _i, _j, _k, _l, _len, _len1, _len2, _m, _ref, _results;
       oldValue = this.value;
-      fractionalCount = this.getFractionalDigitCount(oldValue, newValue);
+      fractionalCount = Math.max(this.format.fractional, this.getFractionalDigitCount(oldValue, newValue));
       if (fractionalCount) {
         newValue = newValue * Math.pow(10, fractionalCount);
         oldValue = oldValue * Math.pow(10, fractionalCount);
