@@ -275,7 +275,7 @@ class Odometer
     if @options.formatFunction
       valueString = @options.formatFunction(value)
       for valueDigit in valueString.split('').reverse()
-        if valueDigit.match(/0-9/)
+        if valueDigit.match(/[0-9]/)
           digit = @renderDigit()
           digit.querySelector('.odometer-value').innerHTML = valueDigit
           @digits.push digit
