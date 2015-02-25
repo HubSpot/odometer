@@ -153,12 +153,18 @@ Format
 The format option allows you to configure how the digit groups are formatted,
 and how many digits are shown after the decimal point.
 
-    Format    -  Example
-    (,ddd)    -  12,345,678
-    (,ddd).dd -  12,345,678.09
-    (.ddd),dd -  12.345.678,09
-    ( ddd),dd -  12 345 678,09
-    d         -  12345678
+    Number        - Format    -  Example
+    12345678.09 - (,ddd)    -  12,345,678
+    12345678.09 - (,ddd).dd -  12,345,678.09
+    12345678.09 - (.ddd),dd -  12.345.678,09
+    12345678.09 - ( ddd),dd -  12 345 678,09
+    12345678.09 - d         -  12345678
+
+Furthermore, using a capital D for decimal the fractional part will specify required digits after the decimal point, and add trailing zeros if needed.
+    Number        - Format    -  Example
+    12345678.09 - (,ddd).ddd -  12,345,678.09
+    12345678.09 - (,ddd).DDd -  12,345,678.09
+    12345678.09 - (,ddd).DDD -  12,345,678.090
 
 Browser Support
 ---------------
