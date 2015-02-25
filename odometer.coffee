@@ -16,6 +16,7 @@ FORMAT_MARK_HTML = '<span class="odometer-formatting-mark"></span>'
 # This is just the default, it can also be set as options.format.
 DIGIT_FORMAT = '(,ddd).dd'
 
+# What is the minimal length (no of digits) of the integer-part of the number
 MIN_INTEGER_LEN = 0;
 
 FORMAT_PARSER = /^\(?([^)]*)\)?(?:(.)(D*)(d*))?$/
@@ -297,8 +298,8 @@ class Odometer
         if i == fractionalCount
           @addDigit '.', true
 
+      # if mininaml integer length is given, we need to pad with zeroes
       minIntegerLen = @options.minIntegerLen ? MIN_INTEGER_LEN
-
       for i in [i - fractionalCount...minIntegerLen] by 1
         @addDigit 0, true
 
@@ -458,6 +459,7 @@ class Odometer
 
     @bindTransitionEnd()
 
+    # if integer part of newValue has less digits than given minimal integer length, we need to pad with zeroes
     minIntegerLen = @options.minIntegerLen ? MIN_INTEGER_LEN
     digitCount = Math.max @getDigitCount(oldValue, newValue), minIntegerLen + fractionalCount
 
