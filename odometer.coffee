@@ -16,6 +16,8 @@ FORMAT_MARK_HTML = '<span class="odometer-formatting-mark"></span>'
 # This is just the default, it can also be set as options.format.
 DIGIT_FORMAT = '(,ddd).dd'
 
+MIN_INTEGER_LEN = 0;
+
 FORMAT_PARSER = /^\(?([^)]*)\)?(?:(.)(D*)(d*))?$/
 
 # What is our target framerate?
@@ -274,7 +276,7 @@ class Odometer
     if @options.formatFunction
       valueString = @options.formatFunction(value)
       for valueDigit in valueString.split('').reverse()
-        if valueDigit.match(/0-9/)
+        if valueDigit.match(/[0-9]/)
           digit = @renderDigit()
           digit.querySelector('.odometer-value').innerHTML = valueDigit
           @digits.push digit
@@ -294,6 +296,12 @@ class Odometer
         i += 1
         if i == fractionalCount
           @addDigit '.', true
+
+      minIntegerLen = @options.minIntegerLen ? MIN_INTEGER_LEN
+
+      for i in [i - fractionalCount...minIntegerLen] by 1
+        @addDigit 0, true
+
 
       if value < 0
         @addDigit '-', true
@@ -450,7 +458,8 @@ class Odometer
 
     @bindTransitionEnd()
 
-    digitCount = @getDigitCount(oldValue, newValue)
+    minIntegerLen = @options.minIntegerLen ? MIN_INTEGER_LEN
+    digitCount = Math.max @getDigitCount(oldValue, newValue), minIntegerLen + fractionalCount
 
     digits = []
     boosted = 0
