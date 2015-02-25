@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="../themes/odometer-theme-minimal.css" />
+<style>
+    .desc {font-family: monospace;}
+    .error {color: red;}
+</style>
+<script>
+window.odometerOptions = {
+  auto: false
+};
+</script>
+<script src="../odometer.js"></script>
+<h1><span class="desc"></span>:&nbsp;<span class="odometer"></span></h1>
+
+<h2>Leading zero as minimal integer length is set to 6</h2>
+<div><span class="desc"></span>:&nbsp;<span class="odometer" data-min-integer-len="6" data-format="(,ddd)"></span></div>
+<div><span class="desc"></span>:&nbsp;<span class="odometer" data-min-integer-len="6" data-format="(,ddd)."></span></div>
+<div><span class="desc"></span>:&nbsp;<span class="odometer" data-min-integer-len="6" data-format="(,ddd).dd"></span></div>
+<div><span class="desc"></span>:&nbsp;<span class="odometer" data-min-integer-len="6" data-format="(,ddd).DD"></span></div>
+<div><span class="desc"></span>:&nbsp;<span class="odometer" data-min-integer-len="6" data-format="(,ddd).DDd"></span></div>
+<div><span class="desc"></span>:&nbsp;<span class="odometer" data-min-integer-len="6" data-format="(,ddd).DDD"></span></div>
+<div><span class="desc"></span>:&nbsp;<span class="odometer negative" data-min-integer-len="6" data-format="(,ddd).dd"></span></div>
+
+<h2>No leading zeros</h2>
+<div><span class="desc"></span>:&nbsp;<span class="odometer" data-format="(,ddd)"></span></div>
+<div><span class="desc"></span>:&nbsp;<span class="odometer" data-format="(,ddd)."></span></div>
+<div><span class="desc"></span>:&nbsp;<span class="odometer" data-format="(,ddd).dd"></span></div>
+<div><span class="desc"></span>:&nbsp;<span class="odometer" data-format="(,ddd).DD"></span></div>
+<div><span class="desc"></span>:&nbsp;<span class="odometer" data-format="(,ddd).DDd"></span></div>
+<div><span class="desc"></span>:&nbsp;<span class="odometer" data-format="(,ddd).DDD"></span></div>
+<div><span class="desc"></span>:&nbsp;<span class="odometer negative" data-format="(,ddd).dd"></span></div>
+
+<script>
+  var k = 0;
+  var odometers = document.querySelectorAll(".odometer");
+
+  for (var i = 0, len = odometers.length; i < len; ++i) {
+    var it = odometers[i];
+    var desc = it.parentNode.querySelector(".desc");
+    var format = it.getAttribute("data-format");
+    var minIntegerLen = it.getAttribute("data-min-integer-len");
+    if (minIntegerLen) {
+      minIntegerLen = parseInt(minIntegerLen);
+    } else {
+      minIntegerLen = 0;
+    }
+    if (!format) {
+      desc.textContent = "real value";
+    } else {
+      try {
+        new Odometer({el: it, format: format, minIntegerLen: minIntegerLen});
+        desc.textContent = format;
+      } catch (e) {
+        desc.textContent = format + ": " + e.message;
+        desc.className += " error";
+      }
+    }
+  }
+
+  setInterval(function() {
+    k += 1;
+    var value = 10 * Math.pow(10, Math.max(1,Math.round(k / 3))) + 0.05 * k;
+    for (var i = 0, len = odometers.length; i < len; ++i) {
+      var m = odometers[i].className.indexOf("negative") >= 0 ? -1 : 1;
+      odometers[i].textContent = m * value;
+    }
+  }, 3000);
+</script>
