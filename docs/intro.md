@@ -119,7 +119,8 @@ You can set options by creating a `odometerOptions` object:
 window.odometerOptions = {
   auto: false, // Don't automatically initialize everything with class 'odometer'
   selector: '.my-numbers', // Change the selector used to automatically find things to be animated
-  format: '(,ddd).dd', // Change how digit groups are formatted, and how many digits are shown after the decimal point
+  format: '(,ddd).dd', // Change how digit groups are formatted, and how many digits are shown after the decimal point,
+  minIntegerLen: '6', // Specify the minimal number of digits in the integer part of the number
   duration: 3000, // Change how long the javascript expects the CSS animation to take
   theme: 'car', // Specify the theme (if you have more than one theme css file on the page)
   animation: 'count' // Count is a simpler animation method which just increments the value,
@@ -152,12 +153,18 @@ Format
 The format option allows you to configure how the digit groups are formatted,
 and how many digits are shown after the decimal point.
 
-    Format    -  Example
-    (,ddd)    -  12,345,678
-    (,ddd).dd -  12,345,678.09
-    (.ddd),dd -  12.345.678,09
-    ( ddd),dd -  12 345 678,09
-    d         -  12345678
+    Number        - Format    -  Example
+    12345678.09 - (,ddd)    -  12,345,678
+    12345678.09 - (,ddd).dd -  12,345,678.09
+    12345678.09 - (.ddd),dd -  12.345.678,09
+    12345678.09 - ( ddd),dd -  12 345 678,09
+    12345678.09 - d         -  12345678
+
+Furthermore, using a capital D for decimal the fractional part will specify required digits after the decimal point, and add trailing zeros if needed.
+    Number        - Format    -  Example
+    12345678.09 - (,ddd).ddd -  12,345,678.09
+    12345678.09 - (,ddd).DDd -  12,345,678.09
+    12345678.09 - (,ddd).DDD -  12,345,678.090
 
 Browser Support
 ---------------

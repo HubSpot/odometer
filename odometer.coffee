@@ -16,7 +16,10 @@ FORMAT_MARK_HTML = '<span class="odometer-formatting-mark"></span>'
 # This is just the default, it can also be set as options.format.
 DIGIT_FORMAT = '(,ddd).dd'
 
-FORMAT_PARSER = /^\(?([^)]*)\)?(?:(.)(d+))?$/
+# What is the minimal length (no of digits) of the integer-part of the number
+MIN_INTEGER_LEN = 0;
+
+FORMAT_PARSER = /^\(?([^)]*)\)?(?:(.)(D*)(d*))?$/
 
 # What is our target framerate?
 FRAMERATE = 30
@@ -87,9 +90,6 @@ truncate = (val) ->
     Math.ceil(val)
   else
     Math.floor(val)
-
-fractionalPart = (val) ->
-  val - round(val)
 
 _jQueryWrapped = false
 do wrapJQuery = ->
@@ -223,11 +223,13 @@ class Odometer
     if not parsed
       throw new Error "Odometer: Unparsable digit format"
 
-    [repeating, radix, fractional] = parsed[1..3]
+    [repeating, radix, fractional1, fractional2] = parsed[1..4]
 
-    precision = fractional?.length or 0
+    fractional = fractional1?.length or 0
 
-    @format = {repeating, radix, precision}
+    precision = fractional + fractional2?.length or 0
+
+    @format = {repeating, radix, precision, fractional}
 
   render: (value=@value) ->
     @stopWatchingMutations()
@@ -275,7 +277,7 @@ class Odometer
     if @options.formatFunction
       valueString = @options.formatFunction(value)
       for valueDigit in valueString.split('').reverse()
-        if valueDigit.match(/0-9/)
+        if valueDigit.match(/[0-9]/)
           digit = @renderDigit()
           digit.querySelector('.odometer-value').innerHTML = valueDigit
           @digits.push digit
@@ -283,12 +285,27 @@ class Odometer
         else
           @addSpacer valueDigit
     else
-      wholePart = not @format.precision or not fractionalPart(value) or false
-      for digit in value.toString().split('').reverse()
-        if digit is '.'
-          wholePart = true
+      v = Math.abs value
+      fractionalCount = Math.max @format.fractional, @getFractionalDigitCount v
+      if fractionalCount
+        v = Math.round(v * Math.pow(10, fractionalCount))
 
-        @addDigit digit, wholePart
+      i = 0
+      while v > 0
+        @addDigit (v % 10).toString(), i >= fractionalCount
+        v = Math.floor(v / 10);
+        i += 1
+        if i == fractionalCount
+          @addDigit '.', true
+
+      # if mininaml integer length is given, we need to pad with zeroes
+      minIntegerLen = @options.minIntegerLen ? MIN_INTEGER_LEN
+      for i in [i - fractionalCount...minIntegerLen] by 1
+        @addDigit 0, true
+
+
+      if value < 0
+        @addDigit '-', true
 
     return
 
@@ -432,17 +449,19 @@ class Odometer
   animateSlide: (newValue) ->
     oldValue = @value
 
-    fractionalCount = @getFractionalDigitCount oldValue, newValue
+    fractionalCount = Math.max @format.fractional, @getFractionalDigitCount oldValue, newValue
 
     if fractionalCount
-      newValue = newValue * Math.pow(10, fractionalCount)
-      oldValue = oldValue * Math.pow(10, fractionalCount)
+      newValue = Math.round(newValue * Math.pow(10, fractionalCount))
+      oldValue = Math.round(oldValue * Math.pow(10, fractionalCount))
 
     return unless diff = newValue - oldValue
 
     @bindTransitionEnd()
 
-    digitCount = @getDigitCount(oldValue, newValue)
+    # if integer part of newValue has less digits than given minimal integer length, we need to pad with zeroes
+    minIntegerLen = @options.minIntegerLen ? MIN_INTEGER_LEN
+    digitCount = Math.max @getDigitCount(oldValue, newValue), minIntegerLen + fractionalCount
 
     digits = []
     boosted = 0
