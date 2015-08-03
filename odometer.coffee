@@ -288,7 +288,7 @@ class Odometer
       v = Math.abs value
       fractionalCount = Math.max @format.fractional, @getFractionalDigitCount v
       if fractionalCount
-        v = v * Math.pow(10, fractionalCount)
+        v = Math.round(v * Math.pow(10, fractionalCount))
 
       i = 0
       while v > 0
@@ -452,8 +452,8 @@ class Odometer
     fractionalCount = Math.max @format.fractional, @getFractionalDigitCount oldValue, newValue
 
     if fractionalCount
-      newValue = newValue * Math.pow(10, fractionalCount)
-      oldValue = oldValue * Math.pow(10, fractionalCount)
+      newValue = Math.round(newValue * Math.pow(10, fractionalCount))
+      oldValue = Math.round(oldValue * Math.pow(10, fractionalCount))
 
     return unless diff = newValue - oldValue
 

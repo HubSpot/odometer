@@ -338,7 +338,7 @@
         v = Math.abs(value);
         fractionalCount = Math.max(this.format.fractional, this.getFractionalDigitCount(v));
         if (fractionalCount) {
-          v = v * Math.pow(10, fractionalCount);
+          v = Math.round(v * Math.pow(10, fractionalCount));
         }
         i = 0;
         while (v > 0) {
@@ -521,8 +521,8 @@
       oldValue = this.value;
       fractionalCount = Math.max(this.format.fractional, this.getFractionalDigitCount(oldValue, newValue));
       if (fractionalCount) {
-        newValue = newValue * Math.pow(10, fractionalCount);
-        oldValue = oldValue * Math.pow(10, fractionalCount);
+        newValue = Math.round(newValue * Math.pow(10, fractionalCount));
+        oldValue = Math.round(oldValue * Math.pow(10, fractionalCount));
       }
       if (!(diff = newValue - oldValue)) {
         return;
