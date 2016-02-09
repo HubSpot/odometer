@@ -531,8 +531,8 @@ Odometer.init = ->
 
   for el in elements
     value = el.innerText ? el.textContent
-    if Odometer.options.from_zero
-      el.odometer = new Odometer {el, value: 0}
+    if Odometer.options.from isnt undefined
+      el.odometer = new Odometer {el, value: Odometer.options.from}
       el.innerHTML = value
     else
       el.odometer = new Odometer {el, value: value}
