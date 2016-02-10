@@ -608,7 +608,7 @@
   }, 0);
 
   Odometer.init = function() {
-    var el, elements, _i, _len, _ref1, _results;
+    var el, elements, value, _i, _len, _ref1, _results;
     if (document.querySelectorAll == null) {
       return;
     }
@@ -616,10 +616,19 @@
     _results = [];
     for (_i = 0, _len = elements.length; _i < _len; _i++) {
       el = elements[_i];
-      _results.push(el.odometer = new Odometer({
-        el: el,
-        value: (_ref1 = el.innerText) != null ? _ref1 : el.textContent
-      }));
+      value = (_ref1 = el.innerText) != null ? _ref1 : el.textContent;
+      if (Odometer.options.from !== void 0) {
+        el.odometer = new Odometer({
+          el: el,
+          value: Odometer.options.from
+        });
+        _results.push(el.innerHTML = value);
+      } else {
+        _results.push(el.odometer = new Odometer({
+          el: el,
+          value: value
+        }));
+      }
     }
     return _results;
   };
