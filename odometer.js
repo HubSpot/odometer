@@ -641,7 +641,7 @@
   }
 
   if (typeof define === 'function' && define.amd) {
-    define(['jquery'], function() {
+    define([], function() {
       return Odometer;
     });
   } else if (typeof exports !== "undefined" && exports !== null) {
