@@ -126,7 +126,7 @@
 
   Odometer = (function() {
     function Odometer(options) {
-      var e, k, property, v, _base, _i, _len, _ref, _ref1, _ref2,
+      var e, k, property, v, _base, _i, _len, _ref, _ref2,
         _this = this;
       this.options = options;
       this.el = this.options.el;
@@ -146,7 +146,9 @@
       }
       this.MAX_VALUES = ((this.options.duration / MS_PER_FRAME) / FRAMES_PER_VALUE) | 0;
       this.resetFormat();
-      this.value = this.cleanValue((_ref1 = this.options.value) != null ? _ref1 : '');
+      this.value = this.options.value != null ? this.options.value : '';
+      this.initialValue = this.value;
+      this.value = this.cleanValue(this.value);
       this.renderInside();
       this.render();
       try {
@@ -336,7 +338,12 @@
         }
       } else {
         wholePart = !this.format.precision || !fractionalPart(value) || false;
-        _ref1 = value.toString().split('').reverse();
+        if ( this.initialValue !== null ) {
+          _ref1 = this.initialValue.split('').reverse();
+          this.initialValue = null;
+        } else {
+          _ref1 = value.toString().split('').reverse();
+        }
         for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
           digit = _ref1[_j];
           if (digit === '.') {
