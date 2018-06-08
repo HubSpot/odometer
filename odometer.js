@@ -1,5 +1,5 @@
 (function() {
-  var COUNT_FRAMERATE, COUNT_MS_PER_FRAME, DIGIT_FORMAT, DIGIT_HTML, DIGIT_SPEEDBOOST, DURATION, FORMAT_MARK_HTML, FORMAT_PARSER, FRAMERATE, FRAMES_PER_VALUE, MS_PER_FRAME, MutationObserver, Odometer, RIBBON_HTML, TRANSITION_END_EVENTS, TRANSITION_SUPPORT, VALUE_HTML, addClass, createFromHTML, fractionalPart, now, removeClass, requestAnimationFrame, round, transitionCheckStyles, trigger, truncate, wrapJQuery, _jQueryWrapped, _old, _ref, _ref1,
+  var MIN_INTEGER_LEN, COUNT_FRAMERATE, COUNT_MS_PER_FRAME, DIGIT_FORMAT, DIGIT_HTML, DIGIT_SPEEDBOOST, DURATION, FORMAT_MARK_HTML, FORMAT_PARSER, FRAMERATE, FRAMES_PER_VALUE, MS_PER_FRAME, MutationObserver, Odometer, RIBBON_HTML, TRANSITION_END_EVENTS, TRANSITION_SUPPORT, VALUE_HTML, addClass, createFromHTML, fractionalPart, now, removeClass, requestAnimationFrame, round, transitionCheckStyles, trigger, truncate, wrapJQuery, _jQueryWrapped, _old, _ref, _ref1,
     __slice = [].slice;
 
   VALUE_HTML = '<span class="odometer-value"></span>';
@@ -23,6 +23,8 @@
   FRAMES_PER_VALUE = 2;
 
   DIGIT_SPEEDBOOST = .5;
+
+  MIN_INTEGER_LEN = 12;
 
   MS_PER_FRAME = 1000 / FRAMERATE;
 
@@ -144,6 +146,9 @@
       if ((_base = this.options).duration == null) {
         _base.duration = DURATION;
       }
+
+      MIN_INTEGER_LEN = this.options.numberLength || MIN_INTEGER_LEN;
+
       this.MAX_VALUES = ((this.options.duration / MS_PER_FRAME) / FRAMES_PER_VALUE) | 0;
       this.resetFormat();
       this.value = this.cleanValue((_ref1 = this.options.value) != null ? _ref1 : '');
@@ -278,7 +283,7 @@
     };
 
     Odometer.prototype.render = function(value) {
-      var classes, cls, match, newClasses, theme, _i, _len;
+      var classes, cls, digit, match, newClasses, theme, wholePart, _i, _j, _len, _len1, _ref;
       if (value == null) {
         value = this.value;
       }
@@ -313,38 +318,37 @@
       }
       this.el.className = newClasses.join(' ');
       this.ribbons = {};
-      this.formatDigits(value);
-      return this.startWatchingMutations();
-    };
-
-    Odometer.prototype.formatDigits = function(value) {
-      var digit, valueDigit, valueString, wholePart, _i, _j, _len, _len1, _ref, _ref1;
       this.digits = [];
-      if (this.options.formatFunction) {
-        valueString = this.options.formatFunction(value);
-        _ref = valueString.split('').reverse();
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          valueDigit = _ref[_i];
-          if (valueDigit.match(/0-9/)) {
-            digit = this.renderDigit();
-            digit.querySelector('.odometer-value').innerHTML = valueDigit;
-            this.digits.push(digit);
-            this.insertDigit(digit);
-          } else {
-            this.addSpacer(valueDigit);
-          }
-        }
-      } else {
-        wholePart = !this.format.precision || !fractionalPart(value) || false;
-        _ref1 = value.toString().split('').reverse();
-        for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
-          digit = _ref1[_j];
-          if (digit === '.') {
-            wholePart = true;
-          }
-          this.addDigit(digit, wholePart);
+      wholePart = !this.format.precision || !fractionalPart(value) || false;
+      _ref = value.toString().split('').reverse();
+
+      /**
+       * todo 解决补零动画问题开始
+       *
+       * _allref 替换了 _ref字段
+       */
+      var _newref = [];
+      var _allref = [];
+
+      if(_ref.length < MIN_INTEGER_LEN){
+        for(let i = 0; i< MIN_INTEGER_LEN - _ref.length; i++){
+          _newref.push('0')
         }
       }
+      _allref = _ref.concat(_newref);
+      /**
+       * todo 解决补零动画问题结束
+       *
+       */
+
+      for (_j = 0, _len1 = _allref.length; _j < _len1; _j++) {
+        digit = _allref[_j];
+        if (digit === '.') {
+          wholePart = true;
+        }
+        this.addDigit(digit, wholePart);
+      }
+      return this.startWatchingMutations();
     };
 
     Odometer.prototype.update = function(newValue) {
@@ -425,6 +429,12 @@
       }
       digit = this.renderDigit();
       digit.querySelector('.odometer-value').innerHTML = value;
+
+      /**
+       * todo
+       */
+      digit.setAttribute("name", 'digit'+value)
+
       this.digits.push(digit);
       return this.insertDigit(digit);
     };
@@ -519,9 +529,14 @@
       digitCount = this.getDigitCount(oldValue, newValue);
       digits = [];
       boosted = 0;
-      for (i = _i = 0; 0 <= digitCount ? _i < digitCount : _i > digitCount; i = 0 <= digitCount ? ++_i : --_i) {
-        start = truncate(oldValue / Math.pow(10, digitCount - i - 1));
-        end = truncate(newValue / Math.pow(10, digitCount - i - 1));
+      /**
+       * todo 解决补零动画问题
+       *
+       * MIN_INTEGER_LEN 替换了 digitCount字段
+       */
+      for (i = _i = 0; 0 <= MIN_INTEGER_LEN ? _i < MIN_INTEGER_LEN : _i > MIN_INTEGER_LEN; i = 0 <= MIN_INTEGER_LEN ? ++_i : --_i) {
+        start = truncate(oldValue / Math.pow(10, MIN_INTEGER_LEN - i - 1));
+        end = truncate(newValue / Math.pow(10, MIN_INTEGER_LEN - i - 1));
         dist = end - start;
         if (Math.abs(dist) > this.MAX_VALUES) {
           frames = [];
@@ -538,7 +553,7 @@
         } else {
           frames = (function() {
             _results = [];
-            for (var _j = start; start <= end ? _j <= end : _j >= end; start <= end ? _j++ : _j--){ _results.push(_j); }
+            for (var _j = start; start <= end ? _j <= end : _j >= end; start <= end ? _j++ : _j--) { _results.push(_j); }
             return _results;
           }).apply(this);
         }
