@@ -1,12 +1,12 @@
 (function() {
-  var MIN_INTEGER_LEN, COUNT_FRAMERATE, COUNT_MS_PER_FRAME, DIGIT_FORMAT, DIGIT_HTML, DIGIT_SPEEDBOOST, DURATION, FORMAT_MARK_HTML, FORMAT_PARSER, FRAMERATE, FRAMES_PER_VALUE, MS_PER_FRAME, MutationObserver, Odometer, RIBBON_HTML, TRANSITION_END_EVENTS, TRANSITION_SUPPORT, VALUE_HTML, addClass, createFromHTML, fractionalPart, now, removeClass, requestAnimationFrame, round, transitionCheckStyles, trigger, truncate, wrapJQuery, _jQueryWrapped, _old, _ref, _ref1,
+  var MIN_INTEGER_LEN, COUNT_FRAMERATE, COUNT_MS_PER_FRAME, DIGIT_FORMAT, DIGIT_HTML, DIGIT_SPEEDBOOST, DURATION, FORMAT_MARK_HTML, FORMAT_PARSER, FRAMERATE, FRAMES_PER_VALUE, MS_PER_FRAME, MutationObserver, Odometer, PLACEHOLDER_DIGIT, RIBBON_HTML, TRANSITION_END_EVENTS, TRANSITION_SUPPORT, VALUE_HTML, addClass, createFromHTML, fractionalPart, now, removeClass, requestAnimationFrame, round, transitionCheckStyles, trigger, truncate, wrapJQuery, _jQueryWrapped, _old, _ref, _ref1,
     __slice = [].slice;
 
   VALUE_HTML = '<span class="odometer-value"></span>';
 
   RIBBON_HTML = '<span class="odometer-ribbon"><span class="odometer-ribbon-inner">' + VALUE_HTML + '</span></span>';
 
-  DIGIT_HTML = '<span class="odometer-digit"><span class="odometer-digit-spacer">8</span><span class="odometer-digit-inner">' + RIBBON_HTML + '</span></span>';
+  DIGIT_HTML = '<span class="odometer-digit"><span class="odometer-digit-spacer"></span><span class="odometer-digit-inner">' + RIBBON_HTML + '</span></span>';
 
   FORMAT_MARK_HTML = '<span class="odometer-formatting-mark"></span>';
 
@@ -29,6 +29,8 @@
   MS_PER_FRAME = 1000 / FRAMERATE;
 
   COUNT_MS_PER_FRAME = 1000 / COUNT_FRAMERATE;
+
+  PLACEHOLDER_DIGIT = '8';
 
   TRANSITION_END_EVENTS = 'transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd';
 
@@ -148,6 +150,9 @@
       }
 
       MIN_INTEGER_LEN = this.options.numberLength || MIN_INTEGER_LEN;
+
+      // need to allow this to be 0
+      PLACEHOLDER_DIGIT = this.options.placeholderDigit !== undefined ? this.options.placeholderDigit.toString() : PLACEHOLDER_DIGIT;
 
       this.MAX_VALUES = ((this.options.duration / MS_PER_FRAME) / FRAMES_PER_VALUE) | 0;
       this.resetFormat();
@@ -428,6 +433,7 @@
         }
       }
       digit = this.renderDigit();
+      digit.querySelector('.odometer-digit-spacer').innerHTML = PLACEHOLDER_DIGIT;
       digit.querySelector('.odometer-value').innerHTML = value;
 
       /**
